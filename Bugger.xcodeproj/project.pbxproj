@@ -15,7 +15,6 @@
 		AFCD7CB61F920EDC00D7B02C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AFCD7CB51F920EDC00D7B02C /* Assets.xcassets */; };
 		AFCD7CB91F920EDC00D7B02C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFCD7CB71F920EDC00D7B02C /* LaunchScreen.storyboard */; };
 		AFCD7CC01F920F7600D7B02C /* Bugger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFA1B7E11F7A3BEA001589F4 /* Bugger.framework */; };
-		AFCD7CC11F92106E00D7B02C /* BuggerS3DataStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFE79EC01F7E2FB9003A2163 /* BuggerS3DataStore.framework */; };
 		AFCD7CC51F926CD100D7B02C /* UIResponderSwizzling.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CC41F926CD100D7B02C /* UIResponderSwizzling.swift */; };
 		AFCD7CC71F926D6600D7B02C /* AnnotationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CC61F926D6600D7B02C /* AnnotationViewController.swift */; };
 		AFCD7CCA1F926D8600D7B02C /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CC91F926D8600D7B02C /* AnnotationView.swift */; };
@@ -26,8 +25,9 @@
 		AFCD7CD51F926ECD00D7B02C /* BuggerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CD41F926ECD00D7B02C /* BuggerDelegate.swift */; };
 		AFCD7CD71F926EEF00D7B02C /* BuggerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CD61F926EEF00D7B02C /* BuggerState.swift */; };
 		AFCD7CD91F926F6900D7B02C /* ImageUploading.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CD81F926F6900D7B02C /* ImageUploading.swift */; };
-		AFE79EC41F7E2FB9003A2163 /* BuggerS3DataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = AFE79EC21F7E2FB9003A2163 /* BuggerS3DataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		AFE79EC91F7E2FDA003A2163 /* BuggerS3DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE79EC81F7E2FDA003A2163 /* BuggerS3DataStore.swift */; };
+		AFCD7CE31F927BAB00D7B02C /* BuggerImgurStore.h in Headers */ = {isa = PBXBuildFile; fileRef = AFCD7CE11F927BAB00D7B02C /* BuggerImgurStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AFCD7CE81F927C7D00D7B02C /* BuggerImgurStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CE71F927C7D00D7B02C /* BuggerImgurStore.swift */; };
+		AFCD7CED1F928AF100D7B02C /* BuggerImgurStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFCD7CDF1F927BAB00D7B02C /* BuggerImgurStore.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,12 +38,19 @@
 			remoteGlobalIDString = AFA1B7E01F7A3BEA001589F4;
 			remoteInfo = Bugger;
 		};
-		AFCD7CC21F92107700D7B02C /* PBXContainerItemProxy */ = {
+		AFCD7CE91F928ACA00D7B02C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AFA1B7D81F7A3BEA001589F4 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = AFE79EBF1F7E2FB9003A2163;
-			remoteInfo = BuggerS3DataStore;
+			remoteGlobalIDString = AFA1B7E01F7A3BEA001589F4;
+			remoteInfo = Bugger;
+		};
+		AFCD7CEB1F928AE800D7B02C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AFA1B7D81F7A3BEA001589F4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AFCD7CDE1F927BAB00D7B02C;
+			remoteInfo = BuggerImgurStore;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -69,10 +76,10 @@
 		AFCD7CD41F926ECD00D7B02C /* BuggerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerDelegate.swift; sourceTree = "<group>"; };
 		AFCD7CD61F926EEF00D7B02C /* BuggerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerState.swift; sourceTree = "<group>"; };
 		AFCD7CD81F926F6900D7B02C /* ImageUploading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploading.swift; sourceTree = "<group>"; };
-		AFE79EC01F7E2FB9003A2163 /* BuggerS3DataStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BuggerS3DataStore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AFE79EC21F7E2FB9003A2163 /* BuggerS3DataStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BuggerS3DataStore.h; sourceTree = "<group>"; };
-		AFE79EC31F7E2FB9003A2163 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AFE79EC81F7E2FDA003A2163 /* BuggerS3DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerS3DataStore.swift; sourceTree = "<group>"; };
+		AFCD7CDF1F927BAB00D7B02C /* BuggerImgurStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BuggerImgurStore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		AFCD7CE11F927BAB00D7B02C /* BuggerImgurStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BuggerImgurStore.h; sourceTree = "<group>"; };
+		AFCD7CE21F927BAB00D7B02C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AFCD7CE71F927C7D00D7B02C /* BuggerImgurStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerImgurStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,12 +94,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AFCD7CC11F92106E00D7B02C /* BuggerS3DataStore.framework in Frameworks */,
 				AFCD7CC01F920F7600D7B02C /* Bugger.framework in Frameworks */,
+				AFCD7CED1F928AF100D7B02C /* BuggerImgurStore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AFE79EBC1F7E2FB9003A2163 /* Frameworks */ = {
+		AFCD7CDB1F927BAB00D7B02C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -106,7 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				AFA1B7E31F7A3BEA001589F4 /* Bugger */,
-				AFE79EC11F7E2FB9003A2163 /* BuggerS3DataStore */,
+				AFCD7CE01F927BAB00D7B02C /* BuggerImgurStore */,
 				AFCD7CAD1F920EDC00D7B02C /* BuggerExample */,
 				AFA1B7E21F7A3BEA001589F4 /* Products */,
 			);
@@ -116,8 +123,8 @@
 			isa = PBXGroup;
 			children = (
 				AFA1B7E11F7A3BEA001589F4 /* Bugger.framework */,
-				AFE79EC01F7E2FB9003A2163 /* BuggerS3DataStore.framework */,
 				AFCD7CAC1F920EDC00D7B02C /* BuggerExample.app */,
+				AFCD7CDF1F927BAB00D7B02C /* BuggerImgurStore.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -171,14 +178,14 @@
 			path = Report;
 			sourceTree = "<group>";
 		};
-		AFE79EC11F7E2FB9003A2163 /* BuggerS3DataStore */ = {
+		AFCD7CE01F927BAB00D7B02C /* BuggerImgurStore */ = {
 			isa = PBXGroup;
 			children = (
-				AFE79EC21F7E2FB9003A2163 /* BuggerS3DataStore.h */,
-				AFE79EC81F7E2FDA003A2163 /* BuggerS3DataStore.swift */,
-				AFE79EC31F7E2FB9003A2163 /* Info.plist */,
+				AFCD7CE11F927BAB00D7B02C /* BuggerImgurStore.h */,
+				AFCD7CE21F927BAB00D7B02C /* Info.plist */,
+				AFCD7CE71F927C7D00D7B02C /* BuggerImgurStore.swift */,
 			);
-			path = BuggerS3DataStore;
+			path = BuggerImgurStore;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,11 +199,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AFE79EBD1F7E2FB9003A2163 /* Headers */ = {
+		AFCD7CDC1F927BAB00D7B02C /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AFE79EC41F7E2FB9003A2163 /* BuggerS3DataStore.h in Headers */,
+				AFCD7CE31F927BAB00D7B02C /* BuggerImgurStore.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -232,30 +239,31 @@
 			buildRules = (
 			);
 			dependencies = (
+				AFCD7CEC1F928AE800D7B02C /* PBXTargetDependency */,
 				AFCD7CBF1F920F6600D7B02C /* PBXTargetDependency */,
-				AFCD7CC31F92107700D7B02C /* PBXTargetDependency */,
 			);
 			name = BuggerExample;
 			productName = BuggerExample;
 			productReference = AFCD7CAC1F920EDC00D7B02C /* BuggerExample.app */;
 			productType = "com.apple.product-type.application";
 		};
-		AFE79EBF1F7E2FB9003A2163 /* BuggerS3DataStore */ = {
+		AFCD7CDE1F927BAB00D7B02C /* BuggerImgurStore */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AFE79EC71F7E2FB9003A2163 /* Build configuration list for PBXNativeTarget "BuggerS3DataStore" */;
+			buildConfigurationList = AFCD7CE41F927BAB00D7B02C /* Build configuration list for PBXNativeTarget "BuggerImgurStore" */;
 			buildPhases = (
-				AFE79EBB1F7E2FB9003A2163 /* Sources */,
-				AFE79EBC1F7E2FB9003A2163 /* Frameworks */,
-				AFE79EBD1F7E2FB9003A2163 /* Headers */,
-				AFE79EBE1F7E2FB9003A2163 /* Resources */,
+				AFCD7CDA1F927BAB00D7B02C /* Sources */,
+				AFCD7CDB1F927BAB00D7B02C /* Frameworks */,
+				AFCD7CDC1F927BAB00D7B02C /* Headers */,
+				AFCD7CDD1F927BAB00D7B02C /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				AFCD7CEA1F928ACA00D7B02C /* PBXTargetDependency */,
 			);
-			name = BuggerS3DataStore;
-			productName = BuggerS3DataStore;
-			productReference = AFE79EC01F7E2FB9003A2163 /* BuggerS3DataStore.framework */;
+			name = BuggerImgurStore;
+			productName = BuggerImgurStore;
+			productReference = AFCD7CDF1F927BAB00D7B02C /* BuggerImgurStore.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -277,7 +285,7 @@
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
 					};
-					AFE79EBF1F7E2FB9003A2163 = {
+					AFCD7CDE1F927BAB00D7B02C = {
 						CreatedOnToolsVersion = 9.0;
 						LastSwiftMigration = 0900;
 						ProvisioningStyle = Automatic;
@@ -298,7 +306,7 @@
 			projectRoot = "";
 			targets = (
 				AFA1B7E01F7A3BEA001589F4 /* Bugger */,
-				AFE79EBF1F7E2FB9003A2163 /* BuggerS3DataStore */,
+				AFCD7CDE1F927BAB00D7B02C /* BuggerImgurStore */,
 				AFCD7CAB1F920EDC00D7B02C /* BuggerExample */,
 			);
 		};
@@ -322,7 +330,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AFE79EBE1F7E2FB9003A2163 /* Resources */ = {
+		AFCD7CDD1F927BAB00D7B02C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -359,11 +367,11 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AFE79EBB1F7E2FB9003A2163 /* Sources */ = {
+		AFCD7CDA1F927BAB00D7B02C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AFE79EC91F7E2FDA003A2163 /* BuggerS3DataStore.swift in Sources */,
+				AFCD7CE81F927C7D00D7B02C /* BuggerImgurStore.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,10 +383,15 @@
 			target = AFA1B7E01F7A3BEA001589F4 /* Bugger */;
 			targetProxy = AFCD7CBE1F920F6600D7B02C /* PBXContainerItemProxy */;
 		};
-		AFCD7CC31F92107700D7B02C /* PBXTargetDependency */ = {
+		AFCD7CEA1F928ACA00D7B02C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = AFE79EBF1F7E2FB9003A2163 /* BuggerS3DataStore */;
-			targetProxy = AFCD7CC21F92107700D7B02C /* PBXContainerItemProxy */;
+			target = AFA1B7E01F7A3BEA001589F4 /* Bugger */;
+			targetProxy = AFCD7CE91F928ACA00D7B02C /* PBXContainerItemProxy */;
+		};
+		AFCD7CEC1F928AE800D7B02C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AFCD7CDE1F927BAB00D7B02C /* BuggerImgurStore */;
+			targetProxy = AFCD7CEB1F928AE800D7B02C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -586,7 +599,7 @@
 			};
 			name = Release;
 		};
-		AFE79EC51F7E2FB9003A2163 /* Debug */ = {
+		AFCD7CE51F927BAB00D7B02C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
@@ -596,10 +609,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = BuggerS3DataStore/Info.plist;
+				INFOPLIST_FILE = BuggerImgurStore/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.kylejm.BuggerS3DataStore;
+				PRODUCT_BUNDLE_IDENTIFIER = io.kylejm.BuggerImgurStore;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -608,7 +621,7 @@
 			};
 			name = Debug;
 		};
-		AFE79EC61F7E2FB9003A2163 /* Release */ = {
+		AFCD7CE61F927BAB00D7B02C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
@@ -618,10 +631,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = BuggerS3DataStore/Info.plist;
+				INFOPLIST_FILE = BuggerImgurStore/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = io.kylejm.BuggerS3DataStore;
+				PRODUCT_BUNDLE_IDENTIFIER = io.kylejm.BuggerImgurStore;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
@@ -659,11 +672,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AFE79EC71F7E2FB9003A2163 /* Build configuration list for PBXNativeTarget "BuggerS3DataStore" */ = {
+		AFCD7CE41F927BAB00D7B02C /* Build configuration list for PBXNativeTarget "BuggerImgurStore" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				AFE79EC51F7E2FB9003A2163 /* Debug */,
-				AFE79EC61F7E2FB9003A2163 /* Release */,
+				AFCD7CE51F927BAB00D7B02C /* Debug */,
+				AFCD7CE61F927BAB00D7B02C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

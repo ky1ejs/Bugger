@@ -27,7 +27,7 @@ class AnnotationViewController: UIViewController {
     override func loadView() { view = annotationView }
     
     @objc private func nextStep() {
-        let reportVC = ReportViewController(annotatedScreenshot: screenshot, config: config)
+        let reportVC = ReportViewController(screenshot: screenshot, config: config)
         navigationController?.pushViewController(reportVC, animated: true)
     }
 }

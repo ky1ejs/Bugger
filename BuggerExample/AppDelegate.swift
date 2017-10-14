@@ -8,7 +8,7 @@
 
 import UIKit
 import Bugger
-import BuggerS3DataStore
+import BuggerImgurStore
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,8 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        let s3 = BuggerS3DataStore()
-        let config = BuggerConfig(token: "", owner: "", repo: "", dataStore: s3)
+        let imgur = BuggerImgurStore(clientID: "")
+        let config = BuggerConfig(token: "", owner: "", repo: "", store: .image(imgur))
         Bugger.with(config: config)
         return true
     }

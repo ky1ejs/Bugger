@@ -11,10 +11,13 @@ import UIKit
 class ReportViewController: UIViewController {
     let config: BuggerConfig
     let reportView = ReportView()
+    let screenshot: UIImage
     
-    init(annotatedScreenshot: UIImage, config: BuggerConfig) {
+    init(screenshot: UIImage, config: BuggerConfig) {
         self.config = config
+        self.screenshot = screenshot
         super.init(nibName: nil, bundle: nil)
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Send", style: .done, target: self, action: #selector(send))
     }
     
     required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -32,8 +35,9 @@ class ReportViewController: UIViewController {
         view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: reportView.bottomAnchor).isActive = true
     }
     
-    func send() {
-        // upload screenshots and videos to S3
-        // create GH ticket and submit data
+    @objc func send() {
+        config.store.imageStore.uploadImage(image: screenshot) { result in
+            
+        }
     }
 }

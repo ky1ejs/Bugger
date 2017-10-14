@@ -12,14 +12,14 @@ public struct BuggerConfig {
     let token: String
     let owner: String
     let repo: String
-    let dataStore: DataStore
+    let store: Store
     let swizzleInvocation: Bool
     
-    public init(token: String, owner: String, repo: String, dataStore: DataStore, swizzleInvocation: Bool = true) {
+    public init(token: String, owner: String, repo: String, store: Store, swizzleInvocation: Bool = true) {
         self.token = token
         self.owner = owner
         self.repo = repo
-        self.dataStore = dataStore
+        self.store = store
         self.swizzleInvocation = swizzleInvocation
     }
 }

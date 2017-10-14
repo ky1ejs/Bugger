@@ -6,13 +6,29 @@
 //  Copyright © 2017 Kyle McAlpine. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 public enum UploadResult {
     case success(URL)
     case failure(Error)
 }
 
-public protocol DataStore {
-    func uploadData(data: Data, completion: (UploadResult) -> ())
+public enum Store {
+    case image(ImageStore)
+    case imageAndVideo(ImageStore & VideoStore)
+    
+    var imageStore: ImageStore {
+        switch self {
+        case .image(let store):         return store
+        case .imageAndVideo(let store): return store
+        }
+    }
+}
+
+public protocol ImageStore {
+    func uploadImage(image: UIImage, completion: @escaping (UploadResult) -> ())
+}
+
+public protocol VideoStore {
+    func uploadImage(videoData: Data, completion: @escaping (UploadResult) -> ())
 }
