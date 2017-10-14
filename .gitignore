@@ -45,3 +45,6 @@ fastlane/*.html
 *.pkey
 *.pem
 *.p12
+
+## Bugger
+BuggerExample/ExampleConfig.swift

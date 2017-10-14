@@ -28,6 +28,7 @@
 		AFCD7CE31F927BAB00D7B02C /* BuggerImgurStore.h in Headers */ = {isa = PBXBuildFile; fileRef = AFCD7CE11F927BAB00D7B02C /* BuggerImgurStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AFCD7CE81F927C7D00D7B02C /* BuggerImgurStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CE71F927C7D00D7B02C /* BuggerImgurStore.swift */; };
 		AFCD7CED1F928AF100D7B02C /* BuggerImgurStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFCD7CDF1F927BAB00D7B02C /* BuggerImgurStore.framework */; };
+		AFCD7CEF1F92989100D7B02C /* ExampleConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CEE1F92989100D7B02C /* ExampleConfig.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 		AFCD7CE11F927BAB00D7B02C /* BuggerImgurStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BuggerImgurStore.h; sourceTree = "<group>"; };
 		AFCD7CE21F927BAB00D7B02C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AFCD7CE71F927C7D00D7B02C /* BuggerImgurStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerImgurStore.swift; sourceTree = "<group>"; };
+		AFCD7CEE1F92989100D7B02C /* ExampleConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleConfig.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +153,7 @@
 			isa = PBXGroup;
 			children = (
 				AFCD7CAE1F920EDC00D7B02C /* AppDelegate.swift */,
+				AFCD7CEE1F92989100D7B02C /* ExampleConfig.swift */,
 				AFCD7CB01F920EDC00D7B02C /* ViewController.swift */,
 				AFCD7CB21F920EDC00D7B02C /* Main.storyboard */,
 				AFCD7CB51F920EDC00D7B02C /* Assets.xcassets */,
@@ -232,6 +235,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AFCD7CBD1F920EDC00D7B02C /* Build configuration list for PBXNativeTarget "BuggerExample" */;
 			buildPhases = (
+				AFCD7CF01F9299B100D7B02C /* Generate ExampleConfig.swift */,
 				AFCD7CA81F920EDC00D7B02C /* Sources */,
 				AFCD7CA91F920EDC00D7B02C /* Frameworks */,
 				AFCD7CAA1F920EDC00D7B02C /* Resources */,
@@ -339,6 +343,23 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		AFCD7CF01F9299B100D7B02C /* Generate ExampleConfig.swift */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Generate ExampleConfig.swift";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ ! -f BuggerExample/ExampleConfig.swift ]; then\n    echo \"Ly8KLy8gIEV4YW1wbGVDb25maWcuc3dpZnQKLy8gIEJ1Z2dlckV4YW1wbGUKLy8KLy8gIENyZWF0ZWQgYnkgS3lsZSBNY0FscGluZSBvbiAxNC8xMC8yMDE3LgovLyAgQ29weXJpZ2h0IMKpIDIwMTcgS3lsZSBNY0FscGluZS4gQWxsIHJpZ2h0cyByZXNlcnZlZC4KLy8KCmltcG9ydCBGb3VuZGF0aW9uCgpzdHJ1Y3QgRXhhbXBsZUNvbmZpZyB7CiAgICBzdGF0aWMgbGV0IGltZ3VyQ2xpZW50SUQgPSAiIgogICAgCiAgICBzdGF0aWMgbGV0IGdpdGh1YlRva2VuID0gIiIKICAgIHN0YXRpYyBsZXQgZ2l0aHViT3duZXIgPSAiIgogICAgc3RhdGljIGxldCBnaXRodWJSZXBvID0gIiIKfQo=\" | base64 --decode >> BuggerExample/ExampleConfig.swift\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		AFA1B7DC1F7A3BEA001589F4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -364,6 +385,7 @@
 			files = (
 				AFCD7CB11F920EDC00D7B02C /* ViewController.swift in Sources */,
 				AFCD7CAF1F920EDC00D7B02C /* AppDelegate.swift in Sources */,
+				AFCD7CEF1F92989100D7B02C /* ExampleConfig.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
