@@ -36,8 +36,11 @@ class ReportViewController: UIViewController {
     }
     
     @objc func send() {
-        config.store.imageStore.uploadImage(image: screenshot) { result in
-            
-        }
+        guard let title = reportView.titleTF.text, title.count > 0 else { return }
+        guard let username = reportView.usernameTF.text, username.count > 0 else { return }
+        guard let githubEmail = reportView.githubEmailTF.text, githubEmail.count > 0 else { return }
+        guard let body = reportView.bodyTV.text, body.count > 0 else { return }
+        
+        Report(title: title, username: username, githubUsername: githubEmail, body: body, image: screenshot).send(with: config)
     }
 }
