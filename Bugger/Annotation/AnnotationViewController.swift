@@ -20,6 +20,7 @@ class AnnotationViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(nextStep))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
     }
     
     required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
@@ -29,5 +30,9 @@ class AnnotationViewController: UIViewController {
     @objc private func nextStep() {
         let reportVC = ReportViewController(screenshot: screenshot, config: config)
         navigationController?.pushViewController(reportVC, animated: true)
+    }
+    
+    @objc private func cancel() {
+        Bugger.state = .watching(config)
     }
 }
