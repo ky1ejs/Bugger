@@ -17,12 +17,19 @@ class ReportViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     override func loadView() {
-        view = reportView
+        view = UIView()
+        view.backgroundColor = .white
+        view.addSubview(reportView)
+        
+        reportView.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: reportView.topAnchor).isActive = true
+        view.leadingAnchor.constraint(equalTo: reportView.leadingAnchor).isActive = true
+        view.trailingAnchor.constraint(equalTo: reportView.trailingAnchor).isActive = true
+        view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: reportView.bottomAnchor).isActive = true
     }
     
     func send() {
