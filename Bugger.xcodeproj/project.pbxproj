@@ -16,6 +16,16 @@
 		AFCD7CB91F920EDC00D7B02C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFCD7CB71F920EDC00D7B02C /* LaunchScreen.storyboard */; };
 		AFCD7CC01F920F7600D7B02C /* Bugger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFA1B7E11F7A3BEA001589F4 /* Bugger.framework */; };
 		AFCD7CC11F92106E00D7B02C /* BuggerS3DataStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFE79EC01F7E2FB9003A2163 /* BuggerS3DataStore.framework */; };
+		AFCD7CC51F926CD100D7B02C /* UIResponderSwizzling.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CC41F926CD100D7B02C /* UIResponderSwizzling.swift */; };
+		AFCD7CC71F926D6600D7B02C /* AnnotationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CC61F926D6600D7B02C /* AnnotationViewController.swift */; };
+		AFCD7CCA1F926D8600D7B02C /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CC91F926D8600D7B02C /* AnnotationView.swift */; };
+		AFCD7CCC1F926DAB00D7B02C /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CCB1F926DAB00D7B02C /* ReportViewController.swift */; };
+		AFCD7CCF1F926DD800D7B02C /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CCE1F926DD800D7B02C /* ReportView.swift */; };
+		AFCD7CD11F926E9500D7B02C /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CD01F926E9500D7B02C /* Report.swift */; };
+		AFCD7CD31F926EAD00D7B02C /* BuggerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CD21F926EAD00D7B02C /* BuggerConfig.swift */; };
+		AFCD7CD51F926ECD00D7B02C /* BuggerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CD41F926ECD00D7B02C /* BuggerDelegate.swift */; };
+		AFCD7CD71F926EEF00D7B02C /* BuggerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CD61F926EEF00D7B02C /* BuggerState.swift */; };
+		AFCD7CD91F926F6900D7B02C /* ImageUploading.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CD81F926F6900D7B02C /* ImageUploading.swift */; };
 		AFE79EC41F7E2FB9003A2163 /* BuggerS3DataStore.h in Headers */ = {isa = PBXBuildFile; fileRef = AFE79EC21F7E2FB9003A2163 /* BuggerS3DataStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AFE79EC91F7E2FDA003A2163 /* BuggerS3DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE79EC81F7E2FDA003A2163 /* BuggerS3DataStore.swift */; };
 /* End PBXBuildFile section */
@@ -49,6 +59,16 @@
 		AFCD7CB51F920EDC00D7B02C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AFCD7CB81F920EDC00D7B02C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AFCD7CBA1F920EDC00D7B02C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AFCD7CC41F926CD100D7B02C /* UIResponderSwizzling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIResponderSwizzling.swift; sourceTree = "<group>"; };
+		AFCD7CC61F926D6600D7B02C /* AnnotationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationViewController.swift; sourceTree = "<group>"; };
+		AFCD7CC91F926D8600D7B02C /* AnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationView.swift; sourceTree = "<group>"; };
+		AFCD7CCB1F926DAB00D7B02C /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
+		AFCD7CCE1F926DD800D7B02C /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
+		AFCD7CD01F926E9500D7B02C /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
+		AFCD7CD21F926EAD00D7B02C /* BuggerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerConfig.swift; sourceTree = "<group>"; };
+		AFCD7CD41F926ECD00D7B02C /* BuggerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerDelegate.swift; sourceTree = "<group>"; };
+		AFCD7CD61F926EEF00D7B02C /* BuggerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerState.swift; sourceTree = "<group>"; };
+		AFCD7CD81F926F6900D7B02C /* ImageUploading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploading.swift; sourceTree = "<group>"; };
 		AFE79EC01F7E2FB9003A2163 /* BuggerS3DataStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BuggerS3DataStore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFE79EC21F7E2FB9003A2163 /* BuggerS3DataStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BuggerS3DataStore.h; sourceTree = "<group>"; };
 		AFE79EC31F7E2FB9003A2163 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -108,6 +128,14 @@
 				AFA1B7E41F7A3BEA001589F4 /* Bugger.h */,
 				AFA1B7E51F7A3BEA001589F4 /* Info.plist */,
 				AFA1B7EC1F7A3BF1001589F4 /* Bugger.swift */,
+				AFCD7CD21F926EAD00D7B02C /* BuggerConfig.swift */,
+				AFCD7CD41F926ECD00D7B02C /* BuggerDelegate.swift */,
+				AFCD7CD61F926EEF00D7B02C /* BuggerState.swift */,
+				AFCD7CD81F926F6900D7B02C /* ImageUploading.swift */,
+				AFCD7CD01F926E9500D7B02C /* Report.swift */,
+				AFCD7CC41F926CD100D7B02C /* UIResponderSwizzling.swift */,
+				AFCD7CC81F926D7300D7B02C /* Annotation */,
+				AFCD7CCD1F926DBB00D7B02C /* Report */,
 			);
 			path = Bugger;
 			sourceTree = "<group>";
@@ -123,6 +151,24 @@
 				AFCD7CBA1F920EDC00D7B02C /* Info.plist */,
 			);
 			path = BuggerExample;
+			sourceTree = "<group>";
+		};
+		AFCD7CC81F926D7300D7B02C /* Annotation */ = {
+			isa = PBXGroup;
+			children = (
+				AFCD7CC61F926D6600D7B02C /* AnnotationViewController.swift */,
+				AFCD7CC91F926D8600D7B02C /* AnnotationView.swift */,
+			);
+			path = Annotation;
+			sourceTree = "<group>";
+		};
+		AFCD7CCD1F926DBB00D7B02C /* Report */ = {
+			isa = PBXGroup;
+			children = (
+				AFCD7CCB1F926DAB00D7B02C /* ReportViewController.swift */,
+				AFCD7CCE1F926DD800D7B02C /* ReportView.swift */,
+			);
+			path = Report;
 			sourceTree = "<group>";
 		};
 		AFE79EC11F7E2FB9003A2163 /* BuggerS3DataStore */ = {
@@ -290,7 +336,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFCD7CC71F926D6600D7B02C /* AnnotationViewController.swift in Sources */,
+				AFCD7CD71F926EEF00D7B02C /* BuggerState.swift in Sources */,
+				AFCD7CD91F926F6900D7B02C /* ImageUploading.swift in Sources */,
+				AFCD7CCA1F926D8600D7B02C /* AnnotationView.swift in Sources */,
+				AFCD7CD11F926E9500D7B02C /* Report.swift in Sources */,
+				AFCD7CCF1F926DD800D7B02C /* ReportView.swift in Sources */,
+				AFCD7CC51F926CD100D7B02C /* UIResponderSwizzling.swift in Sources */,
+				AFCD7CCC1F926DAB00D7B02C /* ReportViewController.swift in Sources */,
 				AFA1B7ED1F7A3BF1001589F4 /* Bugger.swift in Sources */,
+				AFCD7CD31F926EAD00D7B02C /* BuggerConfig.swift in Sources */,
+				AFCD7CD51F926ECD00D7B02C /* BuggerDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
