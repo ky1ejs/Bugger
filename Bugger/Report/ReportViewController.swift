@@ -71,14 +71,11 @@ class ReportViewController: UIViewController {
     
     @objc func send() {
         guard case .editing = state else { return }
-        guard let title = reportView.titleTF.text, title.count > 0 else { return }
-        guard let username = reportView.usernameTF.text, username.count > 0 else { return }
-        guard let githubEmail = reportView.githubEmailTF.text, githubEmail.count > 0 else { return }
+        guard let title = reportView.summaryTF.text, title.count > 0 else { return }
         guard let body = reportView.bodyTV.text, body.count > 0 else { return }
         
-        let report = Report(title: title,
-                            username: username,
-                            githubUsername: githubEmail,
+        let report = Report(githubUsername: reportView.githubUsernameTF.text,
+                            summary: title,
                             body: body,
                             image: screenshot)
         

@@ -9,9 +9,8 @@
 import UIKit
 
 struct Report {
-    let title: String
-    let username: String
-    let githubUsername: String
+    let githubUsername: String?
+    let summary: String
     let body: String
     let image: UIImage
     
@@ -34,11 +33,10 @@ struct Report {
     
     func createGitHubIssue(config: BuggerConfig, imageURL: URL, completion: @escaping (Bool) -> ()) {
         let issueData =  [
-            "title": title,
+            "title": summary,
             "body":
             """
-            Reporter: \(username)
-            Reporter: @\(githubUsername)
+            Reporter: @\(githubUsername ?? "")
             
             ---
             

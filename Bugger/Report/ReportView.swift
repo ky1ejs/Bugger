@@ -9,9 +9,8 @@
 import UIKit
 
 class ReportView: UIView {
-    let titleTF = UITextField()
-    let usernameTF = UITextField()
-    let githubEmailTF = UITextField()
+    let githubUsernameTF = UITextField()
+    let summaryTF = UITextField()
     let bodyTV = PlaceholderTextView()
     let screenshotPreviewImageView = UIImageView()
     
@@ -20,43 +19,35 @@ class ReportView: UIView {
         
         screenshotPreviewImageView.image = screenshot
         
-        titleTF.translatesAutoresizingMaskIntoConstraints = false
-        usernameTF.translatesAutoresizingMaskIntoConstraints = false
-        githubEmailTF.translatesAutoresizingMaskIntoConstraints = false
+        githubUsernameTF.translatesAutoresizingMaskIntoConstraints = false
+        summaryTF.translatesAutoresizingMaskIntoConstraints = false
         bodyTV.translatesAutoresizingMaskIntoConstraints = false
         screenshotPreviewImageView.translatesAutoresizingMaskIntoConstraints = false
         
-        titleTF.placeholder = "Title"
-        usernameTF.placeholder = "Username"
-        githubEmailTF.placeholder = "GitHub Email"
+        githubUsernameTF.placeholder = "GitHub username (optional)"
+        summaryTF.placeholder = "Summary"
         bodyTV.placeholder = "What was wrong? What can we improve?"
         
-        addSubview(titleTF)
-        addSubview(usernameTF)
-        addSubview(githubEmailTF)
+        addSubview(githubUsernameTF)
+        addSubview(summaryTF)
         addSubview(bodyTV)
         addSubview(screenshotPreviewImageView)
         
         NSLayoutConstraint.activate([
-            titleTF.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            titleTF.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            titleTF.centerXAnchor.constraint(equalTo: centerXAnchor),
-            titleTF.heightAnchor.constraint(equalToConstant: 44),
+            githubUsernameTF.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            githubUsernameTF.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            githubUsernameTF.centerXAnchor.constraint(equalTo: centerXAnchor),
+            githubUsernameTF.heightAnchor.constraint(equalToConstant: 44),
             
-            usernameTF.topAnchor.constraint(equalTo: titleTF.bottomAnchor),
-            usernameTF.leadingAnchor.constraint(equalTo: titleTF.leadingAnchor),
-            usernameTF.trailingAnchor.constraint(equalTo: titleTF.trailingAnchor),
-            usernameTF.heightAnchor.constraint(equalTo: titleTF.heightAnchor),
+            summaryTF.topAnchor.constraint(equalTo: githubUsernameTF.bottomAnchor),
+            summaryTF.leadingAnchor.constraint(equalTo: githubUsernameTF.leadingAnchor),
+            summaryTF.trailingAnchor.constraint(equalTo: githubUsernameTF.trailingAnchor),
+            summaryTF.heightAnchor.constraint(equalTo: githubUsernameTF.heightAnchor),
             
-            githubEmailTF.topAnchor.constraint(equalTo: usernameTF.bottomAnchor),
-            githubEmailTF.leadingAnchor.constraint(equalTo: usernameTF.leadingAnchor),
-            githubEmailTF.trailingAnchor.constraint(equalTo: usernameTF.trailingAnchor),
-            githubEmailTF.heightAnchor.constraint(equalTo: usernameTF.heightAnchor),
-            
-            bodyTV.topAnchor.constraint(equalTo: githubEmailTF.bottomAnchor),
+            bodyTV.topAnchor.constraint(equalTo: summaryTF.bottomAnchor),
             bodyTV.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5),
-            bodyTV.leadingAnchor.constraint(equalTo: githubEmailTF.leadingAnchor),
-            bodyTV.trailingAnchor.constraint(equalTo: githubEmailTF.trailingAnchor),
+            bodyTV.leadingAnchor.constraint(equalTo: summaryTF.leadingAnchor),
+            bodyTV.trailingAnchor.constraint(equalTo: summaryTF.trailingAnchor),
             
             screenshotPreviewImageView.topAnchor.constraint(equalTo: bodyTV.bottomAnchor, constant: 20),
             screenshotPreviewImageView.leadingAnchor.constraint(equalTo: bodyTV.leadingAnchor),
