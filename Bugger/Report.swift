@@ -15,9 +15,9 @@ struct Report {
     let body: String
     let image: UIImage
     
-    func send(with config: BuggerConfig) {
+    func send(with config: BuggerConfig, completion: @escaping (Bool) -> ()) {
         uploadImage(config: config) { url in
-            self.createGitHubIssue(config: config, imageURL: url)
+            self.createGitHubIssue(config: config, imageURL: url, completion: completion)
         }
     }
     
@@ -32,7 +32,7 @@ struct Report {
         }
     }
     
-    func createGitHubIssue(config: BuggerConfig, imageURL: URL) {
+    func createGitHubIssue(config: BuggerConfig, imageURL: URL, completion: @escaping (Bool) -> ()) {
         let issueData =  [
             "title": title,
             "body":
@@ -58,8 +58,11 @@ struct Report {
         request.httpBody = jsonData
         
         let task = URLSession.shared.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
-            guard let data = data else { return }
-            guard let json = try! JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] else { return }
+            let success = (response as? HTTPURLResponse)?.statusCode ?? 0 == 201
+            completion(success)
+//            guard let data = data else { return }
+//            guard let json = try! JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] else { return }
+            
         })
         task.resume()
     }

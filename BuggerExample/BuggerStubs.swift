@@ -10,7 +10,7 @@ import Foundation
 import OHHTTPStubs
 
 struct BuggerStubs {
-    static func configureStubs() {
+    static func configureStubs(loadingTime: TimeInterval = 1) {
         stub(condition: { _ -> Bool in return true }) { _ -> OHHTTPStubsResponse in
             fatalError()
         }
@@ -43,7 +43,9 @@ struct BuggerStubs {
                 "labels" : [ "bug" ]
             ] as [String : Any]
             let data = try! JSONSerialization.data(withJSONObject: json, options: [])
-            return OHHTTPStubsResponse(data: data, statusCode: 200, headers: nil)
+            let response = OHHTTPStubsResponse(data: data, statusCode: 201, headers: nil)
+            response.requestTime = loadingTime
+            return response
         }
         
         stub(condition: isHost("api.imgur.com")) { request -> OHHTTPStubsResponse in
@@ -81,7 +83,9 @@ struct BuggerStubs {
                 "status": 200
             ] as [String : Any]
             let data = try! JSONSerialization.data(withJSONObject: json, options: [])
-            return OHHTTPStubsResponse(data: data, statusCode: 200, headers: nil)
+            let response = OHHTTPStubsResponse(data: data, statusCode: 200, headers: nil)
+            response.requestTime = loadingTime
+            return response
         }
     }
 }

@@ -12,6 +12,39 @@ class ReportViewController: UIViewController {
     let config: BuggerConfig
     let reportView = ReportView()
     let screenshot: UIImage
+    var state: ReportViewControllerState = .editing {
+        didSet {
+            if case .loading(let spinner) = oldValue {
+                spinner.removeFromSuperview()
+            }
+            
+            if case .loading(let spinner) = state {
+                navigationItem.rightBarButtonItem?.isEnabled = false
+                navigationItem.backBarButtonItem?.isEnabled = false
+                reportView.subviews.forEach() { view in
+                    view.resignFirstResponder()
+                    view.isUserInteractionEnabled = false
+                }
+                
+                reportView.addSubview(spinner)
+                spinner.translatesAutoresizingMaskIntoConstraints = false
+                NSLayoutConstraint.activate([
+                    spinner.centerXAnchor.constraint(equalTo: reportView.centerXAnchor),
+                    spinner.centerYAnchor.constraint(equalTo: reportView.centerYAnchor)
+                ])
+                spinner.startAnimating()
+            }
+            
+            if case .editing = state {
+                navigationItem.rightBarButtonItem?.isEnabled = true
+                navigationItem.backBarButtonItem?.isEnabled = true
+                reportView.subviews.forEach() { view in
+                    view.resignFirstResponder()
+                    view.isUserInteractionEnabled = true
+                }
+            }
+        }
+    }
     
     init(screenshot: UIImage, config: BuggerConfig) {
         self.config = config
@@ -36,11 +69,32 @@ class ReportViewController: UIViewController {
     }
     
     @objc func send() {
+        guard case .editing = state else { return }
         guard let title = reportView.titleTF.text, title.count > 0 else { return }
         guard let username = reportView.usernameTF.text, username.count > 0 else { return }
         guard let githubEmail = reportView.githubEmailTF.text, githubEmail.count > 0 else { return }
         guard let body = reportView.bodyTV.text, body.count > 0 else { return }
         
-        Report(title: title, username: username, githubUsername: githubEmail, body: body, image: screenshot).send(with: config)
+        let report = Report(title: title,
+                            username: username,
+                            githubUsername: githubEmail,
+                            body: body,
+                            image: screenshot)
+        
+        state = .loading(UIActivityIndicatorView(activityIndicatorStyle: .gray))
+        report.send(with: config) { success in
+            if success {
+                Bugger.state = .watching(self.config)
+            } else {
+                let alert = UIAlertController(title: "Error", message: "Your feedback could not be reported", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+        }
     }
+}
+
+enum ReportViewControllerState {
+    case editing
+    case loading(UIActivityIndicatorView)
 }
