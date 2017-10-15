@@ -18,6 +18,9 @@ class AnnotationViewController: UIViewController {
         
         super.init(nibName: nil, bundle: nil)
         
+        annotationView.controlView.undoButton.addTarget(self, action: #selector(undo), for: .touchUpInside)
+        annotationView.controlView.redoButton.addTarget(self, action: #selector(redo), for: .touchUpInside)
+        
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Next", style: .done, target: self, action: #selector(nextStep))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancel))
     }
@@ -36,7 +39,6 @@ class AnnotationViewController: UIViewController {
     }
     
     // Drawing
-    
     var lastPoint = CGPoint.zero
     var swiped = false
     
@@ -45,29 +47,34 @@ class AnnotationViewController: UIViewController {
     var drawingRect: CGRect { return annotationView.imageView.bounds }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first, touch.isLocated(in: annotationView.imageView) else { return }
+        
+        undoManager?.registerUndo(withTarget: self, selector: #selector(set(image:)), object: annotationView.imageView.image)
+        
         swiped = false
-        if let touch = touches.first {
-            lastPoint = touch.location(in: annotationView.imageView)
-        }
+        lastPoint = touch.location(in: annotationView.imageView)
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first, touch.isLocated(in: annotationView.imageView) else { return }
+        
         // 6
         swiped = true
-        if let touch = touches.first {
-            let currentPoint = touch.location(in: annotationView.imageView)
-            drawLine(from: lastPoint, to: currentPoint)
-            
-            // 7
-            lastPoint = currentPoint
-        }
+        let currentPoint = touch.location(in: annotationView.imageView)
+        drawLine(from: lastPoint, to: currentPoint)
+        
+        // 7
+        lastPoint = currentPoint
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first, touch.isLocated(in: annotationView.imageView) else { return }
+        
         if !swiped {
             // draw a single point
             drawLine(from: lastPoint, to: lastPoint)
         }
+        updateUndoButtons()
     }
     
     func drawLine(from fromPoint: CGPoint, to toPoint: CGPoint) {
@@ -92,5 +99,25 @@ class AnnotationViewController: UIViewController {
         // 5
         annotationView.imageView.image = UIImage(cgImage: context!.makeImage()!)
         UIGraphicsEndImageContext()
+    }
+    
+    @objc func undo() {
+        undoManager?.undo()
+        updateUndoButtons()
+    }
+    
+    @objc func redo() {
+        undoManager?.redo()
+        updateUndoButtons()
+    }
+    
+    func updateUndoButtons() {
+        annotationView.controlView.undoButton.isEnabled = undoManager?.canUndo ?? false
+        annotationView.controlView.redoButton.isEnabled = undoManager?.canRedo ?? false
+    }
+    
+    @objc func set(image: UIImage) {
+        undoManager?.registerUndo(withTarget: self, selector: #selector(set(image:)), object: annotationView.imageView.image)
+        annotationView.imageView.image = image
     }
 }
