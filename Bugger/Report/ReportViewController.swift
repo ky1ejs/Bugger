@@ -10,7 +10,7 @@ import UIKit
 
 class ReportViewController: UIViewController {
     let config: BuggerConfig
-    let reportView = ReportView()
+    let reportView: ReportView
     let screenshot: UIImage
     var state: ReportViewControllerState = .editing {
         didSet {
@@ -47,6 +47,7 @@ class ReportViewController: UIViewController {
     }
     
     init(screenshot: UIImage, config: BuggerConfig) {
+        self.reportView = ReportView(screenshot: screenshot)
         self.config = config
         self.screenshot = screenshot
         super.init(nibName: nil, bundle: nil)

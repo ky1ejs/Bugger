@@ -12,6 +12,7 @@
 		AFA00A6D1F9392120065A79E /* AnnotationControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA00A6C1F9392120065A79E /* AnnotationControlView.swift */; };
 		AFA00A6F1F93922D0065A79E /* ColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA00A6E1F93922D0065A79E /* ColorButton.swift */; };
 		AFA00A711F93A2070065A79E /* UITouchExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA00A701F93A2070065A79E /* UITouchExtensions.swift */; };
+		AFA00A731F93D3510065A79E /* PlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA00A721F93D3510065A79E /* PlaceholderTextView.swift */; };
 		AFA1B7E61F7A3BEA001589F4 /* Bugger.h in Headers */ = {isa = PBXBuildFile; fileRef = AFA1B7E41F7A3BEA001589F4 /* Bugger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AFA1B7ED1F7A3BF1001589F4 /* Bugger.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA1B7EC1F7A3BF1001589F4 /* Bugger.swift */; };
 		AFCD7CAF1F920EDC00D7B02C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CAE1F920EDC00D7B02C /* AppDelegate.swift */; };
@@ -66,6 +67,7 @@
 		AFA00A6C1F9392120065A79E /* AnnotationControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationControlView.swift; sourceTree = "<group>"; };
 		AFA00A6E1F93922D0065A79E /* ColorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorButton.swift; sourceTree = "<group>"; };
 		AFA00A701F93A2070065A79E /* UITouchExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITouchExtensions.swift; sourceTree = "<group>"; };
+		AFA00A721F93D3510065A79E /* PlaceholderTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderTextView.swift; sourceTree = "<group>"; };
 		AFA1B7E11F7A3BEA001589F4 /* Bugger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bugger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFA1B7E41F7A3BEA001589F4 /* Bugger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bugger.h; sourceTree = "<group>"; };
 		AFA1B7E51F7A3BEA001589F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				AFCD7CD01F926E9500D7B02C /* Report.swift */,
 				AFCD7CC41F926CD100D7B02C /* UIResponderSwizzling.swift */,
 				AFA00A701F93A2070065A79E /* UITouchExtensions.swift */,
+				AFA00A721F93D3510065A79E /* PlaceholderTextView.swift */,
 				AFCD7CC81F926D7300D7B02C /* Annotation */,
 				AFCD7CCD1F926DBB00D7B02C /* Report */,
 			);
@@ -406,6 +409,7 @@
 				AFCD7CCF1F926DD800D7B02C /* ReportView.swift in Sources */,
 				AFCD7CC51F926CD100D7B02C /* UIResponderSwizzling.swift in Sources */,
 				AFCD7CCC1F926DAB00D7B02C /* ReportViewController.swift in Sources */,
+				AFA00A731F93D3510065A79E /* PlaceholderTextView.swift in Sources */,
 				AFA00A6F1F93922D0065A79E /* ColorButton.swift in Sources */,
 				AFA1B7ED1F7A3BF1001589F4 /* Bugger.swift in Sources */,
 				AFA00A6D1F9392120065A79E /* AnnotationControlView.swift in Sources */,

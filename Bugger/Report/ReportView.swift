@@ -12,45 +12,56 @@ class ReportView: UIView {
     let titleTF = UITextField()
     let usernameTF = UITextField()
     let githubEmailTF = UITextField()
-    let bodyTV = UITextView()
+    let bodyTV = PlaceholderTextView()
+    let screenshotPreviewImageView = UIImageView()
     
-    override init(frame: CGRect) {
+    init(screenshot: UIImage) {
         super.init(frame: .zero)
+        
+        screenshotPreviewImageView.image = screenshot
         
         titleTF.translatesAutoresizingMaskIntoConstraints = false
         usernameTF.translatesAutoresizingMaskIntoConstraints = false
         githubEmailTF.translatesAutoresizingMaskIntoConstraints = false
         bodyTV.translatesAutoresizingMaskIntoConstraints = false
+        screenshotPreviewImageView.translatesAutoresizingMaskIntoConstraints = false
         
         titleTF.placeholder = "Title"
         usernameTF.placeholder = "Username"
         githubEmailTF.placeholder = "GitHub Email"
+        bodyTV.placeholder = "What was wrong? What can we improve?"
         
         addSubview(titleTF)
         addSubview(usernameTF)
         addSubview(githubEmailTF)
         addSubview(bodyTV)
+        addSubview(screenshotPreviewImageView)
         
-        addConstraints([
-            NSLayoutConstraint(item: self, attribute: .top, relatedBy: .equal, toItem: titleTF, attribute: .top, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: self, attribute: .leading, relatedBy: .equal, toItem: titleTF, attribute: .leading, multiplier: 1, constant: -20),
-            NSLayoutConstraint(item: self, attribute: .centerX, relatedBy: .equal, toItem: titleTF, attribute: .centerX, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: titleTF, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: 44),
+        NSLayoutConstraint.activate([
+            titleTF.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            titleTF.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
+            titleTF.centerXAnchor.constraint(equalTo: centerXAnchor),
+            titleTF.heightAnchor.constraint(equalToConstant: 44),
             
-            NSLayoutConstraint(item: usernameTF, attribute: .top, relatedBy: .equal, toItem: titleTF, attribute: .bottom, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: usernameTF, attribute: .leading, relatedBy: .equal, toItem: titleTF, attribute: .leading, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: usernameTF, attribute: .trailing, relatedBy: .equal, toItem: titleTF, attribute: .trailing, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: usernameTF, attribute: .height, relatedBy: .equal, toItem: titleTF, attribute: .height, multiplier: 1, constant: 0),
-        
-            NSLayoutConstraint(item: githubEmailTF, attribute: .top, relatedBy: .equal, toItem: usernameTF, attribute: .bottom, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: githubEmailTF, attribute: .leading, relatedBy: .equal, toItem: usernameTF, attribute: .leading, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: githubEmailTF, attribute: .trailing, relatedBy: .equal, toItem: usernameTF, attribute: .trailing, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: githubEmailTF, attribute: .height, relatedBy: .equal, toItem: usernameTF, attribute: .height, multiplier: 1, constant: 0),
+            usernameTF.topAnchor.constraint(equalTo: titleTF.bottomAnchor),
+            usernameTF.leadingAnchor.constraint(equalTo: titleTF.leadingAnchor),
+            usernameTF.trailingAnchor.constraint(equalTo: titleTF.trailingAnchor),
+            usernameTF.heightAnchor.constraint(equalTo: titleTF.heightAnchor),
             
-            NSLayoutConstraint(item: bodyTV, attribute: .top, relatedBy: .equal, toItem: githubEmailTF, attribute: .bottom, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: bodyTV, attribute: .leading, relatedBy: .equal, toItem: githubEmailTF, attribute: .leading, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: bodyTV, attribute: .trailing, relatedBy: .equal, toItem: githubEmailTF, attribute: .trailing, multiplier: 1, constant: 0),
-            NSLayoutConstraint(item: bodyTV, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0)
+            githubEmailTF.topAnchor.constraint(equalTo: usernameTF.bottomAnchor),
+            githubEmailTF.leadingAnchor.constraint(equalTo: usernameTF.leadingAnchor),
+            githubEmailTF.trailingAnchor.constraint(equalTo: usernameTF.trailingAnchor),
+            githubEmailTF.heightAnchor.constraint(equalTo: usernameTF.heightAnchor),
+            
+            bodyTV.topAnchor.constraint(equalTo: githubEmailTF.bottomAnchor),
+            bodyTV.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.5),
+            bodyTV.leadingAnchor.constraint(equalTo: githubEmailTF.leadingAnchor),
+            bodyTV.trailingAnchor.constraint(equalTo: githubEmailTF.trailingAnchor),
+            
+            screenshotPreviewImageView.topAnchor.constraint(equalTo: bodyTV.bottomAnchor, constant: 20),
+            screenshotPreviewImageView.leadingAnchor.constraint(equalTo: bodyTV.leadingAnchor),
+            screenshotPreviewImageView.widthAnchor.constraint(equalTo: screenshotPreviewImageView.heightAnchor, multiplier: screenshot.size.width / screenshot.size.height),
+            screenshotPreviewImageView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
     
