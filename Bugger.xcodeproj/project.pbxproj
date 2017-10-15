@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AFA00A681F92C75D0065A79E /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFA00A671F92C75A0065A79E /* OHHTTPStubs.framework */; };
+		AFA00A6A1F92C7970065A79E /* BuggerStubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA00A691F92C7970065A79E /* BuggerStubs.swift */; };
 		AFA1B7E61F7A3BEA001589F4 /* Bugger.h in Headers */ = {isa = PBXBuildFile; fileRef = AFA1B7E41F7A3BEA001589F4 /* Bugger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AFA1B7ED1F7A3BF1001589F4 /* Bugger.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA1B7EC1F7A3BF1001589F4 /* Bugger.swift */; };
 		AFCD7CAF1F920EDC00D7B02C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CAE1F920EDC00D7B02C /* AppDelegate.swift */; };
@@ -56,6 +58,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AFA00A671F92C75A0065A79E /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = SOURCE_ROOT; };
+		AFA00A691F92C7970065A79E /* BuggerStubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerStubs.swift; sourceTree = "<group>"; };
 		AFA1B7E11F7A3BEA001589F4 /* Bugger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bugger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFA1B7E41F7A3BEA001589F4 /* Bugger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bugger.h; sourceTree = "<group>"; };
 		AFA1B7E51F7A3BEA001589F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -96,6 +100,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFA00A681F92C75D0065A79E /* OHHTTPStubs.framework in Frameworks */,
 				AFCD7CC01F920F7600D7B02C /* Bugger.framework in Frameworks */,
 				AFCD7CED1F928AF100D7B02C /* BuggerImgurStore.framework in Frameworks */,
 			);
@@ -153,12 +158,14 @@
 			isa = PBXGroup;
 			children = (
 				AFCD7CAE1F920EDC00D7B02C /* AppDelegate.swift */,
+				AFA00A691F92C7970065A79E /* BuggerStubs.swift */,
 				AFCD7CEE1F92989100D7B02C /* ExampleConfig.swift */,
 				AFCD7CB01F920EDC00D7B02C /* ViewController.swift */,
 				AFCD7CB21F920EDC00D7B02C /* Main.storyboard */,
 				AFCD7CB51F920EDC00D7B02C /* Assets.xcassets */,
 				AFCD7CB71F920EDC00D7B02C /* LaunchScreen.storyboard */,
 				AFCD7CBA1F920EDC00D7B02C /* Info.plist */,
+				AFA00A671F92C75A0065A79E /* OHHTTPStubs.framework */,
 			);
 			path = BuggerExample;
 			sourceTree = "<group>";
@@ -237,6 +244,7 @@
 			buildPhases = (
 				AFCD7CF01F9299B100D7B02C /* Generate ExampleConfig.swift */,
 				AFCD7CA81F920EDC00D7B02C /* Sources */,
+				AFA00A6B1F92CBE50065A79E /* Carthage */,
 				AFCD7CA91F920EDC00D7B02C /* Frameworks */,
 				AFCD7CAA1F920EDC00D7B02C /* Resources */,
 			);
@@ -344,6 +352,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		AFA00A6B1F92CBE50065A79E /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/OHHTTPStubs.framework",
+			);
+			name = Carthage;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
 		AFCD7CF01F9299B100D7B02C /* Generate ExampleConfig.swift */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -384,6 +407,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AFCD7CB11F920EDC00D7B02C /* ViewController.swift in Sources */,
+				AFA00A6A1F92C7970065A79E /* BuggerStubs.swift in Sources */,
 				AFCD7CAF1F920EDC00D7B02C /* AppDelegate.swift in Sources */,
 				AFCD7CEF1F92989100D7B02C /* ExampleConfig.swift in Sources */,
 			);
@@ -598,6 +622,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = BuggerExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.kylejm.BuggerExample;
@@ -612,6 +640,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = BuggerExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.kylejm.BuggerExample;

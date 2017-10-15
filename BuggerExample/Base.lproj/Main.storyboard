@@ -23,11 +23,20 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a81-R5-N3B">
+                                <rect key="frame" x="171" y="399" width="33" height="30"/>
+                                <state key="normal" title="Stub"/>
+                                <connections>
+                                    <action selector="stub" destination="BYZ-38-t0r" eventType="touchUpInside" id="Qdb-0O-NWS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="q7f-QB-FMT" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="Ytu-Xm-qTp"/>
+                            <constraint firstItem="a81-R5-N3B" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Ywt-Ux-c5H"/>
                             <constraint firstItem="q7f-QB-FMT" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="ZEe-SI-AwS"/>
+                            <constraint firstItem="a81-R5-N3B" firstAttribute="top" secondItem="q7f-QB-FMT" secondAttribute="bottom" constant="45" id="x4J-de-hYq"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

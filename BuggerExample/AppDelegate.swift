@@ -16,12 +16,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        
         let imgur = BuggerImgurStore(clientID: ExampleConfig.imgurClientID)
         let config = BuggerConfig(token: ExampleConfig.githubToken,
                                   owner: ExampleConfig.githubOwner,
                                   repo: ExampleConfig.githubRepo,
                                   store: .image(imgur))
         Bugger.with(config: config)
+        
         return true
     }
 }
