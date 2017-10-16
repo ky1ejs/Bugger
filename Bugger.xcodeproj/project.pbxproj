@@ -30,7 +30,7 @@
 		AFCD7CD31F926EAD00D7B02C /* BuggerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CD21F926EAD00D7B02C /* BuggerConfig.swift */; };
 		AFCD7CD51F926ECD00D7B02C /* BuggerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CD41F926ECD00D7B02C /* BuggerDelegate.swift */; };
 		AFCD7CD71F926EEF00D7B02C /* BuggerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CD61F926EEF00D7B02C /* BuggerState.swift */; };
-		AFCD7CD91F926F6900D7B02C /* ImageUploading.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CD81F926F6900D7B02C /* ImageUploading.swift */; };
+		AFCD7CD91F926F6900D7B02C /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CD81F926F6900D7B02C /* Store.swift */; };
 		AFCD7CE31F927BAB00D7B02C /* BuggerImgurStore.h in Headers */ = {isa = PBXBuildFile; fileRef = AFCD7CE11F927BAB00D7B02C /* BuggerImgurStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AFCD7CE81F927C7D00D7B02C /* BuggerImgurStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CE71F927C7D00D7B02C /* BuggerImgurStore.swift */; };
 		AFCD7CED1F928AF100D7B02C /* BuggerImgurStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFCD7CDF1F927BAB00D7B02C /* BuggerImgurStore.framework */; };
@@ -88,7 +88,7 @@
 		AFCD7CD21F926EAD00D7B02C /* BuggerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerConfig.swift; sourceTree = "<group>"; };
 		AFCD7CD41F926ECD00D7B02C /* BuggerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerDelegate.swift; sourceTree = "<group>"; };
 		AFCD7CD61F926EEF00D7B02C /* BuggerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerState.swift; sourceTree = "<group>"; };
-		AFCD7CD81F926F6900D7B02C /* ImageUploading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageUploading.swift; sourceTree = "<group>"; };
+		AFCD7CD81F926F6900D7B02C /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		AFCD7CDF1F927BAB00D7B02C /* BuggerImgurStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BuggerImgurStore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFCD7CE11F927BAB00D7B02C /* BuggerImgurStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BuggerImgurStore.h; sourceTree = "<group>"; };
 		AFCD7CE21F927BAB00D7B02C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -153,7 +153,7 @@
 				AFCD7CD21F926EAD00D7B02C /* BuggerConfig.swift */,
 				AFCD7CD41F926ECD00D7B02C /* BuggerDelegate.swift */,
 				AFCD7CD61F926EEF00D7B02C /* BuggerState.swift */,
-				AFCD7CD81F926F6900D7B02C /* ImageUploading.swift */,
+				AFCD7CD81F926F6900D7B02C /* Store.swift */,
 				AFCD7CD01F926E9500D7B02C /* Report.swift */,
 				AFCD7CC41F926CD100D7B02C /* UIResponderSwizzling.swift */,
 				AFA00A701F93A2070065A79E /* UITouchExtensions.swift */,
@@ -402,7 +402,7 @@
 			files = (
 				AFCD7CC71F926D6600D7B02C /* AnnotationViewController.swift in Sources */,
 				AFCD7CD71F926EEF00D7B02C /* BuggerState.swift in Sources */,
-				AFCD7CD91F926F6900D7B02C /* ImageUploading.swift in Sources */,
+				AFCD7CD91F926F6900D7B02C /* Store.swift in Sources */,
 				AFCD7CCA1F926D8600D7B02C /* AnnotationView.swift in Sources */,
 				AFCD7CD11F926E9500D7B02C /* Report.swift in Sources */,
 				AFA00A711F93A2070065A79E /* UITouchExtensions.swift in Sources */,

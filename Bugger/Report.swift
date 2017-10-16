@@ -8,11 +8,51 @@
 
 import UIKit
 
+protocol UserError {
+    var userErrorMessage: String { get }
+}
+
+enum ReportValidationError: Error {
+    case summaryLength
+    case bodyLength
+    case summaryAndbodyLength
+}
+
+extension ReportValidationError: UserError {
+    var userErrorMessage: String {
+        switch self {
+        case .summaryLength: return "Summary required"
+        case .bodyLength: return "Description required"
+        case .summaryAndbodyLength: return "Summary and Description required"
+        }
+    }
+}
+
 struct Report {
     let githubUsername: String?
     let summary: String
     let body: String
     let image: UIImage
+    
+    init(githubUsername: String?, summary: String?, body: String?, image: UIImage) throws {
+        
+        let summaryCount = summary?.count ?? 0
+        let bodyCount = body?.count ?? 0
+        
+        guard let summary = summary, let body = body,
+            summaryCount > 0, bodyCount > 0 else {
+            switch (summaryCount, bodyCount) {
+            case (0, 0):    throw ReportValidationError.summaryAndbodyLength
+            case (0, _):    throw ReportValidationError.summaryLength
+            default:        throw ReportValidationError.bodyLength
+            }
+        }
+        
+        self.githubUsername = githubUsername
+        self.summary = summary
+        self.body = body
+        self.image = image
+    }
     
     func send(with config: BuggerConfig, completion: @escaping (Bool) -> ()) {
         uploadImage(config: config) { url in

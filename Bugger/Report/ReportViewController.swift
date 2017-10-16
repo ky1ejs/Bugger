@@ -71,24 +71,37 @@ class ReportViewController: UIViewController {
     
     @objc func send() {
         guard case .editing = state else { return }
-        guard let title = reportView.summaryTF.text, title.count > 0 else { return }
-        guard let body = reportView.bodyTV.text, body.count > 0 else { return }
         
-        let report = Report(githubUsername: reportView.githubUsernameTF.text,
-                            summary: title,
-                            body: body,
-                            image: screenshot)
-        
-        state = .loading(UIActivityIndicatorView(activityIndicatorStyle: .gray))
-        report.send(with: config) { success in
-            if success {
-                Bugger.state = .watching(self.config)
-            } else {
-                let alert = UIAlertController(title: "Error", message: "Your feedback could not be reported", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
-                self.present(alert, animated: true, completion: nil)
+        do {
+            let report = try Report(githubUsername: reportView.githubUsernameTF.text,
+                                  summary: reportView.summaryTF.text,
+                                  body: reportView.bodyTV.text,
+                                  image: screenshot)
+            
+            state = .loading(UIActivityIndicatorView(activityIndicatorStyle: .gray))
+            report.send(with: config) { success in
+                if success {
+                    Bugger.state = .watching(self.config)
+                } else {
+                    let alert = UIAlertController(title: "Error", message: "Your feedback could not be reported", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
             }
+        } catch let error {
+            let alert = UIAlertController(title: "Error", message: error.errorMessage, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
+            present(alert, animated: true, completion: nil)
         }
+    }
+}
+
+extension Error {
+    var errorMessage: String {
+        if let stringConvertable = self as? UserError {
+            return stringConvertable.userErrorMessage
+        }
+        return "Unknown error 😕"
     }
 }
 
