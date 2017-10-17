@@ -126,6 +126,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AFA00A761F95E9570065A79E /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AFA1B7E41F7A3BEA001589F4 /* Bugger.h */,
+				AFA1B7E51F7A3BEA001589F4 /* Info.plist */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AFA00A781F95E9E50065A79E /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				AFCD7CC81F926D7300D7B02C /* Annotation */,
+				AFCD7CCD1F926DBB00D7B02C /* Report */,
+			);
+			path = "View Controllers";
+			sourceTree = "<group>";
+		};
 		AFA1B7D71F7A3BEA001589F4 = {
 			isa = PBXGroup;
 			children = (
@@ -149,20 +167,18 @@
 		AFA1B7E31F7A3BEA001589F4 /* Bugger */ = {
 			isa = PBXGroup;
 			children = (
-				AFA1B7E41F7A3BEA001589F4 /* Bugger.h */,
-				AFA1B7E51F7A3BEA001589F4 /* Info.plist */,
 				AFA1B7EC1F7A3BF1001589F4 /* Bugger.swift */,
 				AFCD7CD21F926EAD00D7B02C /* BuggerConfig.swift */,
 				AFCD7CD41F926ECD00D7B02C /* BuggerDelegate.swift */,
 				AFCD7CD61F926EEF00D7B02C /* BuggerState.swift */,
-				AFCD7CD81F926F6900D7B02C /* Store.swift */,
-				AFCD7CD01F926E9500D7B02C /* Report.swift */,
 				AFA00A741F95E6570065A79E /* Error.swift */,
+				AFA00A721F93D3510065A79E /* PlaceholderTextView.swift */,
+				AFCD7CD01F926E9500D7B02C /* Report.swift */,
+				AFCD7CD81F926F6900D7B02C /* Store.swift */,
 				AFCD7CC41F926CD100D7B02C /* UIResponderSwizzling.swift */,
 				AFA00A701F93A2070065A79E /* UITouchExtensions.swift */,
-				AFA00A721F93D3510065A79E /* PlaceholderTextView.swift */,
-				AFCD7CC81F926D7300D7B02C /* Annotation */,
-				AFCD7CCD1F926DBB00D7B02C /* Report */,
+				AFA00A761F95E9570065A79E /* Supporting Files */,
+				AFA00A781F95E9E50065A79E /* View Controllers */,
 			);
 			path = Bugger;
 			sourceTree = "<group>";
