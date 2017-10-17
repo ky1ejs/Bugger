@@ -80,13 +80,20 @@ class ReportViewController: UIViewController {
             
             state = .loading(UIActivityIndicatorView(activityIndicatorStyle: .gray))
             report.send(with: config) { success in
+                let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
                 if success {
-                    Bugger.state = .watching(self.config)
+                    self.state = .editing
+                    alert.title = "Thank you! 🎉"
+                    alert.message = "We've received your feedback and will review it soon!"
+                    alert.addAction(UIAlertAction(title: "☺️", style: .cancel, handler: { _ in
+                        Bugger.state = .watching(self.config)
+                    }))
                 } else {
-                    let alert = UIAlertController(title: "Error", message: "Your feedback could not be reported", preferredStyle: .alert)
+                    alert.title = "Error ☹️"
+                    alert.message = "Your feedback could not be reported"
                     alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
                 }
+                self.present(alert, animated: true, completion: nil)
             }
         } catch let error {
             let alert = UIAlertController(title: "Error", message: error.errorMessage, preferredStyle: .alert)
