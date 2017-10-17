@@ -96,15 +96,6 @@ class ReportViewController: UIViewController {
     }
 }
 
-extension Error {
-    var errorMessage: String {
-        if let stringConvertable = self as? UserError {
-            return stringConvertable.userErrorMessage
-        }
-        return "Unknown error 😕"
-    }
-}
-
 enum ReportViewControllerState {
     case editing
     case loading(UIActivityIndicatorView)

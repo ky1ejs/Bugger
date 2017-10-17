@@ -8,26 +8,6 @@
 
 import UIKit
 
-protocol UserError {
-    var userErrorMessage: String { get }
-}
-
-enum ReportValidationError: Error {
-    case summaryLength
-    case bodyLength
-    case summaryAndbodyLength
-}
-
-extension ReportValidationError: UserError {
-    var userErrorMessage: String {
-        switch self {
-        case .summaryLength: return "Summary required"
-        case .bodyLength: return "Description required"
-        case .summaryAndbodyLength: return "Summary and Description required"
-        }
-    }
-}
-
 struct Report {
     let githubUsername: String?
     let summary: String
@@ -103,5 +83,21 @@ struct Report {
             
         })
         task.resume()
+    }
+}
+
+enum ReportValidationError: Error {
+    case summaryLength
+    case bodyLength
+    case summaryAndbodyLength
+}
+
+extension ReportValidationError: UserError {
+    var userErrorMessage: String {
+        switch self {
+        case .summaryLength: return "Summary required"
+        case .bodyLength: return "Description required"
+        case .summaryAndbodyLength: return "Summary and Description required"
+        }
     }
 }

@@ -13,6 +13,7 @@
 		AFA00A6F1F93922D0065A79E /* ColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA00A6E1F93922D0065A79E /* ColorButton.swift */; };
 		AFA00A711F93A2070065A79E /* UITouchExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA00A701F93A2070065A79E /* UITouchExtensions.swift */; };
 		AFA00A731F93D3510065A79E /* PlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA00A721F93D3510065A79E /* PlaceholderTextView.swift */; };
+		AFA00A751F95E6570065A79E /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA00A741F95E6570065A79E /* Error.swift */; };
 		AFA1B7E61F7A3BEA001589F4 /* Bugger.h in Headers */ = {isa = PBXBuildFile; fileRef = AFA1B7E41F7A3BEA001589F4 /* Bugger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AFA1B7ED1F7A3BF1001589F4 /* Bugger.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA1B7EC1F7A3BF1001589F4 /* Bugger.swift */; };
 		AFCD7CAF1F920EDC00D7B02C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CAE1F920EDC00D7B02C /* AppDelegate.swift */; };
@@ -68,6 +69,7 @@
 		AFA00A6E1F93922D0065A79E /* ColorButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorButton.swift; sourceTree = "<group>"; };
 		AFA00A701F93A2070065A79E /* UITouchExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITouchExtensions.swift; sourceTree = "<group>"; };
 		AFA00A721F93D3510065A79E /* PlaceholderTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderTextView.swift; sourceTree = "<group>"; };
+		AFA00A741F95E6570065A79E /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
 		AFA1B7E11F7A3BEA001589F4 /* Bugger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bugger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFA1B7E41F7A3BEA001589F4 /* Bugger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bugger.h; sourceTree = "<group>"; };
 		AFA1B7E51F7A3BEA001589F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 				AFCD7CD61F926EEF00D7B02C /* BuggerState.swift */,
 				AFCD7CD81F926F6900D7B02C /* Store.swift */,
 				AFCD7CD01F926E9500D7B02C /* Report.swift */,
+				AFA00A741F95E6570065A79E /* Error.swift */,
 				AFCD7CC41F926CD100D7B02C /* UIResponderSwizzling.swift */,
 				AFA00A701F93A2070065A79E /* UITouchExtensions.swift */,
 				AFA00A721F93D3510065A79E /* PlaceholderTextView.swift */,
@@ -400,6 +403,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFA00A751F95E6570065A79E /* Error.swift in Sources */,
 				AFCD7CC71F926D6600D7B02C /* AnnotationViewController.swift in Sources */,
 				AFCD7CD71F926EEF00D7B02C /* BuggerState.swift in Sources */,
 				AFCD7CD91F926F6900D7B02C /* Store.swift in Sources */,
