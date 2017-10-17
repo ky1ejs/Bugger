@@ -43,7 +43,7 @@ class PlaceholderTextView: UITextView {
     }
     
     func showOrHidePlaceholder() {
-        placeholderLabel.alpha = text.count == 0 ? 1 : 1
+        placeholderLabel.alpha = text.count == 0 ? 1 : 0
     }
     
     override func layoutSubviews() {
