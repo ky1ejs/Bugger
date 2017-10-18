@@ -14,6 +14,8 @@
 		AFA00A711F93A2070065A79E /* UITouchExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA00A701F93A2070065A79E /* UITouchExtensions.swift */; };
 		AFA00A731F93D3510065A79E /* PlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA00A721F93D3510065A79E /* PlaceholderTextView.swift */; };
 		AFA00A751F95E6570065A79E /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA00A741F95E6570065A79E /* Error.swift */; };
+		AFA00A801F97D0050065A79E /* BuggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA00A7F1F97D0050065A79E /* BuggerTests.swift */; };
+		AFA00A821F97D0050065A79E /* Bugger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFA1B7E11F7A3BEA001589F4 /* Bugger.framework */; };
 		AFA1B7E61F7A3BEA001589F4 /* Bugger.h in Headers */ = {isa = PBXBuildFile; fileRef = AFA1B7E41F7A3BEA001589F4 /* Bugger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AFA1B7ED1F7A3BF1001589F4 /* Bugger.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA1B7EC1F7A3BF1001589F4 /* Bugger.swift */; };
 		AFCD7CAF1F920EDC00D7B02C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CAE1F920EDC00D7B02C /* AppDelegate.swift */; };
@@ -39,6 +41,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		AFA00A831F97D0050065A79E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AFA1B7D81F7A3BEA001589F4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AFA1B7E01F7A3BEA001589F4;
+			remoteInfo = Bugger;
+		};
 		AFCD7CBE1F920F6600D7B02C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AFA1B7D81F7A3BEA001589F4 /* Project object */;
@@ -70,6 +79,9 @@
 		AFA00A701F93A2070065A79E /* UITouchExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITouchExtensions.swift; sourceTree = "<group>"; };
 		AFA00A721F93D3510065A79E /* PlaceholderTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderTextView.swift; sourceTree = "<group>"; };
 		AFA00A741F95E6570065A79E /* Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Error.swift; sourceTree = "<group>"; };
+		AFA00A7D1F97D0050065A79E /* BuggerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BuggerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AFA00A7F1F97D0050065A79E /* BuggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerTests.swift; sourceTree = "<group>"; };
+		AFA00A811F97D0050065A79E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AFA1B7E11F7A3BEA001589F4 /* Bugger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bugger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFA1B7E41F7A3BEA001589F4 /* Bugger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bugger.h; sourceTree = "<group>"; };
 		AFA1B7E51F7A3BEA001589F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -99,6 +111,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		AFA00A7A1F97D0050065A79E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AFA00A821F97D0050065A79E /* Bugger.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AFA1B7DD1F7A3BEA001589F4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -144,10 +164,20 @@
 			path = "View Controllers";
 			sourceTree = "<group>";
 		};
+		AFA00A7E1F97D0050065A79E /* BuggerTests */ = {
+			isa = PBXGroup;
+			children = (
+				AFA00A7F1F97D0050065A79E /* BuggerTests.swift */,
+				AFA00A811F97D0050065A79E /* Info.plist */,
+			);
+			path = BuggerTests;
+			sourceTree = "<group>";
+		};
 		AFA1B7D71F7A3BEA001589F4 = {
 			isa = PBXGroup;
 			children = (
 				AFA1B7E31F7A3BEA001589F4 /* Bugger */,
+				AFA00A7E1F97D0050065A79E /* BuggerTests */,
 				AFCD7CE01F927BAB00D7B02C /* BuggerImgurStore */,
 				AFCD7CAD1F920EDC00D7B02C /* BuggerExample */,
 				AFA1B7E21F7A3BEA001589F4 /* Products */,
@@ -160,6 +190,7 @@
 				AFA1B7E11F7A3BEA001589F4 /* Bugger.framework */,
 				AFCD7CAC1F920EDC00D7B02C /* BuggerExample.app */,
 				AFCD7CDF1F927BAB00D7B02C /* BuggerImgurStore.framework */,
+				AFA00A7D1F97D0050065A79E /* BuggerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -251,6 +282,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		AFA00A7C1F97D0050065A79E /* BuggerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AFA00A851F97D0050065A79E /* Build configuration list for PBXNativeTarget "BuggerTests" */;
+			buildPhases = (
+				AFA00A791F97D0050065A79E /* Sources */,
+				AFA00A7A1F97D0050065A79E /* Frameworks */,
+				AFA00A7B1F97D0050065A79E /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AFA00A841F97D0050065A79E /* PBXTargetDependency */,
+			);
+			name = BuggerTests;
+			productName = BuggerTests;
+			productReference = AFA00A7D1F97D0050065A79E /* BuggerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		AFA1B7E01F7A3BEA001589F4 /* Bugger */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = AFA1B7E91F7A3BEA001589F4 /* Build configuration list for PBXNativeTarget "Bugger" */;
@@ -319,6 +368,10 @@
 				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Kyle McAlpine";
 				TargetAttributes = {
+					AFA00A7C1F97D0050065A79E = {
+						CreatedOnToolsVersion = 9.0;
+						ProvisioningStyle = Automatic;
+					};
 					AFA1B7E01F7A3BEA001589F4 = {
 						CreatedOnToolsVersion = 9.0;
 						LastSwiftMigration = 0900;
@@ -351,11 +404,19 @@
 				AFA1B7E01F7A3BEA001589F4 /* Bugger */,
 				AFCD7CDE1F927BAB00D7B02C /* BuggerImgurStore */,
 				AFCD7CAB1F920EDC00D7B02C /* BuggerExample */,
+				AFA00A7C1F97D0050065A79E /* BuggerTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		AFA00A7B1F97D0050065A79E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AFA1B7DF1F7A3BEA001589F4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -415,6 +476,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		AFA00A791F97D0050065A79E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AFA00A801F97D0050065A79E /* BuggerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AFA1B7DC1F7A3BEA001589F4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -460,6 +529,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		AFA00A841F97D0050065A79E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AFA1B7E01F7A3BEA001589F4 /* Bugger */;
+			targetProxy = AFA00A831F97D0050065A79E /* PBXContainerItemProxy */;
+		};
 		AFCD7CBF1F920F6600D7B02C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = AFA1B7E01F7A3BEA001589F4 /* Bugger */;
@@ -497,6 +571,32 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		AFA00A861F97D0050065A79E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = BuggerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.kylejm.BuggerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AFA00A871F97D0050065A79E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = BuggerTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = io.kylejm.BuggerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		AFA1B7E71F7A3BEA001589F4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -620,7 +720,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Bugger/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Bugger/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.kylejm.Bugger;
@@ -642,7 +742,7 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = Bugger/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/Bugger/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = io.kylejm.Bugger;
@@ -735,6 +835,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		AFA00A851F97D0050065A79E /* Build configuration list for PBXNativeTarget "BuggerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AFA00A861F97D0050065A79E /* Debug */,
+				AFA00A871F97D0050065A79E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		AFA1B7DB1F7A3BEA001589F4 /* Build configuration list for PBXProject "Bugger" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
