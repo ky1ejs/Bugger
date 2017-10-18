@@ -28,7 +28,7 @@ extension BuggerImgurStore: ImageStore {
         
         let task = URLSession.shared.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
             if let error = error {
-                completion(.failure(error))
+                completion(.error(error))
             } else {
 //                guard let response = response as? HTTPURLResponse else { return }
                 guard let data = data else { return }

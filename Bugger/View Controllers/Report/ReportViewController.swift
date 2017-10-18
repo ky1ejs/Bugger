@@ -79,18 +79,19 @@ class ReportViewController: UIViewController {
                                   image: screenshot)
             
             state = .loading(UIActivityIndicatorView(activityIndicatorStyle: .gray))
-            report.send(with: config) { success in
+            report.send(with: config) { result in
                 let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
-                if success {
+                switch result {
+                case .success(let url):
                     self.state = .editing
                     alert.title = "Thank you! 🎉"
-                    alert.message = "We've received your feedback and will review it soon!"
+                    alert.message = "We've received your feedback and will review it soon!\n\n\(url)"
                     alert.addAction(UIAlertAction(title: "☺️", style: .cancel, handler: { _ in
                         Bugger.state = .watching(self.config)
                     }))
-                } else {
+                case .error(let error):
                     alert.title = "Error ☹️"
-                    alert.message = "Your feedback could not be reported"
+                    alert.message = error.errorMessage
                     alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
                 }
                 self.present(alert, animated: true, completion: nil)

@@ -15,7 +15,6 @@ struct Report {
     let image: UIImage
     
     init(githubUsername: String?, summary: String?, body: String?, image: UIImage) throws {
-        
         let summaryCount = summary?.count ?? 0
         let bodyCount = body?.count ?? 0
         
@@ -34,37 +33,38 @@ struct Report {
         self.image = image
     }
     
-    func send(with config: BuggerConfig, completion: @escaping (Bool) -> ()) {
+    func send(with config: BuggerConfig, completion: @escaping (UploadResult) -> ()) {
         uploadImage(config: config) { url in
             self.createGitHubIssue(config: config, imageURL: url, completion: completion)
         }
     }
     
-    func uploadImage(config: BuggerConfig, successHandler: @escaping (URL) -> ()) {
+    private func uploadImage(config: BuggerConfig, successHandler: @escaping (URL) -> ()) {
         config.store.imageStore.uploadImage(image: image) { result in
             switch result {
             case .success(let url):
                 successHandler(url)
-            case .failure:
+            case .error:
                 break
             }
         }
     }
     
-    func createGitHubIssue(config: BuggerConfig, imageURL: URL, completion: @escaping (Bool) -> ()) {
+    private func createGitHubIssue(config: BuggerConfig, imageURL: URL, completion: @escaping (UploadResult) -> ()) {
         let issueData =  [
             "title": summary,
             "body":
             """
             Reporter: @\(githubUsername ?? "")
             
+            ## Description
+            \(body)
+            
             ---
             
             ![](\(imageURL.absoluteString))
             
             ---
-            
-            \(body)
             """
         ]
         
@@ -76,11 +76,14 @@ struct Report {
         request.httpBody = jsonData
         
         let task = URLSession.shared.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
-            let success = (response as? HTTPURLResponse)?.statusCode ?? 0 == 201
-            completion(success)
-//            guard let data = data else { return }
-//            guard let json = try! JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] else { return }
+            var result: UploadResult = .error(BuggerError.unknown)
+            defer { DispatchQueue.main.async { completion(result) } }
             
+            guard let data = data else { return }
+            guard let json = try! JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] else { return }
+            guard let issueUrlString = json["html_url"] as? String else { return }
+            guard let issueUrl = URL(string: issueUrlString) else { return }
+            result = .success(issueUrl)
         })
         task.resume()
     }
@@ -91,6 +94,11 @@ enum ReportValidationError: Error {
     case bodyLength
     case summaryAndbodyLength
 }
+
+enum BuggerError: Error {
+    case unknown
+}
+
 
 extension ReportValidationError: UserError {
     var userErrorMessage: String {

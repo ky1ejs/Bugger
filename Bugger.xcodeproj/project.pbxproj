@@ -16,6 +16,7 @@
 		AFA00A751F95E6570065A79E /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA00A741F95E6570065A79E /* Error.swift */; };
 		AFA00A801F97D0050065A79E /* BuggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA00A7F1F97D0050065A79E /* BuggerTests.swift */; };
 		AFA00A821F97D0050065A79E /* Bugger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFA1B7E11F7A3BEA001589F4 /* Bugger.framework */; };
+		AFA00A8B1F97D18C0065A79E /* UploadResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA00A8A1F97D18C0065A79E /* UploadResult.swift */; };
 		AFA1B7E61F7A3BEA001589F4 /* Bugger.h in Headers */ = {isa = PBXBuildFile; fileRef = AFA1B7E41F7A3BEA001589F4 /* Bugger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AFA1B7ED1F7A3BF1001589F4 /* Bugger.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA1B7EC1F7A3BF1001589F4 /* Bugger.swift */; };
 		AFCD7CAF1F920EDC00D7B02C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CAE1F920EDC00D7B02C /* AppDelegate.swift */; };
@@ -82,6 +83,7 @@
 		AFA00A7D1F97D0050065A79E /* BuggerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BuggerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFA00A7F1F97D0050065A79E /* BuggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerTests.swift; sourceTree = "<group>"; };
 		AFA00A811F97D0050065A79E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AFA00A8A1F97D18C0065A79E /* UploadResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadResult.swift; sourceTree = "<group>"; };
 		AFA1B7E11F7A3BEA001589F4 /* Bugger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Bugger.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFA1B7E41F7A3BEA001589F4 /* Bugger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bugger.h; sourceTree = "<group>"; };
 		AFA1B7E51F7A3BEA001589F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -206,6 +208,7 @@
 				AFA00A721F93D3510065A79E /* PlaceholderTextView.swift */,
 				AFCD7CD01F926E9500D7B02C /* Report.swift */,
 				AFCD7CD81F926F6900D7B02C /* Store.swift */,
+				AFA00A8A1F97D18C0065A79E /* UploadResult.swift */,
 				AFCD7CC41F926CD100D7B02C /* UIResponderSwizzling.swift */,
 				AFA00A701F93A2070065A79E /* UITouchExtensions.swift */,
 				AFA00A761F95E9570065A79E /* Supporting Files */,
@@ -489,6 +492,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AFA00A751F95E6570065A79E /* Error.swift in Sources */,
+				AFA00A8B1F97D18C0065A79E /* UploadResult.swift in Sources */,
 				AFCD7CC71F926D6600D7B02C /* AnnotationViewController.swift in Sources */,
 				AFCD7CD71F926EEF00D7B02C /* BuggerState.swift in Sources */,
 				AFCD7CD91F926F6900D7B02C /* Store.swift in Sources */,

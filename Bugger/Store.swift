@@ -27,8 +27,3 @@ public protocol ImageStore {
 public protocol VideoStore {
     func uploadImage(videoData: Data, completion: @escaping (UploadResult) -> ())
 }
-
-public enum UploadResult {
-    case success(URL)
-    case failure(Error)
-}
