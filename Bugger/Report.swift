@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SystemConfiguration.CaptiveNetwork
 
 struct Report {
     let githubUsername: String?
@@ -33,6 +34,122 @@ struct Report {
         self.image = image
     }
     
+    func formattedBody(with imageURL: URL) -> String {
+        let bundleInfo          = Bundle.main.infoDictionary
+        let device              = UIDevice.current
+        let locale              = Locale.current.description
+        let screenSize          = UIScreen.main.bounds.size
+        
+        let orientation: String = {
+            switch device.orientation {
+            case .landscapeLeft: return "Landscape Left"
+            case .landscapeRight: return "Landscape Right"
+            case .portrait: return "Portrait"
+            case .portraitUpsideDown: return "Portrait Upside Down"
+            case .faceDown: return "Face Down"
+            case .faceUp: return "Face Up"
+            case .unknown: return "Unknown"
+            }
+        }()
+        
+        let batteryState: String = {
+            switch device.batteryState {
+            case .charging: return "Charging"
+            case .full: return "Full"
+            case .unknown: return "Unknown"
+            case .unplugged: return "Unplugged"
+            }
+        }()
+        
+        typealias CellData = (key: String, value: String)
+        
+        let meta: [CellData] = [
+            (key: "Bundle ID",              value: bundleInfo?[String(kCFBundleIdentifierKey)] as? String ?? ""),
+            (key: "Version",                value: bundleInfo?["CFBundleShortVersionString"] as? String ?? ""),
+            (key: "Build",                  value: bundleInfo?[String(kCFBundleVersionKey)] as? String ?? ""),
+            (key: "OS",                     value: device.systemName),
+            (key: "OS Version",             value: device.systemVersion),
+            (key: "Device Model",           value: device.model),
+            (key: "Device Orientation",     value: orientation),
+            (key: "Device Locale",          value: locale),
+            (key: "Device Date",            value: String(describing: Date())),
+            (key: "Battery Charge",         value: "\(device.batteryLevel)%"),
+            (key: "Battery State",          value: batteryState),
+            (key: "Screen Size",            value: "\(screenSize.width) x \(screenSize.height)"),
+            (key: "Screen Density",         value: "\(UIScreen.main.scale)")
+        ]
+        
+        // Does not work on the simulator.
+        let ssid: String? = {
+            guard let supportedInterfaces = CNCopySupportedInterfaces() as? [CFString]      else { return nil }
+            guard let interface = supportedInterfaces.first                                 else { return nil }
+            guard let unsafeInterfaceData = CNCopyCurrentNetworkInfo(interface)             else { return nil }
+            guard let interfaceData = unsafeInterfaceData as? Dictionary <String,AnyObject> else { return nil }
+            return interfaceData["SSID"] as? String
+        }()
+        print(ssid)
+        
+        //        activeViewController
+        //        location
+        //
+        //        mobileNetworkName
+        //        mobileNetworkDataConnection
+        //        memoryCapacityRemaining
+        //        memoryCapacity
+        //        hardDriveCapacityRemaning
+        //        hardDriveCapacity
+        
+        let itemsPerRow = 3
+        var tableData = [[CellData]]()
+        
+        var row = [CellData]()
+        for i in 0..<meta.count {
+            let cell = meta[i]
+            row.append(cell)
+            
+            if (i + 1) % itemsPerRow == 0 || i == meta.count - 1 {
+                tableData.append(row)
+                row = [CellData]()
+            }
+        }
+        
+        var body = """
+        Reporter: @\(githubUsername ?? "")
+        
+        <table>
+        """
+        
+        for row in tableData {
+            body += """
+            
+            <tr>
+            """
+            for cell in row {
+                body += """
+                
+                <th>\(cell.key)</th><td>\(cell.value)</td>
+                """
+            }
+            
+            body += """
+            
+            </tr>
+            """
+        }
+        
+        body += """
+        </table>
+        
+        ## Description
+        \(self.body)
+        
+        ## Screenshot(s)
+        ![](\(imageURL.absoluteString))
+        """
+        
+        return body
+    }
+    
     func send(with config: BuggerConfig, completion: @escaping (UploadResult) -> ()) {
         uploadImage(config: config) { url in
             self.createGitHubIssue(config: config, imageURL: url, completion: completion)
@@ -51,22 +168,7 @@ struct Report {
     }
     
     private func createGitHubIssue(config: BuggerConfig, imageURL: URL, completion: @escaping (UploadResult) -> ()) {
-        let issueData =  [
-            "title": summary,
-            "body":
-            """
-            Reporter: @\(githubUsername ?? "")
-            
-            ## Description
-            \(body)
-            
-            ---
-            
-            ![](\(imageURL.absoluteString))
-            
-            ---
-            """
-        ]
+        let issueData =  [ "title": summary, "body": formattedBody(with: imageURL) ]
         
         let jsonData = try! JSONSerialization.data(withJSONObject: issueData, options: [])
         

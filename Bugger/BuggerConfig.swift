@@ -14,6 +14,7 @@ public struct BuggerConfig {
     let repo: String
     let store: Store
     let swizzleInvocation: Bool
+    var customReportData = [String : String]()
     
     public init(token: String, owner: String, repo: String, store: Store, swizzleInvocation: Bool = true) {
         self.token = token
