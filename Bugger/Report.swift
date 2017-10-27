@@ -87,7 +87,6 @@ struct Report {
             guard let interfaceData = unsafeInterfaceData as? Dictionary <String,AnyObject> else { return nil }
             return interfaceData["SSID"] as? String
         }()
-        print(ssid)
         
         //        activeViewController
         //        location
