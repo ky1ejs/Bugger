@@ -22,7 +22,7 @@ class ReportTests: XCTestCase {
     }
     
     func testExample() {
-        let report = try! Report(githubUsername: "test", summary: "test", body: "test", image: UIImage())
+        let report = try! Report(githubUsername: "test", summary: "test", body: "test", appWindow: UIWindow(), screenshot: UIImage())
         print(report.formattedBody(with: URL(string: "https://test.com")!))
     }
     
