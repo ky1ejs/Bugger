@@ -10,5 +10,5 @@ import Foundation
 
 public enum UploadResult {
     case success(URL)
-    case error(Error)
+    case error(BuggerError)
 }

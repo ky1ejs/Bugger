@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF219C211FA5F4D4004C7E1A /* BuggerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF219C201FA5F4D4004C7E1A /* BuggerError.swift */; };
 		AFA00A681F92C75D0065A79E /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFA00A671F92C75A0065A79E /* OHHTTPStubs.framework */; };
 		AFA00A6A1F92C7970065A79E /* BuggerStubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA00A691F92C7970065A79E /* BuggerStubs.swift */; };
 		AFA00A6D1F9392120065A79E /* AnnotationControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA00A6C1F9392120065A79E /* AnnotationControlView.swift */; };
@@ -102,6 +103,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AF219C201FA5F4D4004C7E1A /* BuggerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerError.swift; sourceTree = "<group>"; };
 		AFA00A671F92C75A0065A79E /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = SOURCE_ROOT; };
 		AFA00A691F92C7970065A79E /* BuggerStubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerStubs.swift; sourceTree = "<group>"; };
 		AFA00A6C1F9392120065A79E /* AnnotationControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationControlView.swift; sourceTree = "<group>"; };
@@ -249,17 +251,18 @@
 				AFA1B7EC1F7A3BF1001589F4 /* Bugger.swift */,
 				AFCD7CD21F926EAD00D7B02C /* BuggerConfig.swift */,
 				AFCD7CD41F926ECD00D7B02C /* BuggerDelegate.swift */,
+				AF219C201FA5F4D4004C7E1A /* BuggerError.swift */,
 				AFCD7CD61F926EEF00D7B02C /* BuggerState.swift */,
+				AFF61CF71FA3DE54006D6209 /* Device.swift */,
 				AFA00A741F95E6570065A79E /* Error.swift */,
 				AFA00A721F93D3510065A79E /* PlaceholderTextView.swift */,
 				AFCD7CD01F926E9500D7B02C /* Report.swift */,
-				AFF61CF71FA3DE54006D6209 /* Device.swift */,
 				AFCD7CD81F926F6900D7B02C /* Store.swift */,
-				AFA00A8A1F97D18C0065A79E /* UploadResult.swift */,
 				AFCD7CC41F926CD100D7B02C /* UIResponderSwizzling.swift */,
 				AFA00A701F93A2070065A79E /* UITouchExtensions.swift */,
-				AFF61CF91FA47B99006D6209 /* UIWindowExtensions.swift */,
 				AFF61CFD1FA5E035006D6209 /* UIViewExtensions.swift */,
+				AFF61CF91FA47B99006D6209 /* UIWindowExtensions.swift */,
+				AFA00A8A1F97D18C0065A79E /* UploadResult.swift */,
 				AFA00A761F95E9570065A79E /* Supporting Files */,
 				AFA00A781F95E9E50065A79E /* View Controllers */,
 			);
@@ -597,6 +600,7 @@
 				AFCD7CCC1F926DAB00D7B02C /* ReportViewController.swift in Sources */,
 				AFA00A731F93D3510065A79E /* PlaceholderTextView.swift in Sources */,
 				AFA00A6F1F93922D0065A79E /* ColorButton.swift in Sources */,
+				AF219C211FA5F4D4004C7E1A /* BuggerError.swift in Sources */,
 				AFA1B7ED1F7A3BF1001589F4 /* Bugger.swift in Sources */,
 				AFA00A6D1F9392120065A79E /* AnnotationControlView.swift in Sources */,
 				AFCD7CD31F926EAD00D7B02C /* BuggerConfig.swift in Sources */,

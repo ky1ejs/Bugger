@@ -27,12 +27,12 @@ extension BuggerImgurStore: ImageStore {
         request.httpBody = data.base64EncodedString().data(using: .utf8, allowLossyConversion: true)
         
         let task = URLSession.shared.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
-            var result = UploadResult.error(NSError())
+            var result = UploadResult.error(GeneralError.unknown)
             
             defer { DispatchQueue.main.async { completion(result) } }
             
             if let error = error {
-                completion(.error(error))
+                completion(.error(NetworkError.requestError(error: error)))
             } else {
                 do {
                     guard let data = data else { return }
@@ -42,7 +42,7 @@ extension BuggerImgurStore: ImageStore {
                     guard let url = URL(string: urlString) else { return }
                     result = .success(url)
                 } catch let error {
-                    result = .error(error)
+                    result = .error(SerialisationError.error(error))
                 }
             }
         })

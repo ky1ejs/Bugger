@@ -121,7 +121,7 @@ struct Report {
         request.httpBody = jsonData
         
         let task = URLSession.shared.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
-            var result: UploadResult = .error(BuggerError.unknown)
+            var result: UploadResult = .error(GeneralError.unknown)
             defer { DispatchQueue.main.async { completion(result) } }
             
             guard let data = data else { return }
@@ -139,11 +139,6 @@ enum ReportValidationError: Error {
     case bodyLength
     case summaryAndbodyLength
 }
-
-enum BuggerError: Error {
-    case unknown
-}
-
 
 extension ReportValidationError: UserError {
     var userErrorMessage: String {
