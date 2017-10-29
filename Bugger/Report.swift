@@ -8,14 +8,16 @@
 
 import UIKit
 import SystemConfiguration.CaptiveNetwork
+import CoreTelephony
 
 struct Report {
     let githubUsername: String?
     let summary: String
     let body: String
-    let image: UIImage
+    let screenshot: UIImage
+    let appWindow: UIWindow
     
-    init(githubUsername: String?, summary: String?, body: String?, image: UIImage) throws {
+    init(githubUsername: String?, summary: String?, body: String?, appWindow: UIWindow, screenshot: UIImage) throws {
         let summaryCount = summary?.count ?? 0
         let bodyCount = body?.count ?? 0
         
@@ -31,84 +33,26 @@ struct Report {
         self.githubUsername = githubUsername
         self.summary = summary
         self.body = body
-        self.image = image
+        self.screenshot = screenshot
+        self.appWindow = appWindow
     }
     
     func formattedBody(with imageURL: URL) -> String {
-        let bundleInfo          = Bundle.main.infoDictionary
-        let device              = UIDevice.current
-        let locale              = Locale.current.description
-        let screenSize          = UIScreen.main.bounds.size
-        
-        let orientation: String = {
-            switch device.orientation {
-            case .landscapeLeft: return "Landscape Left"
-            case .landscapeRight: return "Landscape Right"
-            case .portrait: return "Portrait"
-            case .portraitUpsideDown: return "Portrait Upside Down"
-            case .faceDown: return "Face Down"
-            case .faceUp: return "Face Up"
-            case .unknown: return "Unknown"
-            }
-        }()
-        
-        let batteryState: String = {
-            switch device.batteryState {
-            case .charging: return "Charging"
-            case .full: return "Full"
-            case .unknown: return "Unknown"
-            case .unplugged: return "Unplugged"
-            }
-        }()
-        
-        typealias CellData = (key: String, value: String)
-        
-        let meta: [CellData] = [
-            (key: "Bundle ID",              value: bundleInfo?[String(kCFBundleIdentifierKey)] as? String ?? ""),
-            (key: "Version",                value: bundleInfo?["CFBundleShortVersionString"] as? String ?? ""),
-            (key: "Build",                  value: bundleInfo?[String(kCFBundleVersionKey)] as? String ?? ""),
-            (key: "OS",                     value: device.systemName),
-            (key: "OS Version",             value: device.systemVersion),
-            (key: "Device Model",           value: device.model),
-            (key: "Device Orientation",     value: orientation),
-            (key: "Device Locale",          value: locale),
-            (key: "Device Date",            value: String(describing: Date())),
-            (key: "Battery Charge",         value: "\(device.batteryLevel)%"),
-            (key: "Battery State",          value: batteryState),
-            (key: "Screen Size",            value: "\(screenSize.width) x \(screenSize.height)"),
-            (key: "Screen Density",         value: "\(UIScreen.main.scale)")
-        ]
-        
-        // Does not work on the simulator.
-        let ssid: String? = {
-            guard let supportedInterfaces = CNCopySupportedInterfaces() as? [CFString]      else { return nil }
-            guard let interface = supportedInterfaces.first                                 else { return nil }
-            guard let unsafeInterfaceData = CNCopyCurrentNetworkInfo(interface)             else { return nil }
-            guard let interfaceData = unsafeInterfaceData as? Dictionary <String,AnyObject> else { return nil }
-            return interfaceData["SSID"] as? String
-        }()
-        
-        //        activeViewController
-        //        location
-        //
-        //        mobileNetworkName
-        //        mobileNetworkDataConnection
-        //        memoryCapacityRemaining
-        //        memoryCapacity
-        //        hardDriveCapacityRemaning
-        //        hardDriveCapacity
-        
         let itemsPerRow = 3
-        var tableData = [[CellData]]()
+        var tableData = [[KeyValue]]()
         
-        var row = [CellData]()
+        var meta = Device.meta
+        meta.append((key: "Top View Controller", value: appWindow.topViewController()))
+        
+        
+        var row = [KeyValue]()
         for i in 0..<meta.count {
             let cell = meta[i]
             row.append(cell)
             
             if (i + 1) % itemsPerRow == 0 || i == meta.count - 1 {
                 tableData.append(row)
-                row = [CellData]()
+                row = [KeyValue]()
             }
         }
         
@@ -156,7 +100,7 @@ struct Report {
     }
     
     private func uploadImage(config: BuggerConfig, successHandler: @escaping (URL) -> ()) {
-        config.store.imageStore.uploadImage(image: image) { result in
+        config.store.imageStore.uploadImage(image: screenshot) { result in
             switch result {
             case .success(let url):
                 successHandler(url)

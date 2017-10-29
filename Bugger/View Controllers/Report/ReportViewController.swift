@@ -12,6 +12,8 @@ class ReportViewController: UIViewController {
     let config: BuggerConfig
     let reportView: ReportView
     let screenshot: UIImage
+    let appWindow: UIWindow
+    
     var state: ReportViewControllerState = .editing {
         didSet {
             if case .loading(let spinner) = oldValue {
@@ -46,9 +48,10 @@ class ReportViewController: UIViewController {
         }
     }
     
-    init(screenshot: UIImage, config: BuggerConfig) {
+    init(appWindow: UIWindow, screenshot: UIImage, config: BuggerConfig) {
         self.reportView = ReportView(screenshot: screenshot)
         self.config = config
+        self.appWindow = appWindow
         self.screenshot = screenshot
         super.init(nibName: nil, bundle: nil)
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Send", style: .done, target: self, action: #selector(send))
@@ -76,7 +79,8 @@ class ReportViewController: UIViewController {
             let report = try Report(githubUsername: reportView.githubUsernameTF.text,
                                   summary: reportView.summaryTF.text,
                                   body: reportView.bodyTV.text,
-                                  image: screenshot)
+                                  appWindow: appWindow,
+                                  screenshot: screenshot)
             
             state = .loading(UIActivityIndicatorView(activityIndicatorStyle: .gray))
             report.send(with: config) { result in

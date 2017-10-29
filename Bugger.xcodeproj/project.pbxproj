@@ -43,6 +43,9 @@
 		AFF61CF11FA3BE8B006D6209 /* Bugger.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AFA1B7E11F7A3BEA001589F4 /* Bugger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AFF61CF51FA3BE91006D6209 /* BuggerImgurStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFCD7CDF1F927BAB00D7B02C /* BuggerImgurStore.framework */; };
 		AFF61CF61FA3BE91006D6209 /* BuggerImgurStore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AFCD7CDF1F927BAB00D7B02C /* BuggerImgurStore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		AFF61CF81FA3DE54006D6209 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF61CF71FA3DE54006D6209 /* Device.swift */; };
+		AFF61CFA1FA47B99006D6209 /* UIWindowExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF61CF91FA47B99006D6209 /* UIWindowExtensions.swift */; };
+		AFF61CFE1FA5E035006D6209 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF61CFD1FA5E035006D6209 /* UIViewExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,6 +143,9 @@
 		AFF61CE31FA28074006D6209 /* BuggerExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BuggerExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFF61CE51FA28074006D6209 /* BuggerExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerExampleTests.swift; sourceTree = "<group>"; };
 		AFF61CE71FA28074006D6209 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AFF61CF71FA3DE54006D6209 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		AFF61CF91FA47B99006D6209 /* UIWindowExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindowExtensions.swift; sourceTree = "<group>"; };
+		AFF61CFD1FA5E035006D6209 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -247,10 +253,13 @@
 				AFA00A741F95E6570065A79E /* Error.swift */,
 				AFA00A721F93D3510065A79E /* PlaceholderTextView.swift */,
 				AFCD7CD01F926E9500D7B02C /* Report.swift */,
+				AFF61CF71FA3DE54006D6209 /* Device.swift */,
 				AFCD7CD81F926F6900D7B02C /* Store.swift */,
 				AFA00A8A1F97D18C0065A79E /* UploadResult.swift */,
 				AFCD7CC41F926CD100D7B02C /* UIResponderSwizzling.swift */,
 				AFA00A701F93A2070065A79E /* UITouchExtensions.swift */,
+				AFF61CF91FA47B99006D6209 /* UIWindowExtensions.swift */,
+				AFF61CFD1FA5E035006D6209 /* UIViewExtensions.swift */,
 				AFA00A761F95E9570065A79E /* Supporting Files */,
 				AFA00A781F95E9E50065A79E /* View Controllers */,
 			);
@@ -576,8 +585,10 @@
 				AFA00A751F95E6570065A79E /* Error.swift in Sources */,
 				AFA00A8B1F97D18C0065A79E /* UploadResult.swift in Sources */,
 				AFCD7CC71F926D6600D7B02C /* AnnotationViewController.swift in Sources */,
+				AFF61CF81FA3DE54006D6209 /* Device.swift in Sources */,
 				AFCD7CD71F926EEF00D7B02C /* BuggerState.swift in Sources */,
 				AFCD7CD91F926F6900D7B02C /* Store.swift in Sources */,
+				AFF61CFE1FA5E035006D6209 /* UIViewExtensions.swift in Sources */,
 				AFCD7CCA1F926D8600D7B02C /* AnnotationView.swift in Sources */,
 				AFCD7CD11F926E9500D7B02C /* Report.swift in Sources */,
 				AFA00A711F93A2070065A79E /* UITouchExtensions.swift in Sources */,
@@ -589,6 +600,7 @@
 				AFA1B7ED1F7A3BF1001589F4 /* Bugger.swift in Sources */,
 				AFA00A6D1F9392120065A79E /* AnnotationControlView.swift in Sources */,
 				AFCD7CD31F926EAD00D7B02C /* BuggerConfig.swift in Sources */,
+				AFF61CFA1FA47B99006D6209 /* UIWindowExtensions.swift in Sources */,
 				AFCD7CD51F926ECD00D7B02C /* BuggerDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -858,6 +870,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = W22DU5VG4U;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -877,6 +890,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = W22DU5VG4U;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",

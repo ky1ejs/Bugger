@@ -11,10 +11,12 @@ import UIKit
 class AnnotationViewController: UIViewController {
     let config: BuggerConfig
     let annotationView: AnnotationView
+    let appWindow: UIWindow
     
-    init(screenshot: UIImage, config: BuggerConfig) {
+    init(appWindow: UIWindow, config: BuggerConfig) {
         self.config = config
-        self.annotationView = AnnotationView(image: screenshot)
+        self.annotationView = AnnotationView(image: appWindow.snapshot())
+        self.appWindow = appWindow
         
         super.init(nibName: nil, bundle: nil)
         
@@ -30,7 +32,7 @@ class AnnotationViewController: UIViewController {
     override func loadView() { view = annotationView }
     
     @objc private func nextStep() {
-        let reportVC = ReportViewController(screenshot: annotationView.imageView.image!, config: config)
+        let reportVC = ReportViewController(appWindow: appWindow, screenshot: annotationView.imageView.image!, config: config)
         navigationController?.pushViewController(reportVC, animated: true)
     }
     

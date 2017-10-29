@@ -27,16 +27,23 @@ extension BuggerImgurStore: ImageStore {
         request.httpBody = data.base64EncodedString().data(using: .utf8, allowLossyConversion: true)
         
         let task = URLSession.shared.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
+            var result = UploadResult.error(NSError())
+            
+            defer { DispatchQueue.main.async { completion(result) } }
+            
             if let error = error {
                 completion(.error(error))
             } else {
-//                guard let response = response as? HTTPURLResponse else { return }
-                guard let data = data else { return }
-                guard let json = try! JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] else { return }
-                guard let imageData = json["data"] as? [String : Any] else { return }
-                guard let urlString = imageData["link"] as? String else { return }
-                guard let url = URL(string: urlString) else { return }
-                completion(.success(url))
+                do {
+                    guard let data = data else { return }
+                    guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] else { return }
+                    guard let imageData = json["data"] as? [String : Any] else { return }
+                    guard let urlString = imageData["link"] as? String else { return }
+                    guard let url = URL(string: urlString) else { return }
+                    result = .success(url)
+                } catch let error {
+                    result = .error(error)
+                }
             }
         })
         task.resume()
