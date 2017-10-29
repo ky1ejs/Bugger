@@ -1,5 +1,6 @@
+osx_image: xcode9
 language: objective-c
-xcode_project: Bugger.xcodeproj
-xcode_scheme:
-    - BuggerTests
-    - BuggerExample
+env:
+  - COMMAND="xctool -project Bugger.xcodeproj -scheme BuggerExample build test"
+  - COMMAND="xctool -project Bugger.xcodeproj -scheme Bugger test"
+script: "xctool $COMMAND"
