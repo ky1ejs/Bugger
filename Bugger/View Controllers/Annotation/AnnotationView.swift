@@ -25,7 +25,7 @@ class AnnotationView: UIView {
         
         NSLayoutConstraint.activate([
             controlView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            controlView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            controlView.bottomAnchor.constraint(equalTo: safeBottomAnchor),
             controlView.centerXAnchor.constraint(equalTo: centerXAnchor),
             controlView.heightAnchor.constraint(equalToConstant: 44)
         ])
@@ -34,11 +34,18 @@ class AnnotationView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
         
+        let insetTop: CGFloat = {
+            if #available(iOS 11.0, *) {
+                return safeAreaInsets.top
+            }
+            return 0
+        }()
+        
         // Calculate imageView frame manually because it needs a whole width and height for CGContext to generate an image
-        let imageViewHeight = bounds.height - safeAreaInsets.top - (bounds.height - controlView.frame.origin.y)
+        let imageViewHeight = bounds.height - insetTop - (bounds.height - controlView.frame.origin.y)
         let imageViewWidth = ceil(imageViewHeight * (UIScreen.main.bounds.width / UIScreen.main.bounds.height))
         let imageViewX = (bounds.width - imageViewWidth) / 2
-        let imageViewY = safeAreaInsets.top
+        let imageViewY = insetTop
         imageView.frame = CGRect(x: imageViewX, y: imageViewY, width: imageViewWidth, height: imageViewHeight)
     }
     

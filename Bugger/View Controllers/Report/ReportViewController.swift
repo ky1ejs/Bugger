@@ -68,11 +68,11 @@ class ReportViewController: KeyboardAnimationVC {
         
         reportView.translatesAutoresizingMaskIntoConstraints = false
         
-        view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: reportView.topAnchor).isActive = true
+        view.safeTopAnchor.constraint(equalTo: reportView.topAnchor).isActive = true
         view.leadingAnchor.constraint(equalTo: reportView.leadingAnchor).isActive = true
         view.trailingAnchor.constraint(equalTo: reportView.trailingAnchor).isActive = true
         
-        reportViewBottomConstraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: reportView.bottomAnchor)
+        reportViewBottomConstraint = view.safeBottomAnchor.constraint(equalTo: reportView.bottomAnchor)
         reportViewBottomConstraint?.isActive = true
     }
     
