@@ -9,8 +9,8 @@
 import UIKit
 
 class ReportView: UIView {
-    let githubUsernameTF = UITextField()
-    let summaryTF = UITextField()
+    let githubUsernameTF = ChainedTextField()
+    let summaryTF = ChainedTextField()
     let bodyTV = PlaceholderTextView()
     let screenshotPreviewImageView = UIImageView()
     
@@ -20,13 +20,24 @@ class ReportView: UIView {
         screenshotPreviewImageView.image = screenshot
         
         githubUsernameTF.translatesAutoresizingMaskIntoConstraints = false
-        summaryTF.translatesAutoresizingMaskIntoConstraints = false
-        bodyTV.translatesAutoresizingMaskIntoConstraints = false
-        screenshotPreviewImageView.translatesAutoresizingMaskIntoConstraints = false
-        
         githubUsernameTF.placeholder = "GitHub username (optional)"
+        githubUsernameTF.autocorrectionType = .no
+        githubUsernameTF.autocapitalizationType = .none
+        githubUsernameTF.spellCheckingType = .no
+        githubUsernameTF.returnKeyType = .next
+        githubUsernameTF.nextControl = summaryTF
+        
+        summaryTF.translatesAutoresizingMaskIntoConstraints = false
         summaryTF.placeholder = "Summary"
+        summaryTF.returnKeyType = .next
+        summaryTF.nextControl = bodyTV
+        summaryTF.previousControl = githubUsernameTF
+        
+        bodyTV.translatesAutoresizingMaskIntoConstraints = false
         bodyTV.placeholder = "What was wrong? What can we improve?"
+        bodyTV.returnKeyType = .send
+        
+        screenshotPreviewImageView.translatesAutoresizingMaskIntoConstraints = false
         
         addSubview(githubUsernameTF)
         addSubview(summaryTF)
