@@ -29,7 +29,26 @@
       language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "AFA00A7C1F97D0050065A79E"
+               BuildableName = "BuggerTests.xctest"
+               BlueprintName = "BuggerTests"
+               ReferencedContainer = "container:Bugger.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "AFA1B7E01F7A3BEA001589F4"
+            BuildableName = "Bugger.framework"
+            BlueprintName = "Bugger"
+            ReferencedContainer = "container:Bugger.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
