@@ -2,4 +2,4 @@ language: objective-c
 xcode_project: Bugger.xcodeproj
 xcode_scheme:
     - BuggerTests
-    - BuggerExampleTests
+    - BuggerExample
