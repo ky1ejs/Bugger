@@ -3,4 +3,4 @@ language: objective-c
 xcode_scheme:
   - Bugger
   - BuggerExample
-script: "xcodebuild -project Bugger.xcodeproj -scheme $TRAVIS_XCODE_SCHEME -destination 'platform=iOS Simulator,name=iPhone X,OS=latest' build test"
+script: "xcodebuild -project Bugger.xcodeproj -scheme $TRAVIS_XCODE_SCHEME -destination 'platform=iOS Simulator,name=iPhone X,OS=latest' build test | xcpretty"
