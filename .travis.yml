@@ -1,6 +1,6 @@
 osx_image: xcode9
 language: objective-c
-xcode_project: MyNewProject.xcodeproj
 xcode_scheme:
   - Bugger
   - BuggerExample
+script: "xcodebuild Bugger.xcodeproj -scheme $XCODE_SCHEME -destination 'platform=iOS Simulator,name=iPhone X,OS=latest' build test"
