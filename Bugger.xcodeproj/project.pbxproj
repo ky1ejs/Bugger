@@ -110,6 +110,7 @@
 		AF219C221FA5FCD1004C7E1A /* ChainedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainedTextField.swift; sourceTree = "<group>"; };
 		AF219C241FA5FCEF004C7E1A /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		AF219C261FA60FB3004C7E1A /* KeyboardAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAnimationViewController.swift; sourceTree = "<group>"; };
+		AF219C281FA615C1004C7E1A /* set_version.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = set_version.sh; sourceTree = "<group>"; };
 		AFA00A671F92C75A0065A79E /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = SOURCE_ROOT; };
 		AFA00A691F92C7970065A79E /* BuggerStubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerStubs.swift; sourceTree = "<group>"; };
 		AFA00A6C1F9392120065A79E /* AnnotationControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationControlView.swift; sourceTree = "<group>"; };
@@ -236,6 +237,7 @@
 				AFCD7CAD1F920EDC00D7B02C /* BuggerExample */,
 				AFF61CE41FA28074006D6209 /* BuggerExampleTests */,
 				AFA1B7E21F7A3BEA001589F4 /* Products */,
+				AF219C281FA615C1004C7E1A /* set_version.sh */,
 			);
 			sourceTree = "<group>";
 		};
@@ -377,6 +379,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AFA1B7E91F7A3BEA001589F4 /* Build configuration list for PBXNativeTarget "Bugger" */;
 			buildPhases = (
+				AF219C291FA6164B004C7E1A /* set_version.sh */,
 				AFA1B7DC1F7A3BEA001589F4 /* Sources */,
 				AFA1B7DD1F7A3BEA001589F4 /* Frameworks */,
 				AFA1B7DE1F7A3BEA001589F4 /* Headers */,
@@ -417,6 +420,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AFCD7CE41F927BAB00D7B02C /* Build configuration list for PBXNativeTarget "BuggerImgurStore" */;
 			buildPhases = (
+				AF219C2A1FA6167C004C7E1A /* set_version.sh */,
 				AFCD7CDA1F927BAB00D7B02C /* Sources */,
 				AFCD7CDB1F927BAB00D7B02C /* Frameworks */,
 				AFCD7CDC1F927BAB00D7B02C /* Headers */,
@@ -549,6 +553,34 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		AF219C291FA6164B004C7E1A /* set_version.sh */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = set_version.sh;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ./set_version.sh;
+		};
+		AF219C2A1FA6167C004C7E1A /* set_version.sh */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = set_version.sh;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ./set_version.sh;
+		};
 		AFA00A6B1F92CBE50065A79E /* Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
