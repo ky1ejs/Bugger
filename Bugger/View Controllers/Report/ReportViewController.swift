@@ -8,11 +8,13 @@
 
 import UIKit
 
-class ReportViewController: UIViewController {
+class ReportViewController: KeyboardAnimationVC {
     let config: BuggerConfig
     let reportView: ReportView
     let screenshot: UIImage
     let appWindow: UIWindow
+    
+    var reportViewBottomConstraint: NSLayoutConstraint?
     
     var state: ReportViewControllerState = .editing {
         didSet {
@@ -69,7 +71,9 @@ class ReportViewController: UIViewController {
         view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: reportView.topAnchor).isActive = true
         view.leadingAnchor.constraint(equalTo: reportView.leadingAnchor).isActive = true
         view.trailingAnchor.constraint(equalTo: reportView.trailingAnchor).isActive = true
-        view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: reportView.bottomAnchor).isActive = true
+        
+        reportViewBottomConstraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: reportView.bottomAnchor)
+        reportViewBottomConstraint?.isActive = true
     }
     
     @objc func send() {
@@ -105,6 +109,12 @@ class ReportViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "Okay", style: .cancel, handler: nil))
             present(alert, animated: true, completion: nil)
         }
+    }
+    
+    override func keyboardAnimations(to keyboardHeight: CGFloat) {
+        reportViewBottomConstraint?.isActive = false
+        reportViewBottomConstraint = reportView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -keyboardHeight)
+        reportViewBottomConstraint?.isActive = true
     }
 }
 

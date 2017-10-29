@@ -35,7 +35,6 @@ class ReportView: UIView {
         
         bodyTV.translatesAutoresizingMaskIntoConstraints = false
         bodyTV.placeholder = "What was wrong? What can we improve?"
-        bodyTV.returnKeyType = .send
         
         screenshotPreviewImageView.translatesAutoresizingMaskIntoConstraints = false
         

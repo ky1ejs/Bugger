@@ -10,6 +10,7 @@
 		AF219C211FA5F4D4004C7E1A /* BuggerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF219C201FA5F4D4004C7E1A /* BuggerError.swift */; };
 		AF219C231FA5FCD1004C7E1A /* ChainedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF219C221FA5FCD1004C7E1A /* ChainedTextField.swift */; };
 		AF219C251FA5FCEF004C7E1A /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF219C241FA5FCEF004C7E1A /* StringExtensions.swift */; };
+		AF219C271FA60FB3004C7E1A /* KeyboardAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF219C261FA60FB3004C7E1A /* KeyboardAnimationViewController.swift */; };
 		AFA00A681F92C75D0065A79E /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFA00A671F92C75A0065A79E /* OHHTTPStubs.framework */; };
 		AFA00A6A1F92C7970065A79E /* BuggerStubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA00A691F92C7970065A79E /* BuggerStubs.swift */; };
 		AFA00A6D1F9392120065A79E /* AnnotationControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA00A6C1F9392120065A79E /* AnnotationControlView.swift */; };
@@ -108,6 +109,7 @@
 		AF219C201FA5F4D4004C7E1A /* BuggerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerError.swift; sourceTree = "<group>"; };
 		AF219C221FA5FCD1004C7E1A /* ChainedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainedTextField.swift; sourceTree = "<group>"; };
 		AF219C241FA5FCEF004C7E1A /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
+		AF219C261FA60FB3004C7E1A /* KeyboardAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAnimationViewController.swift; sourceTree = "<group>"; };
 		AFA00A671F92C75A0065A79E /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = SOURCE_ROOT; };
 		AFA00A691F92C7970065A79E /* BuggerStubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerStubs.swift; sourceTree = "<group>"; };
 		AFA00A6C1F9392120065A79E /* AnnotationControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationControlView.swift; sourceTree = "<group>"; };
@@ -266,6 +268,7 @@
 				AFA00A701F93A2070065A79E /* UITouchExtensions.swift */,
 				AFF61CFD1FA5E035006D6209 /* UIViewExtensions.swift */,
 				AF219C221FA5FCD1004C7E1A /* ChainedTextField.swift */,
+				AF219C261FA60FB3004C7E1A /* KeyboardAnimationViewController.swift */,
 				AF219C241FA5FCEF004C7E1A /* StringExtensions.swift */,
 				AFF61CF91FA47B99006D6209 /* UIWindowExtensions.swift */,
 				AFA00A8A1F97D18C0065A79E /* UploadResult.swift */,
@@ -599,6 +602,7 @@
 				AFCD7CD71F926EEF00D7B02C /* BuggerState.swift in Sources */,
 				AFCD7CD91F926F6900D7B02C /* Store.swift in Sources */,
 				AFF61CFE1FA5E035006D6209 /* UIViewExtensions.swift in Sources */,
+				AF219C271FA60FB3004C7E1A /* KeyboardAnimationViewController.swift in Sources */,
 				AFCD7CCA1F926D8600D7B02C /* AnnotationView.swift in Sources */,
 				AFCD7CD11F926E9500D7B02C /* Report.swift in Sources */,
 				AFA00A711F93A2070065A79E /* UITouchExtensions.swift in Sources */,
