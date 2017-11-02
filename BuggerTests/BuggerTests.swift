@@ -7,29 +7,50 @@
 //
 
 import XCTest
+@testable import Bugger
+
+private extension Bugger {
+    static var isActive: Bool {
+        if case .active = state { return true }
+        return false
+    }
+    
+    static var isWatching: Bool {
+        if case .watching = state { return true }
+        return false
+    }
+}
 
 class BuggerTests: XCTestCase {
-    
-    override func setUp() {
-        super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    func testWith() {
+        XCTAssertFalse(Bugger.isActive)
+        XCTAssertFalse(Bugger.isWatching)
+        
+        let config = BuggerConfig(token: "", owner: "", repo: "", store: .image(DummyStore()))
+        Bugger.with(config: config)
+        
+        XCTAssertFalse(Bugger.isActive)
+        XCTAssertTrue(Bugger.isWatching)
+        
+        Bugger.state = .notWatching
+        
+        XCTAssertFalse(Bugger.isActive)
+        XCTAssertFalse(Bugger.isWatching)
     }
     
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-        super.tearDown()
+    func testSetWatchState() {
+        XCTAssertFalse(Bugger.isActive)
+        XCTAssertFalse(Bugger.isWatching)
+        
+        let config = BuggerConfig(token: "", owner: "", repo: "", store: .image(DummyStore()))
+        Bugger.state = .watching(config)
+        
+        XCTAssertFalse(Bugger.isActive)
+        XCTAssertTrue(Bugger.isWatching)
+        
+        Bugger.state = .notWatching
+        
+        XCTAssertFalse(Bugger.isActive)
+        XCTAssertFalse(Bugger.isWatching)
     }
-    
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
-    }
-    
 }

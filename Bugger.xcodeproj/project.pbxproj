@@ -11,6 +11,7 @@
 		AF219C231FA5FCD1004C7E1A /* ChainedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF219C221FA5FCD1004C7E1A /* ChainedTextField.swift */; };
 		AF219C251FA5FCEF004C7E1A /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF219C241FA5FCEF004C7E1A /* StringExtensions.swift */; };
 		AF219C271FA60FB3004C7E1A /* KeyboardAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF219C261FA60FB3004C7E1A /* KeyboardAnimationViewController.swift */; };
+		AF6949331FAB1155004E19EC /* DummyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6949321FAB1155004E19EC /* DummyStore.swift */; };
 		AFA00A681F92C75D0065A79E /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFA00A671F92C75A0065A79E /* OHHTTPStubs.framework */; };
 		AFA00A6A1F92C7970065A79E /* BuggerStubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA00A691F92C7970065A79E /* BuggerStubs.swift */; };
 		AFA00A6D1F9392120065A79E /* AnnotationControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA00A6C1F9392120065A79E /* AnnotationControlView.swift */; };
@@ -42,7 +43,7 @@
 		AFCD7CE81F927C7D00D7B02C /* BuggerImgurStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CE71F927C7D00D7B02C /* BuggerImgurStore.swift */; };
 		AFCD7CEF1F92989100D7B02C /* ExampleConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CEE1F92989100D7B02C /* ExampleConfig.swift */; };
 		AFF61CDE1FA250C3006D6209 /* ReportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF61CDD1FA250C3006D6209 /* ReportTests.swift */; };
-		AFF61CE61FA28074006D6209 /* BuggerExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF61CE51FA28074006D6209 /* BuggerExampleTests.swift */; };
+		AFF61CE61FA28074006D6209 /* BuggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF61CE51FA28074006D6209 /* BuggerTests.swift */; };
 		AFF61CF01FA3BE8B006D6209 /* Bugger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFA1B7E11F7A3BEA001589F4 /* Bugger.framework */; };
 		AFF61CF11FA3BE8B006D6209 /* Bugger.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = AFA1B7E11F7A3BEA001589F4 /* Bugger.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		AFF61CF51FA3BE91006D6209 /* BuggerImgurStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFCD7CDF1F927BAB00D7B02C /* BuggerImgurStore.framework */; };
@@ -111,6 +112,7 @@
 		AF219C241FA5FCEF004C7E1A /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		AF219C261FA60FB3004C7E1A /* KeyboardAnimationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAnimationViewController.swift; sourceTree = "<group>"; };
 		AF219C281FA615C1004C7E1A /* set_version.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = set_version.sh; sourceTree = "<group>"; };
+		AF6949321FAB1155004E19EC /* DummyStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyStore.swift; sourceTree = "<group>"; };
 		AFA00A671F92C75A0065A79E /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = SOURCE_ROOT; };
 		AFA00A691F92C7970065A79E /* BuggerStubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerStubs.swift; sourceTree = "<group>"; };
 		AFA00A6C1F9392120065A79E /* AnnotationControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationControlView.swift; sourceTree = "<group>"; };
@@ -150,7 +152,7 @@
 		AFCD7CEE1F92989100D7B02C /* ExampleConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleConfig.swift; sourceTree = "<group>"; };
 		AFF61CDD1FA250C3006D6209 /* ReportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportTests.swift; sourceTree = "<group>"; };
 		AFF61CE31FA28074006D6209 /* BuggerExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BuggerExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AFF61CE51FA28074006D6209 /* BuggerExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerExampleTests.swift; sourceTree = "<group>"; };
+		AFF61CE51FA28074006D6209 /* BuggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerTests.swift; sourceTree = "<group>"; };
 		AFF61CE71FA28074006D6209 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AFF61CF71FA3DE54006D6209 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		AFF61CF91FA47B99006D6209 /* UIWindowExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIWindowExtensions.swift; sourceTree = "<group>"; };
@@ -222,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				AFA00A7F1F97D0050065A79E /* BuggerTests.swift */,
+				AF6949321FAB1155004E19EC /* DummyStore.swift */,
 				AFF61CDD1FA250C3006D6209 /* ReportTests.swift */,
 				AFA00A811F97D0050065A79E /* Info.plist */,
 			);
@@ -329,7 +332,7 @@
 		AFF61CE41FA28074006D6209 /* BuggerExampleTests */ = {
 			isa = PBXGroup;
 			children = (
-				AFF61CE51FA28074006D6209 /* BuggerExampleTests.swift */,
+				AFF61CE51FA28074006D6209 /* BuggerTests.swift */,
 				AFF61CE71FA28074006D6209 /* Info.plist */,
 			);
 			path = BuggerExampleTests;
@@ -618,6 +621,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AFA00A801F97D0050065A79E /* BuggerTests.swift in Sources */,
+				AF6949331FAB1155004E19EC /* DummyStore.swift in Sources */,
 				AFF61CDE1FA250C3006D6209 /* ReportTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -676,7 +680,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AFF61CE61FA28074006D6209 /* BuggerExampleTests.swift in Sources */,
+				AFF61CE61FA28074006D6209 /* BuggerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
