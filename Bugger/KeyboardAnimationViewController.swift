@@ -15,7 +15,7 @@ class KeyboardAnimationVC: UIViewController {
     // animation calls
     fileprivate(set) var isOnScreen = false
     fileprivate(set) var animationDuration = 0.4
-    fileprivate(set) var animationOptions: UIViewAnimationOptions?
+    fileprivate(set) var animationOptions: UIView.AnimationOptions?
     fileprivate var originalBottomConstraintConstaint: CGFloat = 0
     fileprivate var keyboardHeight: CGFloat = 0
     var keyboardVisible: Bool { return keyboardHeight > 0 }
@@ -24,7 +24,7 @@ class KeyboardAnimationVC: UIViewController {
     // MARK: Controller life cycle
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         
     }
     
@@ -51,7 +51,7 @@ class KeyboardAnimationVC: UIViewController {
         setPropertiesWith(notification: notification)
         
         guard let userInfo = (notification as NSNotification).userInfo else { return }
-        guard let endFrame = (userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+        guard let endFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
         
         let screenRect = UIScreen.main.bounds
         let visibleKeyboardHeight = screenRect.height - endFrame.origin.y
@@ -69,10 +69,10 @@ class KeyboardAnimationVC: UIViewController {
     
     // MARK: Updating properties
     fileprivate func setPropertiesWith(notification: Notification) {
-        if let curveNumber = notification.userInfo?[UIKeyboardAnimationCurveUserInfoKey] as? NSNumber {
-            animationOptions = UIViewAnimationOptions(rawValue: curveNumber.uintValue << 16)
+        if let curveNumber = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber {
+            animationOptions = UIView.AnimationOptions(rawValue: curveNumber.uintValue << 16)
         }
-        if let duration = (notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue {
+        if let duration = (notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as AnyObject).doubleValue {
             animationDuration = duration
         }
     }

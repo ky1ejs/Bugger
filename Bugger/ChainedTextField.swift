@@ -38,7 +38,7 @@ class ChainedTextField: UITextField {
     }
     
     override func deleteBackward() {
-        if self.text?.characters.count == 0 {
+        if self.text?.count == 0 {
             if let previous = previousControl {
                 previous.becomeFirstResponder()
             } else if let del = chainedTextFieldDelegate {
@@ -57,7 +57,7 @@ extension ChainedTextField: UITextFieldDelegate {
         if let text = self.text {
             if let regex = self.characterRegex, !string.matchesRegex(regex) {
                 return false
-            } else if self.characterLimit > 0 && text.characters.count > self.characterLimit - 1 {
+            } else if self.characterLimit > 0 && text.count > self.characterLimit - 1 {
                 return false
             } else {
                 let newString = (text as NSString).replacingCharacters(in: range, with: string)
@@ -67,7 +67,7 @@ extension ChainedTextField: UITextFieldDelegate {
                 textField.text = newString // if we don't do this, the next reponder is changed instead for some reason...
                 let pos = textField.selectedTextRange!.start
                 let index = textField.offset(from: textField.beginningOfDocument, to: pos)
-                let count = newString.characters.count
+                let count = newString.count
                 if range.location < index - 1, let position = textField.position(from: textField.beginningOfDocument, offset: range.location + 1) {
                     textField.selectedTextRange = textField.textRange(from: position, to: position)
                 } else if count == self.characterLimit && index == count {
