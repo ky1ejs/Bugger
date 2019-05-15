@@ -86,7 +86,7 @@ class ReportViewController: KeyboardAnimationVC {
                                   appWindow: appWindow,
                                   screenshot: screenshot)
             
-            state = .loading(UIActivityIndicatorView(activityIndicatorStyle: .gray))
+            state = .loading(UIActivityIndicatorView(style: .gray))
             report.send(with: config) { result in
                 let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
                 switch result {

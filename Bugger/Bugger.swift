@@ -25,7 +25,7 @@ public struct Bugger {
         let nav = UINavigationController(rootViewController: annotationVC)
         let window = UIWindow(frame: UIScreen.main.bounds)
         window.rootViewController = nav
-        window.windowLevel = .greatestFiniteMagnitude
+        window.windowLevel = UIWindow.Level(.greatestFiniteMagnitude)
         window.makeKeyAndVisible()
         Bugger.state = .active(window: window, config: config)
     }

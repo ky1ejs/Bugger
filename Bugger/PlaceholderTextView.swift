@@ -19,7 +19,7 @@ class PlaceholderTextView: UITextView {
     
     init() {
         super.init(frame: .zero, textContainer: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(textChanged), name: Notification.Name.UITextViewTextDidChange, object: self)
+        NotificationCenter.default.addObserver(self, selector: #selector(textChanged), name: UITextView.textDidChangeNotification, object: self)
         
         font = .systemFont(ofSize: 17)
         textContainer.lineFragmentPadding = 0

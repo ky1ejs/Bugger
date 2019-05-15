@@ -30,7 +30,7 @@ extension UIResponder {
         _ = Dispatch.once
     }
     
-    @objc open func bugger_motionEnded(_ motion: UIEventSubtype, with event: UIEvent?) {
+    @objc open func bugger_motionEnded(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
         defer { bugger_motionEnded(motion, with: event) }
         
         guard motion == .motionShake else { return }
