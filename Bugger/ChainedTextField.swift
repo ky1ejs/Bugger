@@ -1,6 +1,6 @@
 //
 //  ChainedTextField.swift
-//  Loot
+//  Bugger
 //
 //  Created by Kyle McAlpine on 10/11/2015.
 //  Copyright © 2015 Kyle McAlpine. All rights reserved.

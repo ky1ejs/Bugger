@@ -1,6 +1,6 @@
 //
 //  KeyboardAnimationVC.swift
-//  Loot
+//  Bugger
 //
 //  Created by Kyle McAlpine on 23/07/2015.
 //  Copyright (c) 2017 Kyle McAlpine. All rights reserved.
