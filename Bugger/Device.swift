@@ -113,7 +113,8 @@ struct Device {
         case .portraitUpsideDown:   return "Portrait Upside Down"
         case .faceDown:             return "Face Down"
         case .faceUp:               return "Face Up"
-        case .unknown:              return "Unknown"
+        case .unknown:              fallthrough
+        @unknown default:           return "Unknown"
         }
     }
     
@@ -140,8 +141,9 @@ struct Device {
             switch device.batteryState {
             case .charging:     return "Charging"
             case .full:         return "Full"
-            case .unknown:      return "Unknown"
             case .unplugged:    return "Unplugged"
+            case .unknown:      fallthrough
+            @unknown default:   return "Unknown"
             }
         }()
         device.isBatteryMonitoringEnabled = false

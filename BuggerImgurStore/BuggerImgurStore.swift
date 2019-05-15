@@ -23,7 +23,7 @@ extension BuggerImgurStore: ImageStore {
         request.httpMethod = "POST"
         request.addValue("multipart/form-data", forHTTPHeaderField: "Content-Type")
         request.addValue("Client-ID \(clientID)", forHTTPHeaderField: "Authorization")
-        let data = UIImagePNGRepresentation(image)!
+        let data = image.pngData()!
         request.httpBody = data.base64EncodedString().data(using: .utf8, allowLossyConversion: true)
         
         let task = URLSession.shared.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
