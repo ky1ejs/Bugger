@@ -160,24 +160,16 @@ struct Device {
     }
     
     static var carrierName: String {
-        return CTTelephonyNetworkInfo().subscriberCellularProvider?.carrierName ?? ""
+        return CTTelephonyNetworkInfo().serviceSubscriberCellularProviders?
+            .values
+            .map { $0.description }
+            .joined(separator: ", ") ?? ""
     }
     
     static var carrierConnectionType: String {
-        switch CTTelephonyNetworkInfo().currentRadioAccessTechnology {
-        case CTRadioAccessTechnologyGPRS?,
-             CTRadioAccessTechnologyEdge?,
-             CTRadioAccessTechnologyCDMA1x?:        return "2G"
-        case CTRadioAccessTechnologyWCDMA?,
-             CTRadioAccessTechnologyHSDPA?,
-             CTRadioAccessTechnologyHSUPA?,
-             CTRadioAccessTechnologyCDMAEVDORev0?,
-             CTRadioAccessTechnologyCDMAEVDORevA?,
-             CTRadioAccessTechnologyCDMAEVDORevB?,
-             CTRadioAccessTechnologyeHRPD?:         return "3G"
-        case CTRadioAccessTechnologyLTE?:           return "4G"
-        default:                                    return ""
-        }
+        return CTTelephonyNetworkInfo().serviceCurrentRadioAccessTechnology?
+            .values
+            .joined(separator: ", ") ?? ""
     }
     
     static var connectedWifiSSID: String {

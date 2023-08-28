@@ -119,7 +119,7 @@ extension ChainedTextField: UITextFieldDelegate {
     }
 }
 
-protocol ChainedTextFieldDelegate: class {
+protocol ChainedTextFieldDelegate: AnyObject {
     func deletedBackwards()
     func goToNextControl()
 }
