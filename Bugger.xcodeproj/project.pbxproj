@@ -491,6 +491,7 @@
 					};
 					AFCD7CAB1F920EDC00D7B02C = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 					};
 					AFCD7CDE1F927BAB00D7B02C = {
@@ -500,6 +501,7 @@
 					};
 					AFF61CE21FA28074006D6209 = {
 						CreatedOnToolsVersion = 9.0.1;
+						LastSwiftMigration = "";
 						ProvisioningStyle = Automatic;
 						TestTargetID = AFCD7CAB1F920EDC00D7B02C;
 					};
@@ -965,7 +967,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.kylejm.BuggerExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -984,7 +986,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.kylejm.BuggerExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1060,7 +1062,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.kylejm.BuggerExampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BuggerExample.app/BuggerExample";
 			};
@@ -1080,7 +1082,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = io.kylejm.BuggerExampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BuggerExample.app/BuggerExample";
 			};
