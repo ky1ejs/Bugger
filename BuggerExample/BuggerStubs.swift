@@ -8,14 +8,14 @@
 
 import Foundation
 import OHHTTPStubs
+import OHHTTPStubsSwift
 
 struct BuggerStubs {
     static func configureStubs(loadingTime: TimeInterval = 1) {
-        stub(condition: { _ -> Bool in return true }) { _ -> OHHTTPStubsResponse in
+        stub(condition: { _ in true }) { _ in
             fatalError()
         }
-        
-        stub(condition: isHost("api.github.com")) { _ -> OHHTTPStubsResponse in
+        stub(condition: isHost("api.github.com")) { _ in
             let json = [
                 "id": 1,
                 "url": "https://api.github.com/repos/octocat/Hello-World/issues/1347",
@@ -46,7 +46,7 @@ struct BuggerStubs {
                     "received_events_url": "https://api.github.com/users/octocat/received_events",
                     "type": "User",
                     "site_admin": false
-                ],
+                ] as [String : Any],
                 "labels": [
                 [
                 "id": 208045946,
@@ -54,7 +54,7 @@ struct BuggerStubs {
                 "name": "bug",
                 "color": "f29513",
                 "default": true
-                ]
+                ] as [String : Any]
                 ],
                 "assignee": [
                     "login": "octocat",
@@ -74,7 +74,7 @@ struct BuggerStubs {
                     "received_events_url": "https://api.github.com/users/octocat/received_events",
                     "type": "User",
                     "site_admin": false
-                ],
+                ] as [String : Any],
                 "milestone": [
                     "url": "https://api.github.com/repos/octocat/Hello-World/milestones/1",
                     "html_url": "https://github.com/octocat/Hello-World/milestones/v1.0",
@@ -102,14 +102,14 @@ struct BuggerStubs {
                         "received_events_url": "https://api.github.com/users/octocat/received_events",
                         "type": "User",
                         "site_admin": false
-                    ],
+                    ] as [String : Any],
                     "open_issues": 4,
                     "closed_issues": 8,
                     "created_at": "2011-04-10T20:09:31Z",
                     "updated_at": "2014-03-03T18:58:10Z",
                     "closed_at": "2013-02-12T13:22:01Z",
                     "due_on": "2012-10-09T23:39:01Z"
-                ],
+                ] as [String : Any],
                 "locked": false,
                 "comments": 0,
                 "pull_request": [
@@ -139,15 +139,15 @@ struct BuggerStubs {
                     "received_events_url": "https://api.github.com/users/octocat/received_events",
                     "type": "User",
                     "site_admin": false
-                ]
+                ] as [String : Any] as [String : Any]
                 ] as [String : Any?]
             let data = try! JSONSerialization.data(withJSONObject: json, options: [])
-            let response = OHHTTPStubsResponse(data: data, statusCode: 201, headers: nil)
+            let response = HTTPStubsResponse(data: data, statusCode: 201, headers: nil)
             response.requestTime = loadingTime
             return response
         }
         
-        stub(condition: isHost("api.imgur.com")) { request -> OHHTTPStubsResponse in
+        stub(condition: isHost("api.imgur.com")) { request in
             let json = [
                 "data": [
                     "id": "B9RLNcN",
@@ -170,19 +170,19 @@ struct BuggerStubs {
                     "is_ad": false,
                     "in_most_viral": false,
                     "has_sound": false,
-                    "tags": [],
+                    "tags": [] as [Any],
                     "ad_type": 0,
                     "ad_url": "",
                     "in_gallery": false,
                     "deletehash": "4eLUSkeWRgTsQ0Z",
                     "name": "",
                     "link": "https://i.imgur.com/B9RLNcN.png"
-                ],
+                ] as [String : Any?],
                 "success": true,
                 "status": 200
             ] as [String : Any]
             let data = try! JSONSerialization.data(withJSONObject: json, options: [])
-            let response = OHHTTPStubsResponse(data: data, statusCode: 200, headers: nil)
+            let response = HTTPStubsResponse(data: data, statusCode: 200, headers: nil)
             response.requestTime = loadingTime
             return response
         }
