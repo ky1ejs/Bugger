@@ -8,8 +8,8 @@
 
 import UIKit
 
-class PlaceholderTextView: UITextView {
-    var placeholder = "" {
+public class PlaceholderTextView: UITextView {
+    public var placeholder = "" {
         didSet {
             placeholderLabel.text = placeholder
             showOrHidePlaceholder()
@@ -17,7 +17,7 @@ class PlaceholderTextView: UITextView {
     }
     let placeholderLabel = UILabel()
     
-    init() {
+    public init() {
         super.init(frame: .zero, textContainer: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(textChanged), name: UITextView.textDidChangeNotification, object: self)
         
@@ -46,7 +46,7 @@ class PlaceholderTextView: UITextView {
         placeholderLabel.alpha = text.count == 0 ? 1 : 0
     }
     
-    override func layoutSubviews() {
+    public override func layoutSubviews() {
         super.layoutSubviews()
         
         let linePadding = textContainer.lineFragmentPadding

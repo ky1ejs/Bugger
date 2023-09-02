@@ -7,18 +7,121 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		93728E312AA14A1B009C8B54 /* ReportSender.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728E302AA14A1B009C8B54 /* ReportSender.swift */; };
+		93728E3A2AA14E3E009C8B54 /* BuggerGitHub.h in Headers */ = {isa = PBXBuildFile; fileRef = 93728E392AA14E3E009C8B54 /* BuggerGitHub.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		93728E3D2AA14E3E009C8B54 /* BuggerGitHub.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93728E372AA14E3E009C8B54 /* BuggerGitHub.framework */; };
+		93728E3E2AA14E3E009C8B54 /* BuggerGitHub.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 93728E372AA14E3E009C8B54 /* BuggerGitHub.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		93728E422AA14E60009C8B54 /* Bugger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFA1B7E11F7A3BEA001589F4 /* Bugger.framework */; };
+		93728E472AA14EA6009C8B54 /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CCB1F926DAB00D7B02C /* ReportViewController.swift */; };
+		93728E482AA14EA6009C8B54 /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CCE1F926DD800D7B02C /* ReportView.swift */; };
+		93728E492AA14F26009C8B54 /* Bugger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFA1B7E11F7A3BEA001589F4 /* Bugger.framework */; };
+		93728E4E2AA14FBE009C8B54 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CD01F926E9500D7B02C /* Report.swift */; };
+		93728E4F2AA1517B009C8B54 /* GitHubConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CD21F926EAD00D7B02C /* GitHubConfig.swift */; };
+		93728E5A2AA17170009C8B54 /* HelpfulUI.h in Headers */ = {isa = PBXBuildFile; fileRef = 93728E592AA17170009C8B54 /* HelpfulUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		93728E5D2AA17170009C8B54 /* HelpfulUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93728E572AA17170009C8B54 /* HelpfulUI.framework */; };
+		93728E5E2AA17170009C8B54 /* HelpfulUI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 93728E572AA17170009C8B54 /* HelpfulUI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		93728E622AA1717C009C8B54 /* ChainedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF219C221FA5FCD1004C7E1A /* ChainedTextField.swift */; };
+		93728E632AA1717C009C8B54 /* KeyboardAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF219C261FA60FB3004C7E1A /* KeyboardAnimationViewController.swift */; };
+		93728E642AA17200009C8B54 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF219C241FA5FCEF004C7E1A /* StringExtensions.swift */; };
+		93728E652AA17289009C8B54 /* HelpfulUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93728E572AA17170009C8B54 /* HelpfulUI.framework */; };
+		93728E6A2AA172AA009C8B54 /* PlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA00A721F93D3510065A79E /* PlaceholderTextView.swift */; };
+		93728E6B2AA17554009C8B54 /* BuggerImgurStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFCD7CDF1F927BAB00D7B02C /* BuggerImgurStore.framework */; };
+		93728E782AA1842E009C8B54 /* BuggerLinear.h in Headers */ = {isa = PBXBuildFile; fileRef = 93728E772AA1842E009C8B54 /* BuggerLinear.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		93728E822AA185D2009C8B54 /* Linear-API.graphqls in Resources */ = {isa = PBXBuildFile; fileRef = 93728E812AA185D2009C8B54 /* Linear-API.graphqls */; };
+		93728F1C2AA2A99D009C8B54 /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728F1B2AA2A99D009C8B54 /* ReportViewController.swift */; };
+		937290082AA2ADD2009C8B54 /* IssueCreateMutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FBA2AA2ADD2009C8B54 /* IssueCreateMutation.graphql.swift */; };
+		937290092AA2ADD2009C8B54 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FBD2AA2ADD2009C8B54 /* JSON.swift */; };
+		9372900A2AA2ADD2009C8B54 /* TimelessDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FBE2AA2ADD2009C8B54 /* TimelessDate.swift */; };
+		9372900B2AA2ADD2009C8B54 /* DateTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FBF2AA2ADD2009C8B54 /* DateTime.swift */; };
+		9372900C2AA2ADD2009C8B54 /* ProjectNotificationSubscription.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FC12AA2ADD2009C8B54 /* ProjectNotificationSubscription.graphql.swift */; };
+		9372900D2AA2ADD2009C8B54 /* CycleNotificationSubscription.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FC22AA2ADD2009C8B54 /* CycleNotificationSubscription.graphql.swift */; };
+		9372900E2AA2ADD2009C8B54 /* IssuePayload.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FC32AA2ADD2009C8B54 /* IssuePayload.graphql.swift */; };
+		9372900F2AA2ADD2009C8B54 /* Cycle.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FC42AA2ADD2009C8B54 /* Cycle.graphql.swift */; };
+		937290102AA2ADD2009C8B54 /* OauthClientApproval.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FC52AA2ADD2009C8B54 /* OauthClientApproval.graphql.swift */; };
+		937290112AA2ADD2009C8B54 /* IntegrationTemplate.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FC62AA2ADD2009C8B54 /* IntegrationTemplate.graphql.swift */; };
+		937290122AA2ADD2009C8B54 /* ExternalUser.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FC72AA2ADD2009C8B54 /* ExternalUser.graphql.swift */; };
+		937290132AA2ADD2009C8B54 /* IssueSearchResult.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FC82AA2ADD2009C8B54 /* IssueSearchResult.graphql.swift */; };
+		937290142AA2ADD2009C8B54 /* Comment.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FC92AA2ADD2009C8B54 /* Comment.graphql.swift */; };
+		937290152AA2ADD2009C8B54 /* DocumentContent.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FCA2AA2ADD2009C8B54 /* DocumentContent.graphql.swift */; };
+		937290162AA2ADD2009C8B54 /* IssueHistory.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FCB2AA2ADD2009C8B54 /* IssueHistory.graphql.swift */; };
+		937290172AA2ADD2009C8B54 /* IssueNotification.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FCC2AA2ADD2009C8B54 /* IssueNotification.graphql.swift */; };
+		937290182AA2ADD2009C8B54 /* User.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FCD2AA2ADD2009C8B54 /* User.graphql.swift */; };
+		937290192AA2ADD2009C8B54 /* IssueRelation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FCE2AA2ADD2009C8B54 /* IssueRelation.graphql.swift */; };
+		9372901A2AA2ADD2009C8B54 /* UserNotificationSubscription.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FCF2AA2ADD2009C8B54 /* UserNotificationSubscription.graphql.swift */; };
+		9372901B2AA2ADD2009C8B54 /* IssueLabel.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FD02AA2ADD2009C8B54 /* IssueLabel.graphql.swift */; };
+		9372901C2AA2ADD2009C8B54 /* TeamNotificationSubscription.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FD12AA2ADD2009C8B54 /* TeamNotificationSubscription.graphql.swift */; };
+		9372901D2AA2ADD2009C8B54 /* Emoji.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FD22AA2ADD2009C8B54 /* Emoji.graphql.swift */; };
+		9372901E2AA2ADD2009C8B54 /* LabelNotificationSubscription.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FD32AA2ADD2009C8B54 /* LabelNotificationSubscription.graphql.swift */; };
+		9372901F2AA2ADD2009C8B54 /* Roadmap.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FD42AA2ADD2009C8B54 /* Roadmap.graphql.swift */; };
+		937290202AA2ADD2009C8B54 /* DocumentSearchResult.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FD52AA2ADD2009C8B54 /* DocumentSearchResult.graphql.swift */; };
+		937290212AA2ADD2009C8B54 /* WorkflowDefinition.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FD62AA2ADD2009C8B54 /* WorkflowDefinition.graphql.swift */; };
+		937290222AA2ADD2009C8B54 /* Company.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FD72AA2ADD2009C8B54 /* Company.graphql.swift */; };
+		937290232AA2ADD2009C8B54 /* AuditEntry.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FD82AA2ADD2009C8B54 /* AuditEntry.graphql.swift */; };
+		937290242AA2ADD2009C8B54 /* Mutation.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FD92AA2ADD2009C8B54 /* Mutation.graphql.swift */; };
+		937290252AA2ADD2009C8B54 /* UserSettings.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FDA2AA2ADD2009C8B54 /* UserSettings.graphql.swift */; };
+		937290262AA2ADD2009C8B54 /* Project.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FDB2AA2ADD2009C8B54 /* Project.graphql.swift */; };
+		937290272AA2ADD2009C8B54 /* Organization.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FDC2AA2ADD2009C8B54 /* Organization.graphql.swift */; };
+		937290282AA2ADD2009C8B54 /* ProjectUpdateInteraction.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FDD2AA2ADD2009C8B54 /* ProjectUpdateInteraction.graphql.swift */; };
+		937290292AA2ADD2009C8B54 /* WorkflowState.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FDE2AA2ADD2009C8B54 /* WorkflowState.graphql.swift */; };
+		9372902A2AA2ADD2009C8B54 /* PaidSubscription.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FDF2AA2ADD2009C8B54 /* PaidSubscription.graphql.swift */; };
+		9372902B2AA2ADD2009C8B54 /* IssueImport.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FE02AA2ADD2009C8B54 /* IssueImport.graphql.swift */; };
+		9372902C2AA2ADD2009C8B54 /* IntegrationsSettings.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FE12AA2ADD2009C8B54 /* IntegrationsSettings.graphql.swift */; };
+		9372902D2AA2ADD2009C8B54 /* Reaction.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FE22AA2ADD2009C8B54 /* Reaction.graphql.swift */; };
+		9372902E2AA2ADD2009C8B54 /* PushSubscription.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FE32AA2ADD2009C8B54 /* PushSubscription.graphql.swift */; };
+		9372902F2AA2ADD2009C8B54 /* Team.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FE42AA2ADD2009C8B54 /* Team.graphql.swift */; };
+		937290302AA2ADD2009C8B54 /* OrganizationDomain.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FE52AA2ADD2009C8B54 /* OrganizationDomain.graphql.swift */; };
+		937290312AA2ADD2009C8B54 /* ProjectUpdate.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FE62AA2ADD2009C8B54 /* ProjectUpdate.graphql.swift */; };
+		937290322AA2ADD2009C8B54 /* Integration.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FE72AA2ADD2009C8B54 /* Integration.graphql.swift */; };
+		937290332AA2ADD2009C8B54 /* TeamMembership.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FE82AA2ADD2009C8B54 /* TeamMembership.graphql.swift */; };
+		937290342AA2ADD2009C8B54 /* CustomView.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FE92AA2ADD2009C8B54 /* CustomView.graphql.swift */; };
+		937290352AA2ADD2009C8B54 /* Favorite.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FEA2AA2ADD2009C8B54 /* Favorite.graphql.swift */; };
+		937290362AA2ADD2009C8B54 /* Issue.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FEB2AA2ADD2009C8B54 /* Issue.graphql.swift */; };
+		937290372AA2ADD2009C8B54 /* ViewPreferences.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FEC2AA2ADD2009C8B54 /* ViewPreferences.graphql.swift */; };
+		937290382AA2ADD2009C8B54 /* ApiKey.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FED2AA2ADD2009C8B54 /* ApiKey.graphql.swift */; };
+		937290392AA2ADD2009C8B54 /* ProjectLink.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FEE2AA2ADD2009C8B54 /* ProjectLink.graphql.swift */; };
+		9372903A2AA2ADD2009C8B54 /* Webhook.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FEF2AA2ADD2009C8B54 /* Webhook.graphql.swift */; };
+		9372903B2AA2ADD2009C8B54 /* IssueDraft.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FF02AA2ADD2009C8B54 /* IssueDraft.graphql.swift */; };
+		9372903C2AA2ADD2009C8B54 /* FirstResponderSchedule.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FF12AA2ADD2009C8B54 /* FirstResponderSchedule.graphql.swift */; };
+		9372903D2AA2ADD2009C8B54 /* Template.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FF22AA2ADD2009C8B54 /* Template.graphql.swift */; };
+		9372903E2AA2ADD2009C8B54 /* Attachment.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FF32AA2ADD2009C8B54 /* Attachment.graphql.swift */; };
+		9372903F2AA2ADD2009C8B54 /* Document.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FF42AA2ADD2009C8B54 /* Document.graphql.swift */; };
+		937290402AA2ADD2009C8B54 /* OrganizationInvite.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FF52AA2ADD2009C8B54 /* OrganizationInvite.graphql.swift */; };
+		937290412AA2ADD2009C8B54 /* CustomViewNotificationSubscription.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FF62AA2ADD2009C8B54 /* CustomViewNotificationSubscription.graphql.swift */; };
+		937290422AA2ADD2009C8B54 /* ProjectSearchResult.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FF72AA2ADD2009C8B54 /* ProjectSearchResult.graphql.swift */; };
+		937290432AA2ADD2009C8B54 /* OauthClient.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FF82AA2ADD2009C8B54 /* OauthClient.graphql.swift */; };
+		937290442AA2ADD2009C8B54 /* WorkflowCronJobDefinition.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FF92AA2ADD2009C8B54 /* WorkflowCronJobDefinition.graphql.swift */; };
+		937290452AA2ADD2009C8B54 /* ProjectMilestone.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FFA2AA2ADD2009C8B54 /* ProjectMilestone.graphql.swift */; };
+		937290462AA2ADD2009C8B54 /* OauthClientApprovalNotification.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FFB2AA2ADD2009C8B54 /* OauthClientApprovalNotification.graphql.swift */; };
+		937290472AA2ADD2009C8B54 /* RoadmapToProject.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FFC2AA2ADD2009C8B54 /* RoadmapToProject.graphql.swift */; };
+		937290482AA2ADD2009C8B54 /* ProjectNotification.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FFD2AA2ADD2009C8B54 /* ProjectNotification.graphql.swift */; };
+		937290492AA2ADD2009C8B54 /* SchemaConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 93728FFE2AA2ADD2009C8B54 /* SchemaConfiguration.swift */; };
+		9372904A2AA2ADD2009C8B54 /* IssueCreateInput.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937290002AA2ADD2009C8B54 /* IssueCreateInput.graphql.swift */; };
+		9372904B2AA2ADD2009C8B54 /* SchemaMetadata.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937290012AA2ADD2009C8B54 /* SchemaMetadata.graphql.swift */; };
+		9372904C2AA2ADD2009C8B54 /* Notification.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937290032AA2ADD2009C8B54 /* Notification.graphql.swift */; };
+		9372904D2AA2ADD2009C8B54 /* Entity.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937290042AA2ADD2009C8B54 /* Entity.graphql.swift */; };
+		9372904E2AA2ADD2009C8B54 /* NotificationSubscription.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937290052AA2ADD2009C8B54 /* NotificationSubscription.graphql.swift */; };
+		9372904F2AA2ADD2009C8B54 /* Node.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937290062AA2ADD2009C8B54 /* Node.graphql.swift */; };
+		937290502AA2ADD2009C8B54 /* LinearGraphQL.graphql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937290072AA2ADD2009C8B54 /* LinearGraphQL.graphql.swift */; };
+		937290522AA2C281009C8B54 /* TableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937290512AA2C281009C8B54 /* TableViewController.swift */; };
+		937290532AA2CAC4009C8B54 /* BuggerLinear.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93728E752AA1842E009C8B54 /* BuggerLinear.framework */; };
+		937290542AA2CAC4009C8B54 /* BuggerLinear.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 93728E752AA1842E009C8B54 /* BuggerLinear.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		937290582AA2CBA5009C8B54 /* GitHubReportBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937290572AA2CBA5009C8B54 /* GitHubReportBuilder.swift */; };
+		9372905A2AA2CC17009C8B54 /* BuggerReportBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937290592AA2CC17009C8B54 /* BuggerReportBuilder.swift */; };
+		9372905C2AA2CCBE009C8B54 /* LinearReportBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9372905B2AA2CCBE009C8B54 /* LinearReportBuilder.swift */; };
+		9372905E2AA2CCD6009C8B54 /* LinearConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9372905D2AA2CCD6009C8B54 /* LinearConfig.swift */; };
+		937290602AA2DD69009C8B54 /* ApolloAPI in Frameworks */ = {isa = PBXBuildFile; productRef = 9372905F2AA2DD69009C8B54 /* ApolloAPI */; };
+		937290622AA2DD8C009C8B54 /* Apollo in Frameworks */ = {isa = PBXBuildFile; productRef = 937290612AA2DD8C009C8B54 /* Apollo */; };
+		937290642AA3D2A2009C8B54 /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937290632AA3D2A2009C8B54 /* ReportView.swift */; };
+		9372906A2AA3DF69009C8B54 /* ExampleLinearConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937290682AA3DF69009C8B54 /* ExampleLinearConfig.swift */; };
+		9372906B2AA3DF69009C8B54 /* ExampleGitHubConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 937290692AA3DF69009C8B54 /* ExampleGitHubConfig.swift */; };
 		93E9AC902A9C1FD30058F1A9 /* OHHTTPStubs in Frameworks */ = {isa = PBXBuildFile; productRef = 93E9AC8F2A9C1FD30058F1A9 /* OHHTTPStubs */; };
 		93E9AC922A9C1FE00058F1A9 /* OHHTTPStubsSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 93E9AC912A9C1FE00058F1A9 /* OHHTTPStubsSwift */; };
 		AF219C211FA5F4D4004C7E1A /* BuggerError.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF219C201FA5F4D4004C7E1A /* BuggerError.swift */; };
-		AF219C231FA5FCD1004C7E1A /* ChainedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF219C221FA5FCD1004C7E1A /* ChainedTextField.swift */; };
-		AF219C251FA5FCEF004C7E1A /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF219C241FA5FCEF004C7E1A /* StringExtensions.swift */; };
-		AF219C271FA60FB3004C7E1A /* KeyboardAnimationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF219C261FA60FB3004C7E1A /* KeyboardAnimationViewController.swift */; };
 		AF6949331FAB1155004E19EC /* DummyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6949321FAB1155004E19EC /* DummyStore.swift */; };
 		AFA00A6A1F92C7970065A79E /* BuggerStubs.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA00A691F92C7970065A79E /* BuggerStubs.swift */; };
 		AFA00A6D1F9392120065A79E /* AnnotationControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA00A6C1F9392120065A79E /* AnnotationControlView.swift */; };
 		AFA00A6F1F93922D0065A79E /* ColorButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA00A6E1F93922D0065A79E /* ColorButton.swift */; };
 		AFA00A711F93A2070065A79E /* UITouchExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA00A701F93A2070065A79E /* UITouchExtensions.swift */; };
-		AFA00A731F93D3510065A79E /* PlaceholderTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA00A721F93D3510065A79E /* PlaceholderTextView.swift */; };
 		AFA00A751F95E6570065A79E /* Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA00A741F95E6570065A79E /* Error.swift */; };
 		AFA00A801F97D0050065A79E /* BuggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFA00A7F1F97D0050065A79E /* BuggerTests.swift */; };
 		AFA00A821F97D0050065A79E /* Bugger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFA1B7E11F7A3BEA001589F4 /* Bugger.framework */; };
@@ -33,16 +136,11 @@
 		AFCD7CC51F926CD100D7B02C /* UIResponderSwizzling.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CC41F926CD100D7B02C /* UIResponderSwizzling.swift */; };
 		AFCD7CC71F926D6600D7B02C /* AnnotationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CC61F926D6600D7B02C /* AnnotationViewController.swift */; };
 		AFCD7CCA1F926D8600D7B02C /* AnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CC91F926D8600D7B02C /* AnnotationView.swift */; };
-		AFCD7CCC1F926DAB00D7B02C /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CCB1F926DAB00D7B02C /* ReportViewController.swift */; };
-		AFCD7CCF1F926DD800D7B02C /* ReportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CCE1F926DD800D7B02C /* ReportView.swift */; };
-		AFCD7CD11F926E9500D7B02C /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CD01F926E9500D7B02C /* Report.swift */; };
-		AFCD7CD31F926EAD00D7B02C /* BuggerConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CD21F926EAD00D7B02C /* BuggerConfig.swift */; };
 		AFCD7CD51F926ECD00D7B02C /* BuggerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CD41F926ECD00D7B02C /* BuggerDelegate.swift */; };
 		AFCD7CD71F926EEF00D7B02C /* BuggerState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CD61F926EEF00D7B02C /* BuggerState.swift */; };
 		AFCD7CD91F926F6900D7B02C /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CD81F926F6900D7B02C /* Store.swift */; };
 		AFCD7CE31F927BAB00D7B02C /* BuggerImgurStore.h in Headers */ = {isa = PBXBuildFile; fileRef = AFCD7CE11F927BAB00D7B02C /* BuggerImgurStore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		AFCD7CE81F927C7D00D7B02C /* BuggerImgurStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CE71F927C7D00D7B02C /* BuggerImgurStore.swift */; };
-		AFCD7CEF1F92989100D7B02C /* ExampleConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCD7CEE1F92989100D7B02C /* ExampleConfig.swift */; };
 		AFF61CDE1FA250C3006D6209 /* ReportTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF61CDD1FA250C3006D6209 /* ReportTests.swift */; };
 		AFF61CE61FA28074006D6209 /* BuggerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF61CE51FA28074006D6209 /* BuggerTests.swift */; };
 		AFF61CF01FA3BE8B006D6209 /* Bugger.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFA1B7E11F7A3BEA001589F4 /* Bugger.framework */; };
@@ -55,6 +153,55 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		93728E3B2AA14E3E009C8B54 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AFA1B7D81F7A3BEA001589F4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 93728E362AA14E3E009C8B54;
+			remoteInfo = BuggerGitHub;
+		};
+		93728E442AA14E60009C8B54 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AFA1B7D81F7A3BEA001589F4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AFA1B7E01F7A3BEA001589F4;
+			remoteInfo = Bugger;
+		};
+		93728E4B2AA14F26009C8B54 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AFA1B7D81F7A3BEA001589F4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AFA1B7E01F7A3BEA001589F4;
+			remoteInfo = Bugger;
+		};
+		93728E5B2AA17170009C8B54 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AFA1B7D81F7A3BEA001589F4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 93728E562AA17170009C8B54;
+			remoteInfo = HelpfulUI;
+		};
+		93728E672AA17289009C8B54 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AFA1B7D81F7A3BEA001589F4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 93728E562AA17170009C8B54;
+			remoteInfo = HelpfulUI;
+		};
+		93728E6D2AA17554009C8B54 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AFA1B7D81F7A3BEA001589F4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AFCD7CDE1F927BAB00D7B02C;
+			remoteInfo = BuggerImgurStore;
+		};
+		937290552AA2CAC4009C8B54 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AFA1B7D81F7A3BEA001589F4 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 93728E742AA1842E009C8B54;
+			remoteInfo = BuggerLinear;
+		};
 		AFA00A831F97D0050065A79E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = AFA1B7D81F7A3BEA001589F4 /* Project object */;
@@ -99,7 +246,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				937290542AA2CAC4009C8B54 /* BuggerLinear.framework in Embed Frameworks */,
 				AFF61CF11FA3BE8B006D6209 /* Bugger.framework in Embed Frameworks */,
+				93728E5E2AA17170009C8B54 /* HelpfulUI.framework in Embed Frameworks */,
+				93728E3E2AA14E3E009C8B54 /* BuggerGitHub.framework in Embed Frameworks */,
 				AFF61CF61FA3BE91006D6209 /* BuggerImgurStore.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -108,6 +258,97 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		93728E302AA14A1B009C8B54 /* ReportSender.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportSender.swift; sourceTree = "<group>"; };
+		93728E372AA14E3E009C8B54 /* BuggerGitHub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BuggerGitHub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		93728E392AA14E3E009C8B54 /* BuggerGitHub.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BuggerGitHub.h; sourceTree = "<group>"; };
+		93728E572AA17170009C8B54 /* HelpfulUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = HelpfulUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		93728E592AA17170009C8B54 /* HelpfulUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HelpfulUI.h; sourceTree = "<group>"; };
+		93728E752AA1842E009C8B54 /* BuggerLinear.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BuggerLinear.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		93728E772AA1842E009C8B54 /* BuggerLinear.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BuggerLinear.h; sourceTree = "<group>"; };
+		93728E812AA185D2009C8B54 /* Linear-API.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Linear-API.graphqls"; sourceTree = "<group>"; };
+		93728E832AA18752009C8B54 /* apollo-codegen-config.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "apollo-codegen-config.json"; sourceTree = "<group>"; };
+		93728F1B2AA2A99D009C8B54 /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
+		93728FBA2AA2ADD2009C8B54 /* IssueCreateMutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueCreateMutation.graphql.swift; sourceTree = "<group>"; };
+		93728FBD2AA2ADD2009C8B54 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
+		93728FBE2AA2ADD2009C8B54 /* TimelessDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimelessDate.swift; sourceTree = "<group>"; };
+		93728FBF2AA2ADD2009C8B54 /* DateTime.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTime.swift; sourceTree = "<group>"; };
+		93728FC12AA2ADD2009C8B54 /* ProjectNotificationSubscription.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectNotificationSubscription.graphql.swift; sourceTree = "<group>"; };
+		93728FC22AA2ADD2009C8B54 /* CycleNotificationSubscription.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CycleNotificationSubscription.graphql.swift; sourceTree = "<group>"; };
+		93728FC32AA2ADD2009C8B54 /* IssuePayload.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssuePayload.graphql.swift; sourceTree = "<group>"; };
+		93728FC42AA2ADD2009C8B54 /* Cycle.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cycle.graphql.swift; sourceTree = "<group>"; };
+		93728FC52AA2ADD2009C8B54 /* OauthClientApproval.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OauthClientApproval.graphql.swift; sourceTree = "<group>"; };
+		93728FC62AA2ADD2009C8B54 /* IntegrationTemplate.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegrationTemplate.graphql.swift; sourceTree = "<group>"; };
+		93728FC72AA2ADD2009C8B54 /* ExternalUser.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExternalUser.graphql.swift; sourceTree = "<group>"; };
+		93728FC82AA2ADD2009C8B54 /* IssueSearchResult.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueSearchResult.graphql.swift; sourceTree = "<group>"; };
+		93728FC92AA2ADD2009C8B54 /* Comment.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.graphql.swift; sourceTree = "<group>"; };
+		93728FCA2AA2ADD2009C8B54 /* DocumentContent.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentContent.graphql.swift; sourceTree = "<group>"; };
+		93728FCB2AA2ADD2009C8B54 /* IssueHistory.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueHistory.graphql.swift; sourceTree = "<group>"; };
+		93728FCC2AA2ADD2009C8B54 /* IssueNotification.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueNotification.graphql.swift; sourceTree = "<group>"; };
+		93728FCD2AA2ADD2009C8B54 /* User.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.graphql.swift; sourceTree = "<group>"; };
+		93728FCE2AA2ADD2009C8B54 /* IssueRelation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueRelation.graphql.swift; sourceTree = "<group>"; };
+		93728FCF2AA2ADD2009C8B54 /* UserNotificationSubscription.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserNotificationSubscription.graphql.swift; sourceTree = "<group>"; };
+		93728FD02AA2ADD2009C8B54 /* IssueLabel.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueLabel.graphql.swift; sourceTree = "<group>"; };
+		93728FD12AA2ADD2009C8B54 /* TeamNotificationSubscription.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamNotificationSubscription.graphql.swift; sourceTree = "<group>"; };
+		93728FD22AA2ADD2009C8B54 /* Emoji.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Emoji.graphql.swift; sourceTree = "<group>"; };
+		93728FD32AA2ADD2009C8B54 /* LabelNotificationSubscription.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LabelNotificationSubscription.graphql.swift; sourceTree = "<group>"; };
+		93728FD42AA2ADD2009C8B54 /* Roadmap.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Roadmap.graphql.swift; sourceTree = "<group>"; };
+		93728FD52AA2ADD2009C8B54 /* DocumentSearchResult.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentSearchResult.graphql.swift; sourceTree = "<group>"; };
+		93728FD62AA2ADD2009C8B54 /* WorkflowDefinition.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkflowDefinition.graphql.swift; sourceTree = "<group>"; };
+		93728FD72AA2ADD2009C8B54 /* Company.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Company.graphql.swift; sourceTree = "<group>"; };
+		93728FD82AA2ADD2009C8B54 /* AuditEntry.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuditEntry.graphql.swift; sourceTree = "<group>"; };
+		93728FD92AA2ADD2009C8B54 /* Mutation.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mutation.graphql.swift; sourceTree = "<group>"; };
+		93728FDA2AA2ADD2009C8B54 /* UserSettings.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserSettings.graphql.swift; sourceTree = "<group>"; };
+		93728FDB2AA2ADD2009C8B54 /* Project.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.graphql.swift; sourceTree = "<group>"; };
+		93728FDC2AA2ADD2009C8B54 /* Organization.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Organization.graphql.swift; sourceTree = "<group>"; };
+		93728FDD2AA2ADD2009C8B54 /* ProjectUpdateInteraction.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectUpdateInteraction.graphql.swift; sourceTree = "<group>"; };
+		93728FDE2AA2ADD2009C8B54 /* WorkflowState.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkflowState.graphql.swift; sourceTree = "<group>"; };
+		93728FDF2AA2ADD2009C8B54 /* PaidSubscription.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaidSubscription.graphql.swift; sourceTree = "<group>"; };
+		93728FE02AA2ADD2009C8B54 /* IssueImport.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueImport.graphql.swift; sourceTree = "<group>"; };
+		93728FE12AA2ADD2009C8B54 /* IntegrationsSettings.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IntegrationsSettings.graphql.swift; sourceTree = "<group>"; };
+		93728FE22AA2ADD2009C8B54 /* Reaction.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reaction.graphql.swift; sourceTree = "<group>"; };
+		93728FE32AA2ADD2009C8B54 /* PushSubscription.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PushSubscription.graphql.swift; sourceTree = "<group>"; };
+		93728FE42AA2ADD2009C8B54 /* Team.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Team.graphql.swift; sourceTree = "<group>"; };
+		93728FE52AA2ADD2009C8B54 /* OrganizationDomain.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationDomain.graphql.swift; sourceTree = "<group>"; };
+		93728FE62AA2ADD2009C8B54 /* ProjectUpdate.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectUpdate.graphql.swift; sourceTree = "<group>"; };
+		93728FE72AA2ADD2009C8B54 /* Integration.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Integration.graphql.swift; sourceTree = "<group>"; };
+		93728FE82AA2ADD2009C8B54 /* TeamMembership.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamMembership.graphql.swift; sourceTree = "<group>"; };
+		93728FE92AA2ADD2009C8B54 /* CustomView.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomView.graphql.swift; sourceTree = "<group>"; };
+		93728FEA2AA2ADD2009C8B54 /* Favorite.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Favorite.graphql.swift; sourceTree = "<group>"; };
+		93728FEB2AA2ADD2009C8B54 /* Issue.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Issue.graphql.swift; sourceTree = "<group>"; };
+		93728FEC2AA2ADD2009C8B54 /* ViewPreferences.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewPreferences.graphql.swift; sourceTree = "<group>"; };
+		93728FED2AA2ADD2009C8B54 /* ApiKey.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiKey.graphql.swift; sourceTree = "<group>"; };
+		93728FEE2AA2ADD2009C8B54 /* ProjectLink.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectLink.graphql.swift; sourceTree = "<group>"; };
+		93728FEF2AA2ADD2009C8B54 /* Webhook.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Webhook.graphql.swift; sourceTree = "<group>"; };
+		93728FF02AA2ADD2009C8B54 /* IssueDraft.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueDraft.graphql.swift; sourceTree = "<group>"; };
+		93728FF12AA2ADD2009C8B54 /* FirstResponderSchedule.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirstResponderSchedule.graphql.swift; sourceTree = "<group>"; };
+		93728FF22AA2ADD2009C8B54 /* Template.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Template.graphql.swift; sourceTree = "<group>"; };
+		93728FF32AA2ADD2009C8B54 /* Attachment.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Attachment.graphql.swift; sourceTree = "<group>"; };
+		93728FF42AA2ADD2009C8B54 /* Document.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Document.graphql.swift; sourceTree = "<group>"; };
+		93728FF52AA2ADD2009C8B54 /* OrganizationInvite.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OrganizationInvite.graphql.swift; sourceTree = "<group>"; };
+		93728FF62AA2ADD2009C8B54 /* CustomViewNotificationSubscription.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomViewNotificationSubscription.graphql.swift; sourceTree = "<group>"; };
+		93728FF72AA2ADD2009C8B54 /* ProjectSearchResult.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectSearchResult.graphql.swift; sourceTree = "<group>"; };
+		93728FF82AA2ADD2009C8B54 /* OauthClient.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OauthClient.graphql.swift; sourceTree = "<group>"; };
+		93728FF92AA2ADD2009C8B54 /* WorkflowCronJobDefinition.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WorkflowCronJobDefinition.graphql.swift; sourceTree = "<group>"; };
+		93728FFA2AA2ADD2009C8B54 /* ProjectMilestone.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectMilestone.graphql.swift; sourceTree = "<group>"; };
+		93728FFB2AA2ADD2009C8B54 /* OauthClientApprovalNotification.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OauthClientApprovalNotification.graphql.swift; sourceTree = "<group>"; };
+		93728FFC2AA2ADD2009C8B54 /* RoadmapToProject.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoadmapToProject.graphql.swift; sourceTree = "<group>"; };
+		93728FFD2AA2ADD2009C8B54 /* ProjectNotification.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectNotification.graphql.swift; sourceTree = "<group>"; };
+		93728FFE2AA2ADD2009C8B54 /* SchemaConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaConfiguration.swift; sourceTree = "<group>"; };
+		937290002AA2ADD2009C8B54 /* IssueCreateInput.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IssueCreateInput.graphql.swift; sourceTree = "<group>"; };
+		937290012AA2ADD2009C8B54 /* SchemaMetadata.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SchemaMetadata.graphql.swift; sourceTree = "<group>"; };
+		937290032AA2ADD2009C8B54 /* Notification.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notification.graphql.swift; sourceTree = "<group>"; };
+		937290042AA2ADD2009C8B54 /* Entity.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Entity.graphql.swift; sourceTree = "<group>"; };
+		937290052AA2ADD2009C8B54 /* NotificationSubscription.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationSubscription.graphql.swift; sourceTree = "<group>"; };
+		937290062AA2ADD2009C8B54 /* Node.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Node.graphql.swift; sourceTree = "<group>"; };
+		937290072AA2ADD2009C8B54 /* LinearGraphQL.graphql.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinearGraphQL.graphql.swift; sourceTree = "<group>"; };
+		937290512AA2C281009C8B54 /* TableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewController.swift; sourceTree = "<group>"; };
+		937290572AA2CBA5009C8B54 /* GitHubReportBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubReportBuilder.swift; sourceTree = "<group>"; };
+		937290592AA2CC17009C8B54 /* BuggerReportBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerReportBuilder.swift; sourceTree = "<group>"; };
+		9372905B2AA2CCBE009C8B54 /* LinearReportBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearReportBuilder.swift; sourceTree = "<group>"; };
+		9372905D2AA2CCD6009C8B54 /* LinearConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearConfig.swift; sourceTree = "<group>"; };
+		937290632AA3D2A2009C8B54 /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
+		937290682AA3DF69009C8B54 /* ExampleLinearConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExampleLinearConfig.swift; sourceTree = "<group>"; };
+		937290692AA3DF69009C8B54 /* ExampleGitHubConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExampleGitHubConfig.swift; sourceTree = "<group>"; };
 		AF219C201FA5F4D4004C7E1A /* BuggerError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerError.swift; sourceTree = "<group>"; };
 		AF219C221FA5FCD1004C7E1A /* ChainedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChainedTextField.swift; sourceTree = "<group>"; };
 		AF219C241FA5FCEF004C7E1A /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
@@ -141,7 +382,7 @@
 		AFCD7CCB1F926DAB00D7B02C /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
 		AFCD7CCE1F926DD800D7B02C /* ReportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportView.swift; sourceTree = "<group>"; };
 		AFCD7CD01F926E9500D7B02C /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
-		AFCD7CD21F926EAD00D7B02C /* BuggerConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerConfig.swift; sourceTree = "<group>"; };
+		AFCD7CD21F926EAD00D7B02C /* GitHubConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GitHubConfig.swift; sourceTree = "<group>"; };
 		AFCD7CD41F926ECD00D7B02C /* BuggerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerDelegate.swift; sourceTree = "<group>"; };
 		AFCD7CD61F926EEF00D7B02C /* BuggerState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerState.swift; sourceTree = "<group>"; };
 		AFCD7CD81F926F6900D7B02C /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
@@ -149,7 +390,6 @@
 		AFCD7CE11F927BAB00D7B02C /* BuggerImgurStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BuggerImgurStore.h; sourceTree = "<group>"; };
 		AFCD7CE21F927BAB00D7B02C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AFCD7CE71F927C7D00D7B02C /* BuggerImgurStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerImgurStore.swift; sourceTree = "<group>"; };
-		AFCD7CEE1F92989100D7B02C /* ExampleConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleConfig.swift; sourceTree = "<group>"; };
 		AFF61CDD1FA250C3006D6209 /* ReportTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportTests.swift; sourceTree = "<group>"; };
 		AFF61CE31FA28074006D6209 /* BuggerExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BuggerExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFF61CE51FA28074006D6209 /* BuggerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerTests.swift; sourceTree = "<group>"; };
@@ -160,6 +400,32 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		93728E342AA14E3E009C8B54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				93728E492AA14F26009C8B54 /* Bugger.framework in Frameworks */,
+				93728E6B2AA17554009C8B54 /* BuggerImgurStore.framework in Frameworks */,
+				93728E652AA17289009C8B54 /* HelpfulUI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		93728E542AA17170009C8B54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		93728E722AA1842E009C8B54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				937290602AA2DD69009C8B54 /* ApolloAPI in Frameworks */,
+				937290622AA2DD8C009C8B54 /* Apollo in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AFA00A7A1F97D0050065A79E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -179,6 +445,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93728E3D2AA14E3E009C8B54 /* BuggerGitHub.framework in Frameworks */,
+				93728E5D2AA17170009C8B54 /* HelpfulUI.framework in Frameworks */,
+				937290532AA2CAC4009C8B54 /* BuggerLinear.framework in Frameworks */,
 				AFF61CF01FA3BE8B006D6209 /* Bugger.framework in Frameworks */,
 				93E9AC922A9C1FE00058F1A9 /* OHHTTPStubsSwift in Frameworks */,
 				93E9AC902A9C1FD30058F1A9 /* OHHTTPStubs in Frameworks */,
@@ -190,6 +459,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				93728E422AA14E60009C8B54 /* Bugger.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,6 +473,182 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		93728E382AA14E3E009C8B54 /* BuggerGitHub */ = {
+			isa = PBXGroup;
+			children = (
+				93728E392AA14E3E009C8B54 /* BuggerGitHub.h */,
+				AFCD7CD21F926EAD00D7B02C /* GitHubConfig.swift */,
+				AFCD7CCB1F926DAB00D7B02C /* ReportViewController.swift */,
+				AFCD7CCE1F926DD800D7B02C /* ReportView.swift */,
+				937290572AA2CBA5009C8B54 /* GitHubReportBuilder.swift */,
+				AFCD7CD01F926E9500D7B02C /* Report.swift */,
+			);
+			path = BuggerGitHub;
+			sourceTree = "<group>";
+		};
+		93728E582AA17170009C8B54 /* HelpfulUI */ = {
+			isa = PBXGroup;
+			children = (
+				AFA00A721F93D3510065A79E /* PlaceholderTextView.swift */,
+				AF219C241FA5FCEF004C7E1A /* StringExtensions.swift */,
+				AF219C221FA5FCD1004C7E1A /* ChainedTextField.swift */,
+				AF219C261FA60FB3004C7E1A /* KeyboardAnimationViewController.swift */,
+				93728E592AA17170009C8B54 /* HelpfulUI.h */,
+			);
+			path = HelpfulUI;
+			sourceTree = "<group>";
+		};
+		93728E762AA1842E009C8B54 /* BuggerLinear */ = {
+			isa = PBXGroup;
+			children = (
+				93728E772AA1842E009C8B54 /* BuggerLinear.h */,
+				93728E832AA18752009C8B54 /* apollo-codegen-config.json */,
+				93728E812AA185D2009C8B54 /* Linear-API.graphqls */,
+				93728F1B2AA2A99D009C8B54 /* ReportViewController.swift */,
+				937290632AA3D2A2009C8B54 /* ReportView.swift */,
+				9372905D2AA2CCD6009C8B54 /* LinearConfig.swift */,
+				9372905B2AA2CCBE009C8B54 /* LinearReportBuilder.swift */,
+				93728FB72AA2ADD2009C8B54 /* LinearGraphQL */,
+			);
+			path = BuggerLinear;
+			sourceTree = "<group>";
+		};
+		93728FB72AA2ADD2009C8B54 /* LinearGraphQL */ = {
+			isa = PBXGroup;
+			children = (
+				93728FB82AA2ADD2009C8B54 /* Operations */,
+				93728FBB2AA2ADD2009C8B54 /* Schema */,
+				937290072AA2ADD2009C8B54 /* LinearGraphQL.graphql.swift */,
+			);
+			path = LinearGraphQL;
+			sourceTree = "<group>";
+		};
+		93728FB82AA2ADD2009C8B54 /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				93728FB92AA2ADD2009C8B54 /* Mutations */,
+			);
+			path = Operations;
+			sourceTree = "<group>";
+		};
+		93728FB92AA2ADD2009C8B54 /* Mutations */ = {
+			isa = PBXGroup;
+			children = (
+				93728FBA2AA2ADD2009C8B54 /* IssueCreateMutation.graphql.swift */,
+			);
+			path = Mutations;
+			sourceTree = "<group>";
+		};
+		93728FBB2AA2ADD2009C8B54 /* Schema */ = {
+			isa = PBXGroup;
+			children = (
+				93728FBC2AA2ADD2009C8B54 /* CustomScalars */,
+				93728FC02AA2ADD2009C8B54 /* Objects */,
+				93728FFE2AA2ADD2009C8B54 /* SchemaConfiguration.swift */,
+				93728FFF2AA2ADD2009C8B54 /* InputObjects */,
+				937290012AA2ADD2009C8B54 /* SchemaMetadata.graphql.swift */,
+				937290022AA2ADD2009C8B54 /* Interfaces */,
+			);
+			path = Schema;
+			sourceTree = "<group>";
+		};
+		93728FBC2AA2ADD2009C8B54 /* CustomScalars */ = {
+			isa = PBXGroup;
+			children = (
+				93728FBD2AA2ADD2009C8B54 /* JSON.swift */,
+				93728FBE2AA2ADD2009C8B54 /* TimelessDate.swift */,
+				93728FBF2AA2ADD2009C8B54 /* DateTime.swift */,
+			);
+			path = CustomScalars;
+			sourceTree = "<group>";
+		};
+		93728FC02AA2ADD2009C8B54 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				93728FC12AA2ADD2009C8B54 /* ProjectNotificationSubscription.graphql.swift */,
+				93728FC22AA2ADD2009C8B54 /* CycleNotificationSubscription.graphql.swift */,
+				93728FC32AA2ADD2009C8B54 /* IssuePayload.graphql.swift */,
+				93728FC42AA2ADD2009C8B54 /* Cycle.graphql.swift */,
+				93728FC52AA2ADD2009C8B54 /* OauthClientApproval.graphql.swift */,
+				93728FC62AA2ADD2009C8B54 /* IntegrationTemplate.graphql.swift */,
+				93728FC72AA2ADD2009C8B54 /* ExternalUser.graphql.swift */,
+				93728FC82AA2ADD2009C8B54 /* IssueSearchResult.graphql.swift */,
+				93728FC92AA2ADD2009C8B54 /* Comment.graphql.swift */,
+				93728FCA2AA2ADD2009C8B54 /* DocumentContent.graphql.swift */,
+				93728FCB2AA2ADD2009C8B54 /* IssueHistory.graphql.swift */,
+				93728FCC2AA2ADD2009C8B54 /* IssueNotification.graphql.swift */,
+				93728FCD2AA2ADD2009C8B54 /* User.graphql.swift */,
+				93728FCE2AA2ADD2009C8B54 /* IssueRelation.graphql.swift */,
+				93728FCF2AA2ADD2009C8B54 /* UserNotificationSubscription.graphql.swift */,
+				93728FD02AA2ADD2009C8B54 /* IssueLabel.graphql.swift */,
+				93728FD12AA2ADD2009C8B54 /* TeamNotificationSubscription.graphql.swift */,
+				93728FD22AA2ADD2009C8B54 /* Emoji.graphql.swift */,
+				93728FD32AA2ADD2009C8B54 /* LabelNotificationSubscription.graphql.swift */,
+				93728FD42AA2ADD2009C8B54 /* Roadmap.graphql.swift */,
+				93728FD52AA2ADD2009C8B54 /* DocumentSearchResult.graphql.swift */,
+				93728FD62AA2ADD2009C8B54 /* WorkflowDefinition.graphql.swift */,
+				93728FD72AA2ADD2009C8B54 /* Company.graphql.swift */,
+				93728FD82AA2ADD2009C8B54 /* AuditEntry.graphql.swift */,
+				93728FD92AA2ADD2009C8B54 /* Mutation.graphql.swift */,
+				93728FDA2AA2ADD2009C8B54 /* UserSettings.graphql.swift */,
+				93728FDB2AA2ADD2009C8B54 /* Project.graphql.swift */,
+				93728FDC2AA2ADD2009C8B54 /* Organization.graphql.swift */,
+				93728FDD2AA2ADD2009C8B54 /* ProjectUpdateInteraction.graphql.swift */,
+				93728FDE2AA2ADD2009C8B54 /* WorkflowState.graphql.swift */,
+				93728FDF2AA2ADD2009C8B54 /* PaidSubscription.graphql.swift */,
+				93728FE02AA2ADD2009C8B54 /* IssueImport.graphql.swift */,
+				93728FE12AA2ADD2009C8B54 /* IntegrationsSettings.graphql.swift */,
+				93728FE22AA2ADD2009C8B54 /* Reaction.graphql.swift */,
+				93728FE32AA2ADD2009C8B54 /* PushSubscription.graphql.swift */,
+				93728FE42AA2ADD2009C8B54 /* Team.graphql.swift */,
+				93728FE52AA2ADD2009C8B54 /* OrganizationDomain.graphql.swift */,
+				93728FE62AA2ADD2009C8B54 /* ProjectUpdate.graphql.swift */,
+				93728FE72AA2ADD2009C8B54 /* Integration.graphql.swift */,
+				93728FE82AA2ADD2009C8B54 /* TeamMembership.graphql.swift */,
+				93728FE92AA2ADD2009C8B54 /* CustomView.graphql.swift */,
+				93728FEA2AA2ADD2009C8B54 /* Favorite.graphql.swift */,
+				93728FEB2AA2ADD2009C8B54 /* Issue.graphql.swift */,
+				93728FEC2AA2ADD2009C8B54 /* ViewPreferences.graphql.swift */,
+				93728FED2AA2ADD2009C8B54 /* ApiKey.graphql.swift */,
+				93728FEE2AA2ADD2009C8B54 /* ProjectLink.graphql.swift */,
+				93728FEF2AA2ADD2009C8B54 /* Webhook.graphql.swift */,
+				93728FF02AA2ADD2009C8B54 /* IssueDraft.graphql.swift */,
+				93728FF12AA2ADD2009C8B54 /* FirstResponderSchedule.graphql.swift */,
+				93728FF22AA2ADD2009C8B54 /* Template.graphql.swift */,
+				93728FF32AA2ADD2009C8B54 /* Attachment.graphql.swift */,
+				93728FF42AA2ADD2009C8B54 /* Document.graphql.swift */,
+				93728FF52AA2ADD2009C8B54 /* OrganizationInvite.graphql.swift */,
+				93728FF62AA2ADD2009C8B54 /* CustomViewNotificationSubscription.graphql.swift */,
+				93728FF72AA2ADD2009C8B54 /* ProjectSearchResult.graphql.swift */,
+				93728FF82AA2ADD2009C8B54 /* OauthClient.graphql.swift */,
+				93728FF92AA2ADD2009C8B54 /* WorkflowCronJobDefinition.graphql.swift */,
+				93728FFA2AA2ADD2009C8B54 /* ProjectMilestone.graphql.swift */,
+				93728FFB2AA2ADD2009C8B54 /* OauthClientApprovalNotification.graphql.swift */,
+				93728FFC2AA2ADD2009C8B54 /* RoadmapToProject.graphql.swift */,
+				93728FFD2AA2ADD2009C8B54 /* ProjectNotification.graphql.swift */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
+		93728FFF2AA2ADD2009C8B54 /* InputObjects */ = {
+			isa = PBXGroup;
+			children = (
+				937290002AA2ADD2009C8B54 /* IssueCreateInput.graphql.swift */,
+			);
+			path = InputObjects;
+			sourceTree = "<group>";
+		};
+		937290022AA2ADD2009C8B54 /* Interfaces */ = {
+			isa = PBXGroup;
+			children = (
+				937290032AA2ADD2009C8B54 /* Notification.graphql.swift */,
+				937290042AA2ADD2009C8B54 /* Entity.graphql.swift */,
+				937290052AA2ADD2009C8B54 /* NotificationSubscription.graphql.swift */,
+				937290062AA2ADD2009C8B54 /* Node.graphql.swift */,
+			);
+			path = Interfaces;
+			sourceTree = "<group>";
+		};
 		93E9AC8E2A9C1FD30058F1A9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -245,8 +691,11 @@
 				AFA1B7E31F7A3BEA001589F4 /* Bugger */,
 				AFA00A7E1F97D0050065A79E /* BuggerTests */,
 				AFCD7CE01F927BAB00D7B02C /* BuggerImgurStore */,
+				93728E382AA14E3E009C8B54 /* BuggerGitHub */,
+				93728E762AA1842E009C8B54 /* BuggerLinear */,
 				AFCD7CAD1F920EDC00D7B02C /* BuggerExample */,
 				AFF61CE41FA28074006D6209 /* BuggerExampleTests */,
+				93728E582AA17170009C8B54 /* HelpfulUI */,
 				AFA1B7E21F7A3BEA001589F4 /* Products */,
 				AF219C281FA615C1004C7E1A /* set_version.sh */,
 				93E9AC8E2A9C1FD30058F1A9 /* Frameworks */,
@@ -261,6 +710,9 @@
 				AFCD7CDF1F927BAB00D7B02C /* BuggerImgurStore.framework */,
 				AFA00A7D1F97D0050065A79E /* BuggerTests.xctest */,
 				AFF61CE31FA28074006D6209 /* BuggerExampleTests.xctest */,
+				93728E372AA14E3E009C8B54 /* BuggerGitHub.framework */,
+				93728E572AA17170009C8B54 /* HelpfulUI.framework */,
+				93728E752AA1842E009C8B54 /* BuggerLinear.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -269,21 +721,17 @@
 			isa = PBXGroup;
 			children = (
 				AFA1B7EC1F7A3BF1001589F4 /* Bugger.swift */,
-				AFCD7CD21F926EAD00D7B02C /* BuggerConfig.swift */,
 				AFCD7CD41F926ECD00D7B02C /* BuggerDelegate.swift */,
 				AF219C201FA5F4D4004C7E1A /* BuggerError.swift */,
 				AFCD7CD61F926EEF00D7B02C /* BuggerState.swift */,
 				AFF61CF71FA3DE54006D6209 /* Device.swift */,
 				AFA00A741F95E6570065A79E /* Error.swift */,
-				AFA00A721F93D3510065A79E /* PlaceholderTextView.swift */,
-				AFCD7CD01F926E9500D7B02C /* Report.swift */,
+				93728E302AA14A1B009C8B54 /* ReportSender.swift */,
+				937290592AA2CC17009C8B54 /* BuggerReportBuilder.swift */,
 				AFCD7CD81F926F6900D7B02C /* Store.swift */,
 				AFCD7CC41F926CD100D7B02C /* UIResponderSwizzling.swift */,
 				AFA00A701F93A2070065A79E /* UITouchExtensions.swift */,
 				AFF61CFD1FA5E035006D6209 /* UIViewExtensions.swift */,
-				AF219C221FA5FCD1004C7E1A /* ChainedTextField.swift */,
-				AF219C261FA60FB3004C7E1A /* KeyboardAnimationViewController.swift */,
-				AF219C241FA5FCEF004C7E1A /* StringExtensions.swift */,
 				AFF61CF91FA47B99006D6209 /* UIWindowExtensions.swift */,
 				AFA00A8A1F97D18C0065A79E /* UploadResult.swift */,
 				AFA00A761F95E9570065A79E /* Supporting Files */,
@@ -296,9 +744,11 @@
 			isa = PBXGroup;
 			children = (
 				AFCD7CAE1F920EDC00D7B02C /* AppDelegate.swift */,
+				937290512AA2C281009C8B54 /* TableViewController.swift */,
 				AFA00A691F92C7970065A79E /* BuggerStubs.swift */,
-				AFCD7CEE1F92989100D7B02C /* ExampleConfig.swift */,
 				AFCD7CB01F920EDC00D7B02C /* ViewController.swift */,
+				937290692AA3DF69009C8B54 /* ExampleGitHubConfig.swift */,
+				937290682AA3DF69009C8B54 /* ExampleLinearConfig.swift */,
 				AFCD7CB21F920EDC00D7B02C /* Main.storyboard */,
 				AFCD7CB51F920EDC00D7B02C /* Assets.xcassets */,
 				AFCD7CB71F920EDC00D7B02C /* LaunchScreen.storyboard */,
@@ -321,8 +771,6 @@
 		AFCD7CCD1F926DBB00D7B02C /* Report */ = {
 			isa = PBXGroup;
 			children = (
-				AFCD7CCB1F926DAB00D7B02C /* ReportViewController.swift */,
-				AFCD7CCE1F926DD800D7B02C /* ReportView.swift */,
 			);
 			path = Report;
 			sourceTree = "<group>";
@@ -349,6 +797,30 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		93728E322AA14E3E009C8B54 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				93728E3A2AA14E3E009C8B54 /* BuggerGitHub.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		93728E522AA17170009C8B54 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				93728E5A2AA17170009C8B54 /* HelpfulUI.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		93728E702AA1842E009C8B54 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				93728E782AA1842E009C8B54 /* BuggerLinear.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AFA1B7DE1F7A3BEA001589F4 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -368,6 +840,67 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		93728E362AA14E3E009C8B54 /* BuggerGitHub */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 93728E3F2AA14E3E009C8B54 /* Build configuration list for PBXNativeTarget "BuggerGitHub" */;
+			buildPhases = (
+				93728E322AA14E3E009C8B54 /* Headers */,
+				93728E332AA14E3E009C8B54 /* Sources */,
+				93728E342AA14E3E009C8B54 /* Frameworks */,
+				93728E352AA14E3E009C8B54 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				93728E4C2AA14F26009C8B54 /* PBXTargetDependency */,
+				93728E682AA17289009C8B54 /* PBXTargetDependency */,
+				93728E6E2AA17554009C8B54 /* PBXTargetDependency */,
+			);
+			name = BuggerGitHub;
+			productName = BuggerGitHub;
+			productReference = 93728E372AA14E3E009C8B54 /* BuggerGitHub.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		93728E562AA17170009C8B54 /* HelpfulUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 93728E5F2AA17170009C8B54 /* Build configuration list for PBXNativeTarget "HelpfulUI" */;
+			buildPhases = (
+				93728E522AA17170009C8B54 /* Headers */,
+				93728E532AA17170009C8B54 /* Sources */,
+				93728E542AA17170009C8B54 /* Frameworks */,
+				93728E552AA17170009C8B54 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = HelpfulUI;
+			productName = HelpfulUI;
+			productReference = 93728E572AA17170009C8B54 /* HelpfulUI.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		93728E742AA1842E009C8B54 /* BuggerLinear */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 93728E7D2AA1842E009C8B54 /* Build configuration list for PBXNativeTarget "BuggerLinear" */;
+			buildPhases = (
+				93728E702AA1842E009C8B54 /* Headers */,
+				93728E712AA1842E009C8B54 /* Sources */,
+				93728E722AA1842E009C8B54 /* Frameworks */,
+				93728E732AA1842E009C8B54 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BuggerLinear;
+			packageProductDependencies = (
+				9372905F2AA2DD69009C8B54 /* ApolloAPI */,
+				937290612AA2DD8C009C8B54 /* Apollo */,
+			);
+			productName = BuggerLinear;
+			productReference = 93728E752AA1842E009C8B54 /* BuggerLinear.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		AFA00A7C1F97D0050065A79E /* BuggerTests */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = AFA00A851F97D0050065A79E /* Build configuration list for PBXNativeTarget "BuggerTests" */;
@@ -409,7 +942,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = AFCD7CBD1F920EDC00D7B02C /* Build configuration list for PBXNativeTarget "BuggerExample" */;
 			buildPhases = (
-				AFCD7CF01F9299B100D7B02C /* Generate ExampleConfig.swift */,
+				AFCD7CF01F9299B100D7B02C /* Generate ExampleGitHubConfig.swift */,
+				937290672AA3DE8E009C8B54 /* Generate ExampleLinearConfig.swift */,
 				AFCD7CA81F920EDC00D7B02C /* Sources */,
 				AFCD7CA91F920EDC00D7B02C /* Frameworks */,
 				AFCD7CAA1F920EDC00D7B02C /* Resources */,
@@ -420,6 +954,9 @@
 			dependencies = (
 				AFCD7CEC1F928AE800D7B02C /* PBXTargetDependency */,
 				AFF61CF31FA3BE8B006D6209 /* PBXTargetDependency */,
+				93728E3C2AA14E3E009C8B54 /* PBXTargetDependency */,
+				93728E5C2AA17170009C8B54 /* PBXTargetDependency */,
+				937290562AA2CAC4009C8B54 /* PBXTargetDependency */,
 			);
 			name = BuggerExample;
 			packageProductDependencies = (
@@ -444,6 +981,7 @@
 			);
 			dependencies = (
 				AFCD7CEA1F928ACA00D7B02C /* PBXTargetDependency */,
+				93728E452AA14E60009C8B54 /* PBXTargetDependency */,
 			);
 			name = BuggerImgurStore;
 			productName = BuggerImgurStore;
@@ -479,6 +1017,15 @@
 				LastUpgradeCheck = 1430;
 				ORGANIZATIONNAME = "Kyle McAlpine";
 				TargetAttributes = {
+					93728E362AA14E3E009C8B54 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+					93728E562AA17170009C8B54 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+					93728E742AA1842E009C8B54 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
 					AFA00A7C1F97D0050065A79E = {
 						CreatedOnToolsVersion = 9.0;
 						LastSwiftMigration = 1020;
@@ -518,6 +1065,7 @@
 			mainGroup = AFA1B7D71F7A3BEA001589F4;
 			packageReferences = (
 				93E9AC8D2A9C1EE00058F1A9 /* XCRemoteSwiftPackageReference "OHHTTPStubs" */,
+				93728E802AA185A3009C8B54 /* XCRemoteSwiftPackageReference "apollo-ios" */,
 			);
 			productRefGroup = AFA1B7E21F7A3BEA001589F4 /* Products */;
 			projectDirPath = "";
@@ -525,6 +1073,9 @@
 			targets = (
 				AFA1B7E01F7A3BEA001589F4 /* Bugger */,
 				AFCD7CDE1F927BAB00D7B02C /* BuggerImgurStore */,
+				93728E362AA14E3E009C8B54 /* BuggerGitHub */,
+				93728E742AA1842E009C8B54 /* BuggerLinear */,
+				93728E562AA17170009C8B54 /* HelpfulUI */,
 				AFCD7CAB1F920EDC00D7B02C /* BuggerExample */,
 				AFA00A7C1F97D0050065A79E /* BuggerTests */,
 				AFF61CE21FA28074006D6209 /* BuggerExampleTests */,
@@ -533,6 +1084,28 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		93728E352AA14E3E009C8B54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		93728E552AA17170009C8B54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		93728E732AA1842E009C8B54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				93728E822AA185D2009C8B54 /* Linear-API.graphqls in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AFA00A7B1F97D0050065A79E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -574,6 +1147,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		937290672AA3DE8E009C8B54 /* Generate ExampleLinearConfig.swift */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Generate ExampleLinearConfig.swift";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ ! -f BuggerExample/ExampleLinearConfig.swift ]; then\n    echo \"aW1wb3J0IEJ1Z2dlckxpbmVhcgoKc3RydWN0IEV4YW1wbGVMaW5lYXJDb25maWcgewogICAgc3RhdGljIGZ1bmMgYnVpbGQoKSAtPiBMaW5lYXJDb25maWcgewogICAgICAgIHJldHVybiBMaW5lYXJDb25maWcodGVhbUlkOiAiIikKICAgIH0KfQo=\" | base64 --decode >> BuggerExample/ExampleLinearConfig.swift\nfi\n";
+		};
 		AF219C291FA6164B004C7E1A /* set_version.sh */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -604,7 +1195,7 @@
 			shellPath = /bin/sh;
 			shellScript = "./set_version.sh\n";
 		};
-		AFCD7CF01F9299B100D7B02C /* Generate ExampleConfig.swift */ = {
+		AFCD7CF01F9299B100D7B02C /* Generate ExampleGitHubConfig.swift */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -613,17 +1204,124 @@
 			);
 			inputPaths = (
 			);
-			name = "Generate ExampleConfig.swift";
+			name = "Generate ExampleGitHubConfig.swift";
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/BuggerExample/ExampleConfig.swift",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ ! -f BuggerExample/ExampleConfig.swift ]; then\n    echo \"Ly8KLy8gIEV4YW1wbGVDb25maWcuc3dpZnQKLy8gIEJ1Z2dlckV4YW1wbGUKLy8KLy8gIENyZWF0ZWQgYnkgS3lsZSBNY0FscGluZSBvbiAxNC8xMC8yMDE3LgovLyAgQ29weXJpZ2h0IMKpIDIwMTcgS3lsZSBNY0FscGluZS4gQWxsIHJpZ2h0cyByZXNlcnZlZC4KLy8KCmltcG9ydCBGb3VuZGF0aW9uCgpzdHJ1Y3QgRXhhbXBsZUNvbmZpZyB7CiAgICBzdGF0aWMgbGV0IGltZ3VyQ2xpZW50SUQgPSAiIgogICAgCiAgICBzdGF0aWMgbGV0IGdpdGh1YlRva2VuID0gIiIKICAgIHN0YXRpYyBsZXQgZ2l0aHViT3duZXIgPSAiIgogICAgc3RhdGljIGxldCBnaXRodWJSZXBvID0gIiIKfQo=\" | base64 --decode >> BuggerExample/ExampleConfig.swift\nfi\n";
+			shellScript = "if [ ! -f BuggerExample/ExampleGitHubConfig.swift ]; then\n    echo \"aW1wb3J0IEJ1Z2dlckdpdEh1YgoKc3RydWN0IEV4YW1wbGVHaXRIdWJDb25maWcgewogICAgc3RhdGljIGZ1bmMgYnVpbGQoKSAtPiBHaXRIdWJDb25maWcgewogICAgICAgIHJldHVybiBHaXRIdWJDb25maWcoCiAgICAgICAgICAgIHRva2VuOiAiIiwKICAgICAgICAgICAgb3duZXI6ICIiLAogICAgICAgICAgICByZXBvOiAiIiwKICAgICAgICAgICAgaW1ndXJDbGllbnRJZDogIiIKICAgICAgICApCiAgICB9Cn0K\" | base64 --decode >> BuggerExample/ExampleGitHubConfig.swift\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		93728E332AA14E3E009C8B54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				937290582AA2CBA5009C8B54 /* GitHubReportBuilder.swift in Sources */,
+				93728E482AA14EA6009C8B54 /* ReportView.swift in Sources */,
+				93728E472AA14EA6009C8B54 /* ReportViewController.swift in Sources */,
+				93728E4E2AA14FBE009C8B54 /* Report.swift in Sources */,
+				93728E4F2AA1517B009C8B54 /* GitHubConfig.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		93728E532AA17170009C8B54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				93728E642AA17200009C8B54 /* StringExtensions.swift in Sources */,
+				93728E632AA1717C009C8B54 /* KeyboardAnimationViewController.swift in Sources */,
+				93728E622AA1717C009C8B54 /* ChainedTextField.swift in Sources */,
+				93728E6A2AA172AA009C8B54 /* PlaceholderTextView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		93728E712AA1842E009C8B54 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				937290232AA2ADD2009C8B54 /* AuditEntry.graphql.swift in Sources */,
+				937290352AA2ADD2009C8B54 /* Favorite.graphql.swift in Sources */,
+				937290122AA2ADD2009C8B54 /* ExternalUser.graphql.swift in Sources */,
+				9372903C2AA2ADD2009C8B54 /* FirstResponderSchedule.graphql.swift in Sources */,
+				937290382AA2ADD2009C8B54 /* ApiKey.graphql.swift in Sources */,
+				9372905C2AA2CCBE009C8B54 /* LinearReportBuilder.swift in Sources */,
+				9372900D2AA2ADD2009C8B54 /* CycleNotificationSubscription.graphql.swift in Sources */,
+				9372902E2AA2ADD2009C8B54 /* PushSubscription.graphql.swift in Sources */,
+				9372904B2AA2ADD2009C8B54 /* SchemaMetadata.graphql.swift in Sources */,
+				9372901F2AA2ADD2009C8B54 /* Roadmap.graphql.swift in Sources */,
+				937290322AA2ADD2009C8B54 /* Integration.graphql.swift in Sources */,
+				937290262AA2ADD2009C8B54 /* Project.graphql.swift in Sources */,
+				937290492AA2ADD2009C8B54 /* SchemaConfiguration.swift in Sources */,
+				937290432AA2ADD2009C8B54 /* OauthClient.graphql.swift in Sources */,
+				937290252AA2ADD2009C8B54 /* UserSettings.graphql.swift in Sources */,
+				937290092AA2ADD2009C8B54 /* JSON.swift in Sources */,
+				9372902D2AA2ADD2009C8B54 /* Reaction.graphql.swift in Sources */,
+				937290412AA2ADD2009C8B54 /* CustomViewNotificationSubscription.graphql.swift in Sources */,
+				9372903A2AA2ADD2009C8B54 /* Webhook.graphql.swift in Sources */,
+				937290242AA2ADD2009C8B54 /* Mutation.graphql.swift in Sources */,
+				937290372AA2ADD2009C8B54 /* ViewPreferences.graphql.swift in Sources */,
+				9372902B2AA2ADD2009C8B54 /* IssueImport.graphql.swift in Sources */,
+				937290132AA2ADD2009C8B54 /* IssueSearchResult.graphql.swift in Sources */,
+				9372903B2AA2ADD2009C8B54 /* IssueDraft.graphql.swift in Sources */,
+				937290272AA2ADD2009C8B54 /* Organization.graphql.swift in Sources */,
+				9372904A2AA2ADD2009C8B54 /* IssueCreateInput.graphql.swift in Sources */,
+				937290282AA2ADD2009C8B54 /* ProjectUpdateInteraction.graphql.swift in Sources */,
+				9372900A2AA2ADD2009C8B54 /* TimelessDate.swift in Sources */,
+				937290422AA2ADD2009C8B54 /* ProjectSearchResult.graphql.swift in Sources */,
+				9372903D2AA2ADD2009C8B54 /* Template.graphql.swift in Sources */,
+				9372900C2AA2ADD2009C8B54 /* ProjectNotificationSubscription.graphql.swift in Sources */,
+				937290302AA2ADD2009C8B54 /* OrganizationDomain.graphql.swift in Sources */,
+				937290312AA2ADD2009C8B54 /* ProjectUpdate.graphql.swift in Sources */,
+				9372900B2AA2ADD2009C8B54 /* DateTime.swift in Sources */,
+				9372901E2AA2ADD2009C8B54 /* LabelNotificationSubscription.graphql.swift in Sources */,
+				9372900E2AA2ADD2009C8B54 /* IssuePayload.graphql.swift in Sources */,
+				937290172AA2ADD2009C8B54 /* IssueNotification.graphql.swift in Sources */,
+				937290212AA2ADD2009C8B54 /* WorkflowDefinition.graphql.swift in Sources */,
+				937290502AA2ADD2009C8B54 /* LinearGraphQL.graphql.swift in Sources */,
+				937290452AA2ADD2009C8B54 /* ProjectMilestone.graphql.swift in Sources */,
+				937290222AA2ADD2009C8B54 /* Company.graphql.swift in Sources */,
+				9372904D2AA2ADD2009C8B54 /* Entity.graphql.swift in Sources */,
+				937290332AA2ADD2009C8B54 /* TeamMembership.graphql.swift in Sources */,
+				937290482AA2ADD2009C8B54 /* ProjectNotification.graphql.swift in Sources */,
+				9372904E2AA2ADD2009C8B54 /* NotificationSubscription.graphql.swift in Sources */,
+				9372902C2AA2ADD2009C8B54 /* IntegrationsSettings.graphql.swift in Sources */,
+				937290192AA2ADD2009C8B54 /* IssueRelation.graphql.swift in Sources */,
+				937290342AA2ADD2009C8B54 /* CustomView.graphql.swift in Sources */,
+				937290112AA2ADD2009C8B54 /* IntegrationTemplate.graphql.swift in Sources */,
+				9372904F2AA2ADD2009C8B54 /* Node.graphql.swift in Sources */,
+				9372904C2AA2ADD2009C8B54 /* Notification.graphql.swift in Sources */,
+				9372901C2AA2ADD2009C8B54 /* TeamNotificationSubscription.graphql.swift in Sources */,
+				937290402AA2ADD2009C8B54 /* OrganizationInvite.graphql.swift in Sources */,
+				937290442AA2ADD2009C8B54 /* WorkflowCronJobDefinition.graphql.swift in Sources */,
+				9372901B2AA2ADD2009C8B54 /* IssueLabel.graphql.swift in Sources */,
+				937290392AA2ADD2009C8B54 /* ProjectLink.graphql.swift in Sources */,
+				937290152AA2ADD2009C8B54 /* DocumentContent.graphql.swift in Sources */,
+				93728F1C2AA2A99D009C8B54 /* ReportViewController.swift in Sources */,
+				9372902A2AA2ADD2009C8B54 /* PaidSubscription.graphql.swift in Sources */,
+				937290462AA2ADD2009C8B54 /* OauthClientApprovalNotification.graphql.swift in Sources */,
+				937290642AA3D2A2009C8B54 /* ReportView.swift in Sources */,
+				937290362AA2ADD2009C8B54 /* Issue.graphql.swift in Sources */,
+				9372901A2AA2ADD2009C8B54 /* UserNotificationSubscription.graphql.swift in Sources */,
+				9372905E2AA2CCD6009C8B54 /* LinearConfig.swift in Sources */,
+				9372900F2AA2ADD2009C8B54 /* Cycle.graphql.swift in Sources */,
+				937290102AA2ADD2009C8B54 /* OauthClientApproval.graphql.swift in Sources */,
+				937290162AA2ADD2009C8B54 /* IssueHistory.graphql.swift in Sources */,
+				9372903F2AA2ADD2009C8B54 /* Document.graphql.swift in Sources */,
+				937290142AA2ADD2009C8B54 /* Comment.graphql.swift in Sources */,
+				9372903E2AA2ADD2009C8B54 /* Attachment.graphql.swift in Sources */,
+				9372902F2AA2ADD2009C8B54 /* Team.graphql.swift in Sources */,
+				937290472AA2ADD2009C8B54 /* RoadmapToProject.graphql.swift in Sources */,
+				937290202AA2ADD2009C8B54 /* DocumentSearchResult.graphql.swift in Sources */,
+				9372901D2AA2ADD2009C8B54 /* Emoji.graphql.swift in Sources */,
+				937290082AA2ADD2009C8B54 /* IssueCreateMutation.graphql.swift in Sources */,
+				937290182AA2ADD2009C8B54 /* User.graphql.swift in Sources */,
+				937290292AA2ADD2009C8B54 /* WorkflowState.graphql.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AFA00A791F97D0050065A79E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -640,26 +1338,20 @@
 			files = (
 				AFA00A751F95E6570065A79E /* Error.swift in Sources */,
 				AFA00A8B1F97D18C0065A79E /* UploadResult.swift in Sources */,
-				AF219C231FA5FCD1004C7E1A /* ChainedTextField.swift in Sources */,
 				AFCD7CC71F926D6600D7B02C /* AnnotationViewController.swift in Sources */,
+				93728E312AA14A1B009C8B54 /* ReportSender.swift in Sources */,
 				AFF61CF81FA3DE54006D6209 /* Device.swift in Sources */,
 				AFCD7CD71F926EEF00D7B02C /* BuggerState.swift in Sources */,
 				AFCD7CD91F926F6900D7B02C /* Store.swift in Sources */,
 				AFF61CFE1FA5E035006D6209 /* UIViewExtensions.swift in Sources */,
-				AF219C271FA60FB3004C7E1A /* KeyboardAnimationViewController.swift in Sources */,
 				AFCD7CCA1F926D8600D7B02C /* AnnotationView.swift in Sources */,
-				AFCD7CD11F926E9500D7B02C /* Report.swift in Sources */,
 				AFA00A711F93A2070065A79E /* UITouchExtensions.swift in Sources */,
-				AFCD7CCF1F926DD800D7B02C /* ReportView.swift in Sources */,
-				AF219C251FA5FCEF004C7E1A /* StringExtensions.swift in Sources */,
 				AFCD7CC51F926CD100D7B02C /* UIResponderSwizzling.swift in Sources */,
-				AFCD7CCC1F926DAB00D7B02C /* ReportViewController.swift in Sources */,
-				AFA00A731F93D3510065A79E /* PlaceholderTextView.swift in Sources */,
 				AFA00A6F1F93922D0065A79E /* ColorButton.swift in Sources */,
 				AF219C211FA5F4D4004C7E1A /* BuggerError.swift in Sources */,
+				9372905A2AA2CC17009C8B54 /* BuggerReportBuilder.swift in Sources */,
 				AFA1B7ED1F7A3BF1001589F4 /* Bugger.swift in Sources */,
 				AFA00A6D1F9392120065A79E /* AnnotationControlView.swift in Sources */,
-				AFCD7CD31F926EAD00D7B02C /* BuggerConfig.swift in Sources */,
 				AFF61CFA1FA47B99006D6209 /* UIWindowExtensions.swift in Sources */,
 				AFCD7CD51F926ECD00D7B02C /* BuggerDelegate.swift in Sources */,
 			);
@@ -669,10 +1361,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9372906A2AA3DF69009C8B54 /* ExampleLinearConfig.swift in Sources */,
 				AFCD7CB11F920EDC00D7B02C /* ViewController.swift in Sources */,
 				AFA00A6A1F92C7970065A79E /* BuggerStubs.swift in Sources */,
+				9372906B2AA3DF69009C8B54 /* ExampleGitHubConfig.swift in Sources */,
 				AFCD7CAF1F920EDC00D7B02C /* AppDelegate.swift in Sources */,
-				AFCD7CEF1F92989100D7B02C /* ExampleConfig.swift in Sources */,
+				937290522AA2C281009C8B54 /* TableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -695,6 +1389,41 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		93728E3C2AA14E3E009C8B54 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 93728E362AA14E3E009C8B54 /* BuggerGitHub */;
+			targetProxy = 93728E3B2AA14E3E009C8B54 /* PBXContainerItemProxy */;
+		};
+		93728E452AA14E60009C8B54 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AFA1B7E01F7A3BEA001589F4 /* Bugger */;
+			targetProxy = 93728E442AA14E60009C8B54 /* PBXContainerItemProxy */;
+		};
+		93728E4C2AA14F26009C8B54 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AFA1B7E01F7A3BEA001589F4 /* Bugger */;
+			targetProxy = 93728E4B2AA14F26009C8B54 /* PBXContainerItemProxy */;
+		};
+		93728E5C2AA17170009C8B54 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 93728E562AA17170009C8B54 /* HelpfulUI */;
+			targetProxy = 93728E5B2AA17170009C8B54 /* PBXContainerItemProxy */;
+		};
+		93728E682AA17289009C8B54 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 93728E562AA17170009C8B54 /* HelpfulUI */;
+			targetProxy = 93728E672AA17289009C8B54 /* PBXContainerItemProxy */;
+		};
+		93728E6E2AA17554009C8B54 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AFCD7CDE1F927BAB00D7B02C /* BuggerImgurStore */;
+			targetProxy = 93728E6D2AA17554009C8B54 /* PBXContainerItemProxy */;
+		};
+		937290562AA2CAC4009C8B54 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 93728E742AA1842E009C8B54 /* BuggerLinear */;
+			targetProxy = 937290552AA2CAC4009C8B54 /* PBXContainerItemProxy */;
+		};
 		AFA00A841F97D0050065A79E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = AFA1B7E01F7A3BEA001589F4 /* Bugger */;
@@ -742,6 +1471,219 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		93728E402AA14E3E009C8B54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = W22DU5VG4U;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Kyle McAlpine. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++20";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.kylejs.BuggerGitHub;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		93728E412AA14E3E009C8B54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = W22DU5VG4U;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Kyle McAlpine. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++20";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.kylejs.BuggerGitHub;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		93728E602AA17170009C8B54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = W22DU5VG4U;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Kyle McAlpine. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++20";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.kylejs.HelpfulUI;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		93728E612AA17170009C8B54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = W22DU5VG4U;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Kyle McAlpine. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++20";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.kylejs.HelpfulUI;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		93728E7E2AA1842E009C8B54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = W22DU5VG4U;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Kyle McAlpine. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++20";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.kylejs.BuggerLinear;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		93728E7F2AA1842E009C8B54 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = W22DU5VG4U;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2023 Kyle McAlpine. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++20";
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.kylejs.BuggerLinear;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		AFA00A861F97D0050065A79E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -909,6 +1851,7 @@
 				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Bugger/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -938,6 +1881,7 @@
 				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/Bugger/Supporting Files/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -961,6 +1905,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W22DU5VG4U;
 				INFOPLIST_FILE = BuggerExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -980,6 +1925,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = W22DU5VG4U;
 				INFOPLIST_FILE = BuggerExample/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1004,6 +1950,7 @@
 				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = BuggerImgurStore/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1033,6 +1980,7 @@
 				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = BuggerImgurStore/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1091,6 +2039,33 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		93728E3F2AA14E3E009C8B54 /* Build configuration list for PBXNativeTarget "BuggerGitHub" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				93728E402AA14E3E009C8B54 /* Debug */,
+				93728E412AA14E3E009C8B54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		93728E5F2AA17170009C8B54 /* Build configuration list for PBXNativeTarget "HelpfulUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				93728E602AA17170009C8B54 /* Debug */,
+				93728E612AA17170009C8B54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		93728E7D2AA1842E009C8B54 /* Build configuration list for PBXNativeTarget "BuggerLinear" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				93728E7E2AA1842E009C8B54 /* Debug */,
+				93728E7F2AA1842E009C8B54 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		AFA00A851F97D0050065A79E /* Build configuration list for PBXNativeTarget "BuggerTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1148,6 +2123,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		93728E802AA185A3009C8B54 /* XCRemoteSwiftPackageReference "apollo-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		93E9AC8D2A9C1EE00058F1A9 /* XCRemoteSwiftPackageReference "OHHTTPStubs" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/AliSoftware/OHHTTPStubs";
@@ -1159,6 +2142,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		9372905F2AA2DD69009C8B54 /* ApolloAPI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 93728E802AA185A3009C8B54 /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = ApolloAPI;
+		};
+		937290612AA2DD8C009C8B54 /* Apollo */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 93728E802AA185A3009C8B54 /* XCRemoteSwiftPackageReference "apollo-ios" */;
+			productName = Apollo;
+		};
 		93E9AC8F2A9C1FD30058F1A9 /* OHHTTPStubs */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 93E9AC8D2A9C1EE00058F1A9 /* XCRemoteSwiftPackageReference "OHHTTPStubs" */;

@@ -7,7 +7,7 @@
 //
 import UIKit
 
-class KeyboardAnimationVC: UIViewController {
+open class KeyboardAnimationVC: UIViewController {
     @IBOutlet fileprivate weak var keyboardConstraint: NSLayoutConstraint?
     
     // keyboardWillShowNotification is called many times when a keyboard type is changed
@@ -22,23 +22,23 @@ class KeyboardAnimationVC: UIViewController {
     
     
     // MARK: Controller life cycle
-    override func viewWillAppear(_ animated: Bool) {
+    public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChangeFrame(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
+    public override func viewWillDisappear(_ animated: Bool) {
         NotificationCenter.default.removeObserver(self)
         super.viewWillDisappear(animated)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         isOnScreen = true
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
+    public override func viewDidDisappear(_ animated: Bool) {
         isOnScreen = false
         super.viewDidDisappear(animated)
     }
@@ -105,6 +105,6 @@ class KeyboardAnimationVC: UIViewController {
     }
     
     // Override this to prove keyboard animations
-    func keyboardAnimations(to keyboardHeight: CGFloat) {}
+    open func keyboardAnimations(to keyboardHeight: CGFloat) {}
 }
 

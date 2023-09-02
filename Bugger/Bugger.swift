@@ -12,12 +12,16 @@ public struct Bugger {
     static var state: BuggerState = .notWatching {
         didSet {
             guard case .watching(let config) = state else { return }
-            if config.swizzleInvocation { UIResponder.swizzleBuggerInvocation() }
+            if config.enableShakeToTrigger { UIResponder.swizzleBuggerInvocation() }
         }
     }
     
-    public static func with(config: BuggerConfig) {
+    public static func start(with config: BuggerConfig) {
         state = .watching(config)
+    }
+
+    public static func stop() {
+        state = .notWatching
     }
     
     static public func present(with config: BuggerConfig, from window: UIWindow) {

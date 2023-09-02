@@ -9,11 +9,11 @@
 import UIKit
 
 extension UIWindow {
-    func topViewController() -> String {
+    public func topViewController() -> String {
         return topViewController(controller: rootViewController)
     }
     
-    func topViewController(controller: UIViewController?) -> String {
+    public func topViewController(controller: UIViewController?) -> String {
         if let navigationController = controller as? UINavigationController {
             return topViewController(controller: navigationController.visibleViewController)
         }

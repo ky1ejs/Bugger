@@ -47,5 +47,10 @@ fastlane/*.html
 *.pem
 *.p12
 
+## Apollo
+apollo-ios-cli
+
 ## Bugger
-BuggerExample/ExampleConfig.swift
+BuggerExample/ExampleGitHubConfig.swift
+BuggerExample/ExampleLinearConfig.swift
+BuggerLinear/LinearGraphQL

@@ -8,6 +8,16 @@
 
 import Foundation
 
+public struct BuggerConfig {
+    let reportSender: BuggerReportBuilder
+    let enableShakeToTrigger: Bool
+
+    public init(reportSender: BuggerReportBuilder, enableShakeToTrigger: Bool) {
+        self.reportSender = reportSender
+        self.enableShakeToTrigger = enableShakeToTrigger
+    }
+}
+
 enum BuggerState {
     case watching(BuggerConfig)
     case active(window: UIWindow, config: BuggerConfig)

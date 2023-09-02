@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import SystemConfiguration.CaptiveNetwork
-import CoreTelephony
+import Bugger
+import BuggerImgurStore
 
 struct Report {
     let githubUsername: String?
@@ -93,14 +93,15 @@ struct Report {
         return body
     }
     
-    func send(with config: BuggerConfig, completion: @escaping (UploadResult) -> ()) {
+    func send(with config: GitHubConfig, completion: @escaping (UploadResult) -> ()) {
         uploadImage(config: config) { url in
             self.createGitHubIssue(config: config, imageURL: url, completion: completion)
         }
     }
     
-    private func uploadImage(config: BuggerConfig, successHandler: @escaping (URL) -> ()) {
-        config.store.imageStore.uploadImage(image: screenshot) { result in
+    private func uploadImage(config: GitHubConfig, successHandler: @escaping (URL) -> ()) {
+        let store = BuggerImgurStore(clientID: config.imgurClientId)
+        store.uploadImage(image: screenshot) { result in
             switch result {
             case .success(let url):
                 successHandler(url)
@@ -110,7 +111,7 @@ struct Report {
         }
     }
     
-    private func createGitHubIssue(config: BuggerConfig, imageURL: URL, completion: @escaping (UploadResult) -> ()) {
+    private func createGitHubIssue(config: GitHubConfig, imageURL: URL, completion: @escaping (UploadResult) -> ()) {
         let issueData =  [ "title": summary, "body": formattedBody(with: imageURL) ]
         
         let jsonData = try! JSONSerialization.data(withJSONObject: issueData, options: [])

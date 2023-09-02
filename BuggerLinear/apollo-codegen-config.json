@@ -1,0 +1,29 @@
+{
+  "schemaNamespace" : "LinearGraphQL",
+  "input" : {
+    "operationSearchPaths" : [
+      "**/*.graphql"
+    ],
+    "schemaSearchPaths" : [
+      "**/*.graphqls"
+    ]
+  },
+  "output" : {
+    "testMocks" : {
+      "none" : {
+      }
+    },
+    "schemaTypes" : {
+      "path" : "./LinearGraphQL",
+      "moduleType" : {
+        "embeddedInTarget" : {
+          "name" : "LinearGraphQL"
+        }
+      }
+    },
+    "operations" : {
+      "inSchemaModule" : {
+      }
+    }
+  }
+}

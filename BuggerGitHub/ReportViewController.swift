@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import Bugger
+import HelpfulUI
 
-class ReportViewController: KeyboardAnimationVC {
-    let config: BuggerConfig
+public class ReportViewController: KeyboardAnimationVC {
+    let config: GitHubConfig
     let reportView: ReportView
     let screenshot: UIImage
     let appWindow: UIWindow
+    let completionHandler: () -> Void
     
     var reportViewBottomConstraint: NSLayoutConstraint?
     
@@ -50,29 +53,30 @@ class ReportViewController: KeyboardAnimationVC {
         }
     }
     
-    init(appWindow: UIWindow, screenshot: UIImage, config: BuggerConfig) {
-        self.reportView = ReportView(screenshot: screenshot)
-        self.config = config
-        self.appWindow = appWindow
-        self.screenshot = screenshot
+    public init(reportParams: ReportParams, gitHubConfig: GitHubConfig) {
+        reportView = ReportView(screenshot: reportParams.screenshot)
+        config = gitHubConfig
+        appWindow = reportParams.appWindow
+        screenshot = reportParams.screenshot
+        completionHandler = reportParams.completionHandler
         super.init(nibName: nil, bundle: nil)
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Send", style: .done, target: self, action: #selector(send))
     }
     
     required init?(coder aDecoder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
-    override func loadView() {
+    public override func loadView() {
         view = UIView()
         view.backgroundColor = .white
         view.addSubview(reportView)
         
         reportView.translatesAutoresizingMaskIntoConstraints = false
         
-        view.safeTopAnchor.constraint(equalTo: reportView.topAnchor).isActive = true
+        view.safeAreaLayoutGuide.topAnchor.constraint(equalTo: reportView.topAnchor).isActive = true
         view.leadingAnchor.constraint(equalTo: reportView.leadingAnchor).isActive = true
         view.trailingAnchor.constraint(equalTo: reportView.trailingAnchor).isActive = true
         
-        reportViewBottomConstraint = view.safeBottomAnchor.constraint(equalTo: reportView.bottomAnchor)
+        reportViewBottomConstraint = view.safeAreaLayoutGuide.bottomAnchor.constraint(equalTo: reportView.bottomAnchor)
         reportViewBottomConstraint?.isActive = true
     }
     
@@ -86,7 +90,7 @@ class ReportViewController: KeyboardAnimationVC {
                                   appWindow: appWindow,
                                   screenshot: screenshot)
             
-            state = .loading(UIActivityIndicatorView(style: .gray))
+            state = .loading(UIActivityIndicatorView(style: .medium))
             report.send(with: config) { result in
                 let alert = UIAlertController(title: nil, message: nil, preferredStyle: .alert)
                 switch result {
@@ -94,8 +98,8 @@ class ReportViewController: KeyboardAnimationVC {
                     self.state = .editing
                     alert.title = "Thank you! 🎉"
                     alert.message = "We've received your feedback and will review it soon!\n\n\(url)"
-                    alert.addAction(UIAlertAction(title: "☺️", style: .cancel, handler: { _ in
-                        Bugger.state = .watching(self.config)
+                    alert.addAction(UIAlertAction(title: "☺️", style: .cancel, handler: { [weak self] _ in
+                        self?.completionHandler()
                     }))
                 case .error(let error):
                     alert.title = "Error ☹️"
@@ -111,7 +115,7 @@ class ReportViewController: KeyboardAnimationVC {
         }
     }
     
-    override func keyboardAnimations(to keyboardHeight: CGFloat) {
+    public override func keyboardAnimations(to keyboardHeight: CGFloat) {
         reportViewBottomConstraint?.isActive = false
         reportViewBottomConstraint = reportView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -keyboardHeight)
         reportViewBottomConstraint?.isActive = true

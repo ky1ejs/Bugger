@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import HelpfulUI
 
 class ReportView: UIView {
     let githubUsernameTF = ChainedTextField()
@@ -44,7 +45,7 @@ class ReportView: UIView {
         addSubview(screenshotPreviewImageView)
         
         NSLayoutConstraint.activate([
-            githubUsernameTF.topAnchor.constraint(equalTo: safeTopAnchor),
+            githubUsernameTF.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             githubUsernameTF.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             githubUsernameTF.centerXAnchor.constraint(equalTo: centerXAnchor),
             githubUsernameTF.heightAnchor.constraint(equalToConstant: 44),

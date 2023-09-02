@@ -32,8 +32,13 @@ class AnnotationViewController: UIViewController {
     override func loadView() { view = annotationView }
     
     @objc private func nextStep() {
-        let reportVC = ReportViewController(appWindow: appWindow, screenshot: annotationView.imageView.image!, config: config)
-        navigationController?.pushViewController(reportVC, animated: true)
+        let params = ReportParams(
+            screenshot: annotationView.imageView.image!,
+            appWindow: appWindow) { [unowned self] in
+                Bugger.state = .watching(self.config)
+            }
+        let viewController = config.reportSender.buildViewController(params: params)
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
     @objc private func cancel() {

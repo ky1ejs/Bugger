@@ -7,18 +7,18 @@
 //
 import UIKit
 
-class ChainedTextField: UITextField {
-    @IBInspectable var characterLimit: Int = 0
-    @IBInspectable var characterRegex: String? = nil
-    @IBInspectable var textRegex: String? = nil
+public class ChainedTextField: UITextField {
+    @IBInspectable public var characterLimit: Int = 0
+    @IBInspectable public var characterRegex: String? = nil
+    @IBInspectable public var textRegex: String? = nil
     
-    weak var chainedTextFieldDelegate: ChainedTextFieldDelegate?
+    public weak var chainedTextFieldDelegate: ChainedTextFieldDelegate?
     
-    weak var nextControl: UIResponder?
-    weak var previousControl: UIResponder?
+    public weak var nextControl: UIResponder?
+    public weak var previousControl: UIResponder?
     
     fileprivate weak var _delegate: UITextFieldDelegate?
-    @IBOutlet override var delegate: UITextFieldDelegate? {
+    @IBOutlet public override var delegate: UITextFieldDelegate? {
         get { return _delegate }
         set { _delegate = newValue }
     }
@@ -37,7 +37,7 @@ class ChainedTextField: UITextField {
         super.delegate = self
     }
     
-    override func deleteBackward() {
+    public override func deleteBackward() {
         if self.text?.count == 0 {
             if let previous = previousControl {
                 previous.becomeFirstResponder()
@@ -50,7 +50,7 @@ class ChainedTextField: UITextField {
 }
 
 extension ChainedTextField: UITextFieldDelegate {
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+    public func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if string == "" || range.length > 0 {
             return true
         }
@@ -84,7 +84,7 @@ extension ChainedTextField: UITextFieldDelegate {
         return true
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    public func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let next = nextControl {
             next.becomeFirstResponder()
             return false
@@ -98,28 +98,28 @@ extension ChainedTextField: UITextFieldDelegate {
         return self.delegate?.textFieldShouldReturn?(textField) ?? false
     }
     
-    func textFieldDidBeginEditing(_ textField: UITextField) {
+    public func textFieldDidBeginEditing(_ textField: UITextField) {
         self.delegate?.textFieldDidBeginEditing?(textField)
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    public func textFieldDidEndEditing(_ textField: UITextField) {
         self.delegate?.textFieldDidEndEditing?(textField)
     }
     
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+    public func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         return self.delegate?.textFieldShouldBeginEditing?(textField) ?? true
     }
     
-    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+    public func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         return self.delegate?.textFieldShouldEndEditing?(textField) ?? true
     }
     
-    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+    public func textFieldShouldClear(_ textField: UITextField) -> Bool {
         return self.delegate?.textFieldShouldClear?(textField) ?? true
     }
 }
 
-protocol ChainedTextFieldDelegate: AnyObject {
+public protocol ChainedTextFieldDelegate: AnyObject {
     func deletedBackwards()
     func goToNextControl()
 }

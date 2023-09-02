@@ -8,11 +8,11 @@
 
 import Foundation
 
-protocol UserError {
+public protocol UserError {
     var userErrorMessage: String { get }
 }
 
-extension Error {
+public extension Error {
     var errorMessage: String {
         if let stringConvertable = self as? UserError {
             return stringConvertable.userErrorMessage

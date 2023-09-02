@@ -12,7 +12,7 @@ public enum Store {
     case image(ImageStore)
     case imageAndVideo(ImageStore & VideoStore)
     
-    var imageStore: ImageStore {
+    public var imageStore: ImageStore {
         switch self {
         case .image(let store):         return store
         case .imageAndVideo(let store): return store

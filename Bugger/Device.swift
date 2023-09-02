@@ -10,10 +10,10 @@ import Foundation
 import SystemConfiguration.CaptiveNetwork
 import CoreTelephony
 
-typealias KeyValue = (key: String, value: String)
+public typealias KeyValue = (key: String, value: String)
 
-struct Device {
-    static var meta: [KeyValue] =  [
+public struct Device {
+    public static var meta: [KeyValue] =  [
         (key: "Bundle ID",              value: bundleID),
         (key: "Version",                value: appVersion),
         (key: "Build",                  value: appBuild),
@@ -36,27 +36,27 @@ struct Device {
         (key: "Disk Used",              value: diskUsed)
     ]
     
-    static var bundleID: String {
+    public static var bundleID: String {
         return Bundle.main.infoDictionary?[String(kCFBundleIdentifierKey)] as? String ?? ""
     }
     
-    static var appVersion: String {
+    public static var appVersion: String {
         return Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? ""
     }
     
-    static var appBuild: String {
+    public static var appBuild: String {
         return Bundle.main.infoDictionary?[String(kCFBundleVersionKey)] as? String ?? ""
     }
     
-    static var systemName: String {
+    public static var systemName: String {
         return UIDevice.current.systemName
     }
     
-    static var systemVersion: String {
+    public static var systemVersion: String {
         return UIDevice.current.systemVersion
     }
     
-    static var deviceModel: String {
+    public static var deviceModel: String {
         var systemInfo = utsname()
         uname(&systemInfo)
         let machineMirror = Mirror(reflecting: systemInfo.machine)
@@ -105,7 +105,7 @@ struct Device {
         }
     }
     
-    static var orientation: String {
+    public static var orientation: String {
         switch UIDevice.current.orientation {
         case .landscapeLeft:        return "Landscape Left"
         case .landscapeRight:       return "Landscape Right"
@@ -118,15 +118,15 @@ struct Device {
         }
     }
     
-    static var locale: String {
+    public static var locale: String {
         return Locale.current.description
     }
     
-    static var date: String {
+    public static var date: String {
         return String(describing: Date())
     }
     
-    static var batteryLevel: String {
+    public static var batteryLevel: String {
         let device = UIDevice.current
         device.isBatteryMonitoringEnabled = true
         let level = "\(Int(device.batteryLevel * 100))%"
@@ -134,7 +134,7 @@ struct Device {
         return level
     }
     
-    static var batteryState: String {
+    public static var batteryState: String {
         let device = UIDevice.current
         device.isBatteryMonitoringEnabled = true
         let state: String = {
@@ -150,29 +150,29 @@ struct Device {
         return state
     }
     
-    static var screenSize: String {
+    public static var screenSize: String {
         let screenSize = UIScreen.main.bounds.size
         return "\(screenSize.width) x \(screenSize.height)"
     }
     
-    static var screenDensity: String {
+    public static var screenDensity: String {
         return String(describing: UIScreen.main.scale)
     }
     
-    static var carrierName: String {
+    public static var carrierName: String {
         return CTTelephonyNetworkInfo().serviceSubscriberCellularProviders?
             .values
             .map { $0.description }
             .joined(separator: ", ") ?? ""
     }
     
-    static var carrierConnectionType: String {
+    public static var carrierConnectionType: String {
         return CTTelephonyNetworkInfo().serviceCurrentRadioAccessTechnology?
             .values
             .joined(separator: ", ") ?? ""
     }
     
-    static var connectedWifiSSID: String {
+    public static var connectedWifiSSID: String {
         guard let supportedInterfaces = CNCopySupportedInterfaces() as? [CFString],
             let interface = supportedInterfaces.first,
             let unsafeInterfaceData = CNCopyCurrentNetworkInfo(interface),
@@ -182,11 +182,11 @@ struct Device {
         return ssid
     }
     
-    static var memoryCapacity: String {
+    public static var memoryCapacity: String {
         return "\(Int(ProcessInfo().physicalMemory).bytesToMegaBytes()) MB"
     }
     
-    static var memoryUsed: String {
+    public static var memoryUsed: String {
         var info = mach_task_basic_info()
         var count = mach_msg_type_number_t(MemoryLayout<mach_task_basic_info>.size) / 4
         let kerr: kern_return_t = withUnsafeMutablePointer(to: &info) {
@@ -197,7 +197,7 @@ struct Device {
         return kerr == KERN_SUCCESS ? "\(Int(info.resident_size).bytesToMegaBytes()) MB" : ""
     }
     
-    static var fileSystemAttributes: [FileAttributeKey : Any]? {
+    public static var fileSystemAttributes: [FileAttributeKey : Any]? {
         let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         guard let path = paths.last,
             let attrs = try? FileManager.default.attributesOfFileSystem(forPath: path)
@@ -205,12 +205,12 @@ struct Device {
         return attrs
     }
     
-    static var diskCapacity: String {
+    public static var diskCapacity: String {
         guard let cap = fileSystemAttributes?[.systemSize] as? Int else { return  "" }
         return "\(cap.bytesToGigaBytes()) GB"
     }
     
-    static var diskUsed: String {
+    public static var diskUsed: String {
         guard let used = fileSystemAttributes?[.systemFreeSize] as? Int else { return  "" }
         return "\(used.bytesToGigaBytes()) GB"
     }
