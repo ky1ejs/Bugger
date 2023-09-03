@@ -21,13 +21,19 @@ private extension Bugger {
     }
 }
 
+struct FakeReportBuilder: BuggerReportBuilder {
+    func buildViewController(params: ReportParams) -> UIViewController {
+        return UIViewController()
+    }
+}
+
 class BuggerTests: XCTestCase {
     func testWith() {
         XCTAssertFalse(Bugger.isActive)
         XCTAssertFalse(Bugger.isWatching)
-        
-        let config = BuggerConfig(token: "", owner: "", repo: "", store: .image(DummyStore()))
-        Bugger.with(config: config)
+
+        let config = BuggerConfig(reportSender: FakeReportBuilder(), enableShakeToTrigger: true)
+        Bugger.start(with: config)
         
         XCTAssertFalse(Bugger.isActive)
         XCTAssertTrue(Bugger.isWatching)
@@ -42,7 +48,7 @@ class BuggerTests: XCTestCase {
         XCTAssertFalse(Bugger.isActive)
         XCTAssertFalse(Bugger.isWatching)
         
-        let config = BuggerConfig(token: "", owner: "", repo: "", store: .image(DummyStore()))
+        let config = BuggerConfig(reportSender: FakeReportBuilder(), enableShakeToTrigger: true)
         Bugger.state = .watching(config)
         
         XCTAssertFalse(Bugger.isActive)

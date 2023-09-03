@@ -6,7 +6,7 @@
 //  Copyright © 2017 Kyle McAlpine. All rights reserved.
 //
 
-import Foundation
+import UIKit
 @testable import Bugger
 
 struct DummyStore {}
