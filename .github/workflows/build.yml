@@ -20,4 +20,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: xcodebuild
-        run: xcodebuild -scheme ${{ matrix.target }} -destination "name=iPhone 14 Pro"
+        run: xcodebuild -scheme ${{ matrix.target }} -destination "name=iPhone 14 Pro" | xcpretty
