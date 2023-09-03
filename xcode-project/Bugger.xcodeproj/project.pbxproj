@@ -134,13 +134,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		93C9B30A2AA40254005DCD2D /* BuggerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = BuggerExample.app; path = "/Users/kylejs/Developer/kylejs/Bugger/xcode-project/build/Debug-iphoneos/BuggerExample.app"; sourceTree = "<absolute>"; };
-		93C9B30B2AA409DD005DCD2D /* Bugger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Bugger.framework; path = "/Users/kylejs/Developer/kylejs/Bugger/xcode-project/build/Debug-iphoneos/Bugger.framework"; sourceTree = "<absolute>"; };
-		93C9B30C2AA409DD005DCD2D /* BuggerImgurStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = BuggerImgurStore.framework; path = "/Users/kylejs/Developer/kylejs/Bugger/xcode-project/build/Debug-iphoneos/BuggerImgurStore.framework"; sourceTree = "<absolute>"; };
-		93C9B30D2AA409DD005DCD2D /* BuggerGitHub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = BuggerGitHub.framework; path = "/Users/kylejs/Developer/kylejs/Bugger/xcode-project/build/Debug-iphoneos/BuggerGitHub.framework"; sourceTree = "<absolute>"; };
-		93C9B30E2AA409DD005DCD2D /* HelpfulUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = HelpfulUI.framework; path = "/Users/kylejs/Developer/kylejs/Bugger/xcode-project/build/Debug-iphoneos/HelpfulUI.framework"; sourceTree = "<absolute>"; };
-		93C9B30F2AA409DD005DCD2D /* BuggerLinear.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = BuggerLinear.framework; path = "/Users/kylejs/Developer/kylejs/Bugger/xcode-project/build/Debug-iphoneos/BuggerLinear.framework"; sourceTree = "<absolute>"; };
-		93C9B3122AA409ED005DCD2D /* BuggerExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = BuggerExampleTests.xctest; path = "/Users/kylejs/Developer/kylejs/Bugger/xcode-project/build/Debug-iphoneos/BuggerExampleTests.xctest"; sourceTree = "<absolute>"; };
 		93C9B3162AA409FF005DCD2D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		93C9B3172AA409FF005DCD2D /* ExampleGitHubConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleGitHubConfig.swift; sourceTree = "<group>"; };
 		93C9B3182AA409FF005DCD2D /* BuggerStubs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuggerStubs.swift; sourceTree = "<group>"; };
@@ -261,9 +254,17 @@
 		93C9B39D2AA40A09005DCD2D /* NotificationSubscription.graphql.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSubscription.graphql.swift; sourceTree = "<group>"; };
 		93C9B39E2AA40A09005DCD2D /* Node.graphql.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Node.graphql.swift; sourceTree = "<group>"; };
 		93C9B39F2AA40A09005DCD2D /* LinearGraphQL.graphql.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearGraphQL.graphql.swift; sourceTree = "<group>"; };
-		93C9B3A12AA40A21005DCD2D /* BuggerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = BuggerTests.xctest; path = "/Users/kylejs/Developer/kylejs/Bugger/xcode-project/build/Debug-iphoneos/BuggerTests.xctest"; sourceTree = "<absolute>"; };
 		93C9B3B42AA40A3B005DCD2D /* Bugger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bugger.h; sourceTree = "<group>"; };
 		93C9B3B62AA40B36005DCD2D /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Package.swift; path = ../Package.swift; sourceTree = "<group>"; };
+		93C9B3B82AA42623005DCD2D /* Bugger.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Bugger.framework; path = "/Users/kylejs/Developer/kylejs/Bugger/xcode-project/build/Debug-iphoneos/Bugger.framework"; sourceTree = "<absolute>"; };
+		93C9B3B92AA42623005DCD2D /* BuggerImgurStore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = BuggerImgurStore.framework; path = "/Users/kylejs/Developer/kylejs/Bugger/xcode-project/build/Debug-iphoneos/BuggerImgurStore.framework"; sourceTree = "<absolute>"; };
+		93C9B3BA2AA42623005DCD2D /* BuggerGitHub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = BuggerGitHub.framework; path = "/Users/kylejs/Developer/kylejs/Bugger/xcode-project/build/Debug-iphoneos/BuggerGitHub.framework"; sourceTree = "<absolute>"; };
+		93C9B3BB2AA42623005DCD2D /* HelpfulUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = HelpfulUI.framework; path = "/Users/kylejs/Developer/kylejs/Bugger/xcode-project/build/Debug-iphoneos/HelpfulUI.framework"; sourceTree = "<absolute>"; };
+		93C9B3BC2AA42623005DCD2D /* BuggerLinear.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = BuggerLinear.framework; path = "/Users/kylejs/Developer/kylejs/Bugger/xcode-project/build/Debug-iphoneos/BuggerLinear.framework"; sourceTree = "<absolute>"; };
+		93C9B3BD2AA42623005DCD2D /* BuggerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = BuggerExample.app; path = "/Users/kylejs/Developer/kylejs/Bugger/xcode-project/build/Debug-iphoneos/BuggerExample.app"; sourceTree = "<absolute>"; };
+		93C9B3BE2AA42623005DCD2D /* BuggerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = BuggerTests.xctest; path = "/Users/kylejs/Developer/kylejs/Bugger/xcode-project/build/Debug-iphoneos/BuggerTests.xctest"; sourceTree = "<absolute>"; };
+		93C9B3BF2AA42623005DCD2D /* BuggerExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = BuggerExampleTests.xctest; path = "/Users/kylejs/Developer/kylejs/Bugger/xcode-project/build/Debug-iphoneos/BuggerExampleTests.xctest"; sourceTree = "<absolute>"; };
+		93C9B3C32AA4E4AD005DCD2D /* check-resolved-packages-match.sh */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = text.script.sh; path = "check-resolved-packages-match.sh"; sourceTree = "<group>"; tabWidth = 2; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -603,10 +604,20 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		93C9B3C22AA4E4AD005DCD2D /* scripts */ = {
+			isa = PBXGroup;
+			children = (
+				93C9B3C32AA4E4AD005DCD2D /* check-resolved-packages-match.sh */,
+			);
+			name = scripts;
+			path = ../scripts;
+			sourceTree = "<group>";
+		};
 		AFA1B7D71F7A3BEA001589F4 = {
 			isa = PBXGroup;
 			children = (
 				93C9B3B62AA40B36005DCD2D /* Package.swift */,
+				93C9B3C22AA4E4AD005DCD2D /* scripts */,
 				93C9B32D2AA40A09005DCD2D /* Bugger */,
 				93C9B3262AA40A09005DCD2D /* BuggerGitHub */,
 				93C9B3242AA40A09005DCD2D /* BuggerImgurStore */,
@@ -676,7 +687,7 @@
 			);
 			name = BuggerGitHub;
 			productName = BuggerGitHub;
-			productReference = 93C9B30D2AA409DD005DCD2D /* BuggerGitHub.framework */;
+			productReference = 93C9B3BA2AA42623005DCD2D /* BuggerGitHub.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		93728E562AA17170009C8B54 /* HelpfulUI */ = {
@@ -694,7 +705,7 @@
 			);
 			name = HelpfulUI;
 			productName = HelpfulUI;
-			productReference = 93C9B30E2AA409DD005DCD2D /* HelpfulUI.framework */;
+			productReference = 93C9B3BB2AA42623005DCD2D /* HelpfulUI.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		93728E742AA1842E009C8B54 /* BuggerLinear */ = {
@@ -716,7 +727,7 @@
 				937290612AA2DD8C009C8B54 /* Apollo */,
 			);
 			productName = BuggerLinear;
-			productReference = 93C9B30F2AA409DD005DCD2D /* BuggerLinear.framework */;
+			productReference = 93C9B3BC2AA42623005DCD2D /* BuggerLinear.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		AFA00A7C1F97D0050065A79E /* BuggerTests */ = {
@@ -734,7 +745,7 @@
 			);
 			name = BuggerTests;
 			productName = BuggerTests;
-			productReference = 93C9B3A12AA40A21005DCD2D /* BuggerTests.xctest */;
+			productReference = 93C9B3BE2AA42623005DCD2D /* BuggerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		AFA1B7E01F7A3BEA001589F4 /* Bugger */ = {
@@ -753,7 +764,7 @@
 			);
 			name = Bugger;
 			productName = Bugger;
-			productReference = 93C9B30B2AA409DD005DCD2D /* Bugger.framework */;
+			productReference = 93C9B3B82AA42623005DCD2D /* Bugger.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		AFCD7CAB1F920EDC00D7B02C /* BuggerExample */ = {
@@ -782,7 +793,7 @@
 				93E9AC912A9C1FE00058F1A9 /* OHHTTPStubsSwift */,
 			);
 			productName = BuggerExample;
-			productReference = 93C9B30A2AA40254005DCD2D /* BuggerExample.app */;
+			productReference = 93C9B3BD2AA42623005DCD2D /* BuggerExample.app */;
 			productType = "com.apple.product-type.application";
 		};
 		AFCD7CDE1F927BAB00D7B02C /* BuggerImgurStore */ = {
@@ -803,7 +814,7 @@
 			);
 			name = BuggerImgurStore;
 			productName = BuggerImgurStore;
-			productReference = 93C9B30C2AA409DD005DCD2D /* BuggerImgurStore.framework */;
+			productReference = 93C9B3B92AA42623005DCD2D /* BuggerImgurStore.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		AFF61CE21FA28074006D6209 /* BuggerExampleTests */ = {
@@ -821,7 +832,7 @@
 			);
 			name = BuggerExampleTests;
 			productName = BuggerExampleTests;
-			productReference = 93C9B3122AA409ED005DCD2D /* BuggerExampleTests.xctest */;
+			productReference = 93C9B3BF2AA42623005DCD2D /* BuggerExampleTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -1856,7 +1867,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apollographql/apollo-ios.git";
 			requirement = {
-				kind = upToNextMajorVersion;
+				kind = upToNextMinorVersion;
 				minimumVersion = 1.0.0;
 			};
 		};
