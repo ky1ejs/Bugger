@@ -41,6 +41,6 @@ Bugger.xcodeproj/xcuserdata/*
 apollo-ios-cli
 
 ## Bugger
-BuggerExample/ExampleGitHubConfig.swift
-BuggerExample/ExampleLinearConfig.swift
-BuggerLinear/LinearGraphQL
+*/ExampleGitHubConfig.swift
+*/ExampleLinearConfig.swift
+**/LinearGraphQL/*
