@@ -28,4 +28,4 @@ jobs:
       xcode: xcode-project/Bugger.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
     steps:
       - name: check
-        run: cmp --silent $swiftpm $xcode || diff $swiftpm $xcode & echo "exit 1
+        run: cmp --silent $swiftpm $xcode || diff $swiftpm $xcode & exit 1
