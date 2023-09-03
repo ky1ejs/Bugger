@@ -24,6 +24,8 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
+      - name: resolve swift deps
+        run: swift package resolve
       - name: generate graphql code
         run: swift run --package-path .build/checkouts/apollo-ios/ apollo-ios-cli generate -p Sources/BuggerLinear/apollo-codegen-config.json
       - name: xcodebuild
