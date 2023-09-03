@@ -27,5 +27,6 @@ jobs:
       swiftpm: Package.resolved
       xcode: xcode-project/Bugger.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
     steps:
+      - uses: actions/checkout@v3
       - name: check
         run: cmp --silent $swiftpm $xcode || diff $swiftpm $xcode & exit 1
