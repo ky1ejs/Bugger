@@ -2,7 +2,8 @@
 .DS_Store
 
 ## Build generated
-/build/
+.build/
+build/
 DerivedData
 
 ## Various settings
@@ -28,17 +29,6 @@ Bugger.xcodeproj/xcuserdata/*
 *.ipa
 *.gcda
 *.gcno
-
-## Carthage
-Carthage/
-
-## Fastlane
-fastlane/screenshots/
-fastlane/*.xml
-fastlane/*.md
-fastlane/*.html
-*.zip
-*.mobileprovision
 
 ## R.swift https://github.com/mac-cain13/R.swift
 *.generated.swift
