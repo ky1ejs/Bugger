@@ -5,14 +5,16 @@ import PackageDescription
 
 let package = Package(
     name: "Bugger",
-    platforms: [.iOS(.v14)],
+    platforms: [
+        .iOS(.v14),
+        .macOS(.v10_14)
+    ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.
         .library(name: "Bugger", targets: ["Bugger"]),
         .library(name: "BuggerGitHub", targets: ["BuggerGitHub"]),
         .library(name: "BuggerImgurStore", targets: ["BuggerImgurStore"]),
         .library(name: "BuggerLinear", targets: ["BuggerLinear"]),
-        .library(name: "HelpfulUI", targets: ["HelpfulUI"]),
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
@@ -38,7 +40,16 @@ let package = Package(
                 "HelpfulUI",
                 .product(name: "Apollo", package: "apollo-ios"),
                 .product(name: "ApolloAPI", package: "apollo-ios"),
-            ]),
+            ],
+            plugins: [.plugin(name: "BuggerLinearCodegen")]
+        ),
+        .plugin(
+            name: "BuggerLinearCodegen",
+            capability: .buildTool(),
+            dependencies: [
+                .product(name: "apollo-ios-cli", package: "apollo-ios"),
+            ]
+        ),
         .target(name: "HelpfulUI", dependencies: []),
         .testTarget(name: "BuggerTests",dependencies: ["Bugger"]),
     ]
