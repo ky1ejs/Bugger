@@ -1,0 +1,4 @@
+framework module BuggerLinear {
+  header "BuggerLinear-Swift.h"
+  requires objc
+}

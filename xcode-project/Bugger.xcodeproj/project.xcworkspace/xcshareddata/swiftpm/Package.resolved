@@ -3,10 +3,10 @@
     {
       "identity" : "apollo-ios",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apollographql/apollo-ios.git",
+      "location" : "https://github.com/ky1ejs/apollo-ios",
       "state" : {
-        "revision" : "f9a452cf786e02cafff85c4acf9f72e99011b3ad",
-        "version" : "1.0.7"
+        "branch" : "remove-macos-checks",
+        "revision" : "51f4376885751a853388151c0ab688f0b4c31251"
       }
     },
     {
