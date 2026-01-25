@@ -9,6 +9,7 @@
 import UIKit
 import HelpfulUI
 
+@MainActor
 class ReportView: UIView {
     let titleTF = ChainedTextField()
     let descriptionTF = PlaceholderTextView()

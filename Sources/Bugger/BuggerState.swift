@@ -8,16 +8,17 @@
 
 import UIKit
 
-public struct BuggerConfig {
-    let reportSender: BuggerReportBuilder
+public struct BuggerConfig: Sendable {
+    let reportSender: any BuggerReportBuilder
     let enableShakeToTrigger: Bool
 
-    public init(reportSender: BuggerReportBuilder, enableShakeToTrigger: Bool) {
+    public init(reportSender: any BuggerReportBuilder, enableShakeToTrigger: Bool) {
         self.reportSender = reportSender
         self.enableShakeToTrigger = enableShakeToTrigger
     }
 }
 
+@MainActor
 enum BuggerState {
     case watching(BuggerConfig)
     case active(window: UIWindow, config: BuggerConfig)

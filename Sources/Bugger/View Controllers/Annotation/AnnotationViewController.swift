@@ -8,6 +8,7 @@
 
 import UIKit
 
+@MainActor
 class AnnotationViewController: UIViewController {
     let config: BuggerConfig
     let annotationView: AnnotationView
@@ -85,27 +86,20 @@ class AnnotationViewController: UIViewController {
     }
     
     func drawLine(from fromPoint: CGPoint, to toPoint: CGPoint) {
-        // 1
-        UIGraphicsBeginImageContext(drawingRect.size)
-        let context = UIGraphicsGetCurrentContext()
-        annotationView.imageView.image?.draw(in: annotationView.imageView.bounds)
-        
-        // 2
-        context?.move(to: fromPoint)
-        context?.addLine(to: toPoint)
-        
-        // 3
-        context?.setLineCap(.round)
-        context?.setLineWidth(strokeWidth)
-        context?.setStrokeColor(annotationView.controlView.selectedColor.cgColor)
-        context?.setBlendMode(.normal)
-        
-        // 4
-        context?.strokePath()
-        
-        // 5
-        annotationView.imageView.image = UIImage(cgImage: context!.makeImage()!)
-        UIGraphicsEndImageContext()
+        let renderer = UIGraphicsImageRenderer(size: drawingRect.size)
+        let newImage = renderer.image { context in
+            annotationView.imageView.image?.draw(in: annotationView.imageView.bounds)
+
+            let cgContext = context.cgContext
+            cgContext.move(to: fromPoint)
+            cgContext.addLine(to: toPoint)
+            cgContext.setLineCap(.round)
+            cgContext.setLineWidth(strokeWidth)
+            cgContext.setStrokeColor(annotationView.controlView.selectedColor.cgColor)
+            cgContext.setBlendMode(.normal)
+            cgContext.strokePath()
+        }
+        annotationView.imageView.image = newImage
     }
     
     @objc func undo() {

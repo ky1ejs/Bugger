@@ -8,21 +8,22 @@
 
 import UIKit
 
+@MainActor
 class AnnotationView: UIView {
     let imageView = UIImageView()
     let controlView = AnnotationControlView()
-    
+
     init(image: UIImage) {
         super.init(frame: .zero)
-        
+
         backgroundColor = .gray
-        
+
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = image
-        
+
         addSubview(imageView)
         addSubview(controlView)
-        
+
         NSLayoutConstraint.activate([
             controlView.leadingAnchor.constraint(equalTo: leadingAnchor),
             controlView.bottomAnchor.constraint(equalTo: safeBottomAnchor),
@@ -30,17 +31,12 @@ class AnnotationView: UIView {
             controlView.heightAnchor.constraint(equalToConstant: 44)
         ])
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
-        
-        let insetTop: CGFloat = {
-            if #available(iOS 11.0, *) {
-                return safeAreaInsets.top
-            }
-            return 0
-        }()
-        
+
+        let insetTop = safeAreaInsets.top
+
         // Calculate imageView frame manually because it needs a whole width and height for CGContext to generate an image
         let imageViewHeight = bounds.height - insetTop - (bounds.height - controlView.frame.origin.y)
         let imageViewWidth = ceil(imageViewHeight * (UIScreen.main.bounds.width / UIScreen.main.bounds.height))
@@ -48,7 +44,7 @@ class AnnotationView: UIView {
         let imageViewY = insetTop
         imageView.frame = CGRect(x: imageViewX, y: imageViewY, width: imageViewWidth, height: imageViewHeight)
     }
-    
+
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

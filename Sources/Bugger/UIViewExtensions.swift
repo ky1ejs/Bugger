@@ -10,81 +10,49 @@ import UIKit
 
 extension UIView {
     func snapshot() -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(bounds.size, true, 0)
-        drawHierarchy(in: bounds, afterScreenUpdates: true)
-        let snapshot = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return snapshot!
+        let renderer = UIGraphicsImageRenderer(bounds: bounds)
+        return renderer.image { context in
+            drawHierarchy(in: bounds, afterScreenUpdates: true)
+        }
     }
-    
+
     var safeTopAnchor: NSLayoutYAxisAnchor {
-        if #available(iOS 11.0, *) {
-            return safeAreaLayoutGuide.topAnchor
-        }
-        return topAnchor
+        safeAreaLayoutGuide.topAnchor
     }
-    
+
     var safeBottomAnchor: NSLayoutYAxisAnchor {
-        if #available(iOS 11.0, *) {
-            return safeAreaLayoutGuide.bottomAnchor
-        }
-        return bottomAnchor
+        safeAreaLayoutGuide.bottomAnchor
     }
-    
+
     var safeCenterXAnchor: NSLayoutXAxisAnchor {
-        if #available(iOS 11.0, *) {
-            return safeAreaLayoutGuide.centerXAnchor
-        }
-        return centerXAnchor
+        safeAreaLayoutGuide.centerXAnchor
     }
-    
+
     var safeCenterYAnchor: NSLayoutYAxisAnchor {
-        if #available(iOS 11.0, *) {
-            return safeAreaLayoutGuide.centerYAnchor
-        }
-        return centerYAnchor
+        safeAreaLayoutGuide.centerYAnchor
     }
-    
+
     var safeHeightAnchor: NSLayoutDimension {
-        if #available(iOS 11.0, *) {
-            return safeAreaLayoutGuide.heightAnchor
-        }
-        return heightAnchor
+        safeAreaLayoutGuide.heightAnchor
     }
-    
+
     var safeWidthAnchor: NSLayoutDimension {
-        if #available(iOS 11.0, *) {
-            return safeAreaLayoutGuide.widthAnchor
-        }
-        return widthAnchor
+        safeAreaLayoutGuide.widthAnchor
     }
-    
+
     var safeLeadingAnchor: NSLayoutXAxisAnchor {
-        if #available(iOS 11.0, *) {
-            return safeAreaLayoutGuide.leadingAnchor
-        }
-        return leadingAnchor
+        safeAreaLayoutGuide.leadingAnchor
     }
-    
+
     var safeTrailingAnchor: NSLayoutXAxisAnchor {
-        if #available(iOS 11.0, *) {
-            return safeAreaLayoutGuide.trailingAnchor
-        }
-        return trailingAnchor
+        safeAreaLayoutGuide.trailingAnchor
     }
-    
+
     var safeLeftAnchor: NSLayoutXAxisAnchor {
-        if #available(iOS 11.0, *) {
-            return safeAreaLayoutGuide.leftAnchor
-        }
-        return leftAnchor
+        safeAreaLayoutGuide.leftAnchor
     }
-    
-    
+
     var safeRightAnchor: NSLayoutXAxisAnchor {
-        if #available(iOS 11.0, *) {
-            return safeAreaLayoutGuide.rightAnchor
-        }
-        return rightAnchor
+        safeAreaLayoutGuide.rightAnchor
     }
 }

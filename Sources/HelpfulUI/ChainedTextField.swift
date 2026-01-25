@@ -7,6 +7,7 @@
 //
 import UIKit
 
+@MainActor
 public class ChainedTextField: UITextField {
     @IBInspectable public var characterLimit: Int = 0
     @IBInspectable public var characterRegex: String? = nil
@@ -119,6 +120,7 @@ extension ChainedTextField: UITextFieldDelegate {
     }
 }
 
+@MainActor
 public protocol ChainedTextFieldDelegate: AnyObject {
     func deletedBackwards()
     func goToNextControl()

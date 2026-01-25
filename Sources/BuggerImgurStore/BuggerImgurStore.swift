@@ -9,43 +9,35 @@
 import UIKit
 import Bugger
 
-public struct BuggerImgurStore {
+public struct BuggerImgurStore: Sendable {
     let clientID: String
-    
+
     public init(clientID: String) {
         self.clientID = clientID
     }
 }
 
 extension BuggerImgurStore: ImageStore {
-    public func uploadImage(image: UIImage, completion: @escaping (UploadResult) -> ()) {
+    public func uploadImage(image: UIImage) async throws -> URL {
+        guard let imageData = image.pngData() else {
+            throw GeneralError.unknown
+        }
+
         var request = URLRequest(url: URL(string: "https://api.imgur.com/3/image")!)
         request.httpMethod = "POST"
         request.addValue("multipart/form-data", forHTTPHeaderField: "Content-Type")
         request.addValue("Client-ID \(clientID)", forHTTPHeaderField: "Authorization")
-        let data = image.pngData()!
-        request.httpBody = data.base64EncodedString().data(using: .utf8, allowLossyConversion: true)
-        
-        let task = URLSession.shared.dataTask(with: request, completionHandler: { (data: Data?, response: URLResponse?, error: Error?) -> Void in
-            var result = UploadResult.error(GeneralError.unknown)
-            
-            defer { DispatchQueue.main.async { completion(result) } }
-            
-            if let error = error {
-                completion(.error(NetworkError.requestError(error: error)))
-            } else {
-                do {
-                    guard let data = data else { return }
-                    guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any] else { return }
-                    guard let imageData = json["data"] as? [String : Any] else { return }
-                    guard let urlString = imageData["link"] as? String else { return }
-                    guard let url = URL(string: urlString) else { return }
-                    result = .success(url)
-                } catch let error {
-                    result = .error(SerialisationError.error(error))
-                }
-            }
-        })
-        task.resume()
+        request.httpBody = imageData.base64EncodedString().data(using: .utf8, allowLossyConversion: true)
+
+        let (data, _) = try await URLSession.shared.data(for: request)
+
+        guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any],
+              let responseData = json["data"] as? [String: Any],
+              let urlString = responseData["link"] as? String,
+              let url = URL(string: urlString) else {
+            throw NetworkError.responseParseError
+        }
+
+        return url
     }
 }

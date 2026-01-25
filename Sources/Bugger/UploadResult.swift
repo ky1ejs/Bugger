@@ -8,7 +8,7 @@
 
 import Foundation
 
-public enum UploadResult {
+public enum UploadResult: Sendable {
     case success(URL)
-    case error(BuggerError)
+    case error(any BuggerError)
 }

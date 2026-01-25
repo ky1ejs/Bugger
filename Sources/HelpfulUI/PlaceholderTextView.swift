@@ -8,6 +8,7 @@
 
 import UIKit
 
+@MainActor
 public class PlaceholderTextView: UITextView {
     public var placeholder = "" {
         didSet {

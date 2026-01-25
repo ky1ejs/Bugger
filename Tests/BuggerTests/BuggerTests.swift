@@ -9,24 +9,27 @@
 import XCTest
 @testable import Bugger
 
+@MainActor
 private extension Bugger {
     static var isActive: Bool {
         if case .active = state { return true }
         return false
     }
-    
+
     static var isWatching: Bool {
         if case .watching = state { return true }
         return false
     }
 }
 
-struct FakeReportBuilder: BuggerReportBuilder {
+struct FakeReportBuilder: BuggerReportBuilder, Sendable {
+    @MainActor
     func buildViewController(params: ReportParams) -> UIViewController {
         return UIViewController()
     }
 }
 
+@MainActor
 class BuggerTests: XCTestCase {
     func testWith() {
         XCTAssertFalse(Bugger.isActive)
@@ -34,28 +37,28 @@ class BuggerTests: XCTestCase {
 
         let config = BuggerConfig(reportSender: FakeReportBuilder(), enableShakeToTrigger: true)
         Bugger.start(with: config)
-        
+
         XCTAssertFalse(Bugger.isActive)
         XCTAssertTrue(Bugger.isWatching)
-        
+
         Bugger.state = .notWatching
-        
+
         XCTAssertFalse(Bugger.isActive)
         XCTAssertFalse(Bugger.isWatching)
     }
-    
+
     func testSetWatchState() {
         XCTAssertFalse(Bugger.isActive)
         XCTAssertFalse(Bugger.isWatching)
-        
+
         let config = BuggerConfig(reportSender: FakeReportBuilder(), enableShakeToTrigger: true)
         Bugger.state = .watching(config)
-        
+
         XCTAssertFalse(Bugger.isActive)
         XCTAssertTrue(Bugger.isWatching)
-        
+
         Bugger.state = .notWatching
-        
+
         XCTAssertFalse(Bugger.isActive)
         XCTAssertFalse(Bugger.isWatching)
     }

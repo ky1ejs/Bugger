@@ -9,13 +9,14 @@
 import UIKit
 import Bugger
 
-public struct GitHubReportBuilder: BuggerReportBuilder {
+public struct GitHubReportBuilder: BuggerReportBuilder, Sendable {
     let config: GitHubConfig
 
     public init(config: GitHubConfig) {
         self.config = config
     }
 
+    @MainActor
     public func buildViewController(params: ReportParams) -> UIViewController {
         return ReportViewController(reportParams: params, gitHubConfig: config)
     }

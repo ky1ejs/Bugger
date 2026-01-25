@@ -8,6 +8,7 @@
 
 import UIKit
 
+@MainActor
 class ColorButton: UIButton {
     init(color: UIColor) {
         super.init(frame: .zero)
