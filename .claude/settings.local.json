@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(swift package resolve:*)",
+      "Bash(swift build:*)",
+      "Bash(xcodebuild:*)",
+      "Bash(swift run:*)"
+    ]
+  }
+}
