@@ -9,10 +9,10 @@
 import UIKit
 @testable import Bugger
 
-struct DummyStore {}
+struct DummyStore: Sendable {}
 
 extension DummyStore: ImageStore {
-    func uploadImage(image: UIImage, completion: @escaping (UploadResult) -> ()) {
-        completion(.success(URL(string: "https://test.com")!))
+    func uploadImage(image: UIImage) async throws -> URL {
+        return URL(string: "https://test.com")!
     }
 }

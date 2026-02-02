@@ -8,11 +8,13 @@
 
 import Foundation
 
-public struct LinearConfig {
-    let teamId: String
+public struct LinearConfig: Sendable {
+    public let teamId: String
+    public let apiKey: String
 
-    public init(teamId: String) {
+    public init(teamId: String, apiKey: String) {
         self.teamId = teamId
+        self.apiKey = apiKey
     }
 }
 

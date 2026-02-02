@@ -9,13 +9,14 @@
 import UIKit
 import Bugger
 
-public struct LinearReportBuilder: BuggerReportBuilder {
+public struct LinearReportBuilder: BuggerReportBuilder, Sendable {
     let config: LinearConfig
 
     public init(config: LinearConfig) {
         self.config = config
     }
 
+    @MainActor
     public func buildViewController(params: ReportParams) -> UIViewController {
         return ReportViewController(reportParams: params, linearConfig: config)
     }

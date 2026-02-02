@@ -8,11 +8,11 @@
 
 import UIKit
 
-public enum Store {
-    case image(ImageStore)
-    case imageAndVideo(ImageStore & VideoStore)
-    
-    public var imageStore: ImageStore {
+public enum Store: Sendable {
+    case image(any ImageStore)
+    case imageAndVideo(any ImageStore & VideoStore)
+
+    public var imageStore: any ImageStore {
         switch self {
         case .image(let store):         return store
         case .imageAndVideo(let store): return store
@@ -20,10 +20,10 @@ public enum Store {
     }
 }
 
-public protocol ImageStore {
-    func uploadImage(image: UIImage, completion: @escaping (UploadResult) -> ())
+public protocol ImageStore: Sendable {
+    func uploadImage(image: UIImage) async throws -> URL
 }
 
-public protocol VideoStore {
-    func uploadImage(videoData: Data, completion: @escaping (UploadResult) -> ())
+public protocol VideoStore: Sendable {
+    func uploadVideo(data: Data) async throws -> URL
 }

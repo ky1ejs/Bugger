@@ -8,14 +8,14 @@
 
 import Foundation
 
-public protocol BuggerError: Error {}
+public protocol BuggerError: Error, Sendable {}
 
 public enum SerialisationError: BuggerError {
-    case error(Error)
+    case error(any Error & Sendable)
 }
 
 public enum NetworkError: BuggerError {
-    case requestError(error: Error?)
+    case requestError(error: (any Error & Sendable)?)
     case responseParseError
     case noInternetConnection
 }

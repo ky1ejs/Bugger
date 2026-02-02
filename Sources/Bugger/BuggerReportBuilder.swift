@@ -8,6 +8,7 @@
 
 import UIKit
 
-public protocol BuggerReportBuilder {
+@MainActor
+public protocol BuggerReportBuilder: Sendable {
     func buildViewController(params: ReportParams) -> UIViewController
 }

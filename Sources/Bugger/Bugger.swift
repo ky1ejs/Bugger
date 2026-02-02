@@ -8,14 +8,14 @@
 
 import UIKit
 
+/// Main entry point for the Bugger bug reporting framework.
+///
+/// To enable shake-to-report functionality, use `BuggerWindow` as your app's main window class.
+/// See `BuggerWindow` documentation for setup instructions.
+@MainActor
 public struct Bugger {
-    static var state: BuggerState = .notWatching {
-        didSet {
-            guard case .watching(let config) = state else { return }
-            if config.enableShakeToTrigger { UIResponder.swizzleBuggerInvocation() }
-        }
-    }
-    
+    static var state: BuggerState = .notWatching
+
     public static func start(with config: BuggerConfig) {
         state = .watching(config)
     }
@@ -23,15 +23,15 @@ public struct Bugger {
     public static func stop() {
         state = .notWatching
     }
-    
+
     static public func present(with config: BuggerConfig, from window: UIWindow) {
         let annotationVC = AnnotationViewController(appWindow: window, config: config)
         let nav = UINavigationController(rootViewController: annotationVC)
-        let window = UIWindow(frame: UIScreen.main.bounds)
-        window.rootViewController = nav
-        window.windowLevel = UIWindow.Level(.greatestFiniteMagnitude)
-        window.makeKeyAndVisible()
-        Bugger.state = .active(window: window, config: config)
+        let buggerWindow = UIWindow(frame: UIScreen.main.bounds)
+        buggerWindow.rootViewController = nav
+        buggerWindow.windowLevel = UIWindow.Level(.greatestFiniteMagnitude)
+        buggerWindow.makeKeyAndVisible()
+        Bugger.state = .active(window: buggerWindow, config: config)
     }
 }
 

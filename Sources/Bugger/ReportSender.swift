@@ -8,9 +8,10 @@
 
 import UIKit
 
-public typealias BuggerCompletionHandler = () -> Void
+public typealias BuggerCompletionHandler = @MainActor @Sendable () -> Void
 
-public struct ReportParams {
+@MainActor
+public struct ReportParams: Sendable {
     public let screenshot: UIImage
     public let appWindow: UIWindow
     public let completionHandler: BuggerCompletionHandler

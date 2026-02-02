@@ -8,6 +8,7 @@
 
 import UIKit
 
+@MainActor
 class AnnotationControlView: UIView {
     let colors: [UIColor] = [ .red, .blue, .green, .orange, .purple, .black]
     let undoButton: UIButton
