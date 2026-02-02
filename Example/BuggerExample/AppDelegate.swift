@@ -13,7 +13,8 @@ import BuggerGitHub
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-    var window: UIWindow?
+    // Use BuggerWindow to enable shake-to-report functionality
+    var window: BuggerWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         return true
