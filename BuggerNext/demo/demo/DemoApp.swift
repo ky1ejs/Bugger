@@ -6,16 +6,12 @@
 //
 
 import SwiftUI
-import Bugger
 
 @main
 struct DemoApp: App {
     var body: some Scene {
         WindowGroup {
-            NavigationStack {
-                BuggerScreen(bugger: .onDevice)
-                    .navigationTitle("Bugger")
-            }
+            ContentView()
         }
     }
 }

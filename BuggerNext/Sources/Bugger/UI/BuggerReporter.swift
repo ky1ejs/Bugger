@@ -13,11 +13,13 @@ struct BuggerReporter: View {
 
     public init(
         bugger: Bugger,
-        screenshotSource: BuggerScreenshotSource = .photoLibrary
+        screenshotSource: BuggerScreenshotSource = .photoLibrary,
+        includeScreenshots: Bool = true
     ) {
         self.viewModel = BuggerReporterViewModel(
             bugger: bugger,
-            screenshotSource: screenshotSource
+            screenshotSource: screenshotSource,
+            includeScreenshots: includeScreenshots
         )
     }
 
@@ -26,8 +28,10 @@ struct BuggerReporter: View {
             Section(viewModel.composer.sectionTitle) {
                 BuggerReporterComposer(viewModel: viewModel.composer)
             }
-            Section(viewModel.screenshots.sectionTitle) {
-                BuggerScreenshotCarousel(viewModel: viewModel.screenshots)
+            if let screenshots = viewModel.screenshots {
+                Section(screenshots.sectionTitle) {
+                    BuggerScreenshotCarousel(viewModel: screenshots)
+                }
             }
         }
         .safeAreaInset(edge: .bottom) {
@@ -73,15 +77,25 @@ final class BuggerReporterViewModel {
     private var state: State = .idle
 
     let composer = BuggerReporterComposerViewModel()
-    let screenshots: BuggerScreenshotCarouselViewModel
+    let screenshots: BuggerScreenshotCarouselViewModel?
 
-    init(bugger: Bugger, screenshotSource: BuggerScreenshotSource = .photoLibrary) {
+    init(
+        bugger: Bugger,
+        screenshotSource: BuggerScreenshotSource = .photoLibrary,
+        includeScreenshots: Bool = true
+    ) {
         self.bugger = bugger
-        self.screenshots = BuggerScreenshotCarouselViewModel(source: screenshotSource)
+        self.screenshots = includeScreenshots
+        ? BuggerScreenshotCarouselViewModel(source: screenshotSource)
+        : nil
     }
 
     private var providers: [any BuggerReportProviding] {
-        [composer, screenshots]
+        var providers: [any BuggerReportProviding] = [composer]
+        if let screenshots {
+            providers.append(screenshots)
+        }
+        return providers
     }
 
     var isSubmitting: Bool {
