@@ -30,6 +30,32 @@ struct BuggerReporter: View {
                 BuggerScreenshotCarousel(viewModel: viewModel.screenshots)
             }
         }
+        .safeAreaInset(edge: .bottom) {
+            VStack(spacing: 8) {
+                Button {
+                    viewModel.submit()
+                } label: {
+                    HStack(spacing: 8) {
+                        if viewModel.isSubmitting {
+                            ProgressView()
+                        }
+                        Text(viewModel.isSubmitting ? "Submitting..." : "Submit")
+                            .frame(maxWidth: .infinity)
+                    }
+                }
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
+                .disabled(viewModel.isSubmitting || !viewModel.hasDescription)
+                if viewModel.submitFailed {
+                    Text("Submit failed. Please try again.")
+                        .foregroundStyle(.red)
+                        .font(.footnote)
+                }
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+            .background(.ultraThinMaterial)
+        }
     }
 }
 
@@ -56,6 +82,18 @@ final class BuggerReporterViewModel {
 
     private var providers: [any BuggerReportProviding] {
         [composer, screenshots]
+    }
+
+    var isSubmitting: Bool {
+        state == .submitting
+    }
+
+    var submitFailed: Bool {
+        state == .submitDidFail
+    }
+
+    var hasDescription: Bool {
+        !composer.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 
     func submit() {

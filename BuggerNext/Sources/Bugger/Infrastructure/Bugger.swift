@@ -5,12 +5,14 @@ import Foundation
 public final class Bugger: Sendable {
     private let deviceInfoProvider: DeviceInfoProviding
     private let screenshotProvider: ScreenshotProviding?
+    private let packer: BugReportPacking
     private let submitter: ReportSubmitting
 
     static var test: Self {
         return Self(
             deviceInfoProvider: DefaultDeviceInfoProvider(),
             screenshotProvider: nil,
+            packer: JSONReportPacker(),
             submitter: NoopReportSubmitter()
         )
     }
@@ -19,6 +21,7 @@ public final class Bugger: Sendable {
         return Self(
             deviceInfoProvider: DefaultDeviceInfoProvider(),
             screenshotProvider: nil,
+            packer: JSONReportPacker(),
             submitter: NoopReportSubmitter()
         )
     }
@@ -26,10 +29,12 @@ public final class Bugger: Sendable {
     public init(
         deviceInfoProvider: DeviceInfoProviding,
         screenshotProvider: ScreenshotProviding?,
+        packer: BugReportPacking,
         submitter: ReportSubmitting
     ) {
         self.deviceInfoProvider = deviceInfoProvider
         self.screenshotProvider = screenshotProvider
+        self.packer = packer
         self.submitter = submitter
     }
 
@@ -52,6 +57,7 @@ public final class Bugger: Sendable {
     }
 
     public func submit(_ report: BugReport) async throws {
-        try await submitter.submit(report)
+        let package = try await packer.pack(report)
+        try await submitter.submit(package)
     }
 }

@@ -15,7 +15,7 @@ public protocol ScreenshotProviding: Sendable {
 }
 
 public protocol ReportSubmitting: Sendable {
-    func submit(_ report: BugReport) async throws
+    func submit(_ package: BugReportPackage) async throws
 }
 
 public struct DefaultDeviceInfoProvider: DeviceInfoProviding {
@@ -36,8 +36,8 @@ public struct DefaultDeviceInfoProvider: DeviceInfoProviding {
 public struct NoopReportSubmitter: ReportSubmitting {
     public init() {}
 
-    public func submit(_ report: BugReport) async throws {
-        _ = report
+    public func submit(_ package: BugReportPackage) async throws {
+        _ = package
     }
 }
 
