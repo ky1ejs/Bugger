@@ -8,7 +8,7 @@ public final class Bugger: Sendable {
     private let packer: BugReportPacking
     private let submitter: ReportSubmitting
 
-    static var test: Self {
+    public static var test: Self {
         return Self(
             deviceInfoProvider: DefaultDeviceInfoProvider(),
             screenshotProvider: nil,
@@ -17,7 +17,7 @@ public final class Bugger: Sendable {
         )
     }
     
-    static var onDevice: Self {
+    public static var onDevice: Self {
         return Self(
             deviceInfoProvider: DefaultDeviceInfoProvider(),
             screenshotProvider: nil,
@@ -56,8 +56,10 @@ public final class Bugger: Sendable {
         )
     }
 
-    public func submit(_ report: BugReport) async throws {
+    @discardableResult
+    public func submit(_ report: BugReport) async throws -> BugReportPackage {
         let package = try await packer.pack(report)
         try await submitter.submit(package)
+        return package
     }
 }

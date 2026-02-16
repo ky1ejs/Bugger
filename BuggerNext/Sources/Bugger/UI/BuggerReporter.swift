@@ -13,11 +13,15 @@ struct BuggerReporter: View {
 
     public init(
         bugger: Bugger,
-        screenshotSource: BuggerScreenshotSource = .photoLibrary
+        screenshotSource: BuggerScreenshotSource = .photoLibrary,
+        includeScreenshots: Bool = true,
+        onSubmit: (@MainActor (BugReportPackage) -> Void)? = nil
     ) {
         self.viewModel = BuggerReporterViewModel(
             bugger: bugger,
-            screenshotSource: screenshotSource
+            screenshotSource: screenshotSource,
+            includeScreenshots: includeScreenshots,
+            onSubmit: onSubmit
         )
     }
 
@@ -26,8 +30,10 @@ struct BuggerReporter: View {
             Section(viewModel.composer.sectionTitle) {
                 BuggerReporterComposer(viewModel: viewModel.composer)
             }
-            Section(viewModel.screenshots.sectionTitle) {
-                BuggerScreenshotCarousel(viewModel: viewModel.screenshots)
+            if let screenshots = viewModel.screenshots {
+                Section(screenshots.sectionTitle) {
+                    BuggerScreenshotCarousel(viewModel: screenshots)
+                }
             }
         }
         .safeAreaInset(edge: .bottom) {
@@ -69,19 +75,32 @@ final class BuggerReporterViewModel {
     }
 
     private let bugger: Bugger
+    private let onSubmit: (@MainActor (BugReportPackage) -> Void)?
     private var submitTask: Task<Void, Error>? = nil
     private var state: State = .idle
 
     let composer = BuggerReporterComposerViewModel()
-    let screenshots: BuggerScreenshotCarouselViewModel
+    let screenshots: BuggerScreenshotCarouselViewModel?
 
-    init(bugger: Bugger, screenshotSource: BuggerScreenshotSource = .photoLibrary) {
+    init(
+        bugger: Bugger,
+        screenshotSource: BuggerScreenshotSource = .photoLibrary,
+        includeScreenshots: Bool = true,
+        onSubmit: (@MainActor (BugReportPackage) -> Void)? = nil
+    ) {
         self.bugger = bugger
-        self.screenshots = BuggerScreenshotCarouselViewModel(source: screenshotSource)
+        self.onSubmit = onSubmit
+        self.screenshots = includeScreenshots
+        ? BuggerScreenshotCarouselViewModel(source: screenshotSource)
+        : nil
     }
 
     private var providers: [any BuggerReportProviding] {
-        [composer, screenshots]
+        var providers: [any BuggerReportProviding] = [composer]
+        if let screenshots {
+            providers.append(screenshots)
+        }
+        return providers
     }
 
     var isSubmitting: Bool {
@@ -109,7 +128,8 @@ final class BuggerReporterViewModel {
                 )
 
                 guard !Task.isCancelled else { return }
-                try await bugger.submit(bugreport)
+                let package = try await bugger.submit(bugreport)
+                onSubmit?(package)
                 state = .idle
             } catch {
                 /// We could not draft a response, the user can try again
