@@ -13,11 +13,15 @@ struct BuggerReporter: View {
 
     public init(
         bugger: Bugger,
-        screenshotSource: BuggerScreenshotSource = .photoLibrary
+        screenshotSource: BuggerScreenshotSource = .photoLibrary,
+        includeScreenshots: Bool = true,
+        onSubmit: (@MainActor (BugReportPackage) -> Void)? = nil
     ) {
         self.viewModel = BuggerReporterViewModel(
             bugger: bugger,
-            screenshotSource: screenshotSource
+            screenshotSource: screenshotSource,
+            includeScreenshots: includeScreenshots,
+            onSubmit: onSubmit
         )
     }
 
@@ -26,9 +30,37 @@ struct BuggerReporter: View {
             Section(viewModel.composer.sectionTitle) {
                 BuggerReporterComposer(viewModel: viewModel.composer)
             }
-            Section(viewModel.screenshots.sectionTitle) {
-                BuggerScreenshotCarousel(viewModel: viewModel.screenshots)
+            if let screenshots = viewModel.screenshots {
+                Section(screenshots.sectionTitle) {
+                    BuggerScreenshotCarousel(viewModel: screenshots)
+                }
             }
+        }
+        .safeAreaInset(edge: .bottom) {
+            VStack(spacing: 8) {
+                Button {
+                    viewModel.submit()
+                } label: {
+                    HStack(spacing: 8) {
+                        if viewModel.isSubmitting {
+                            ProgressView()
+                        }
+                        Text(viewModel.isSubmitting ? "Submitting..." : "Submit")
+                            .frame(maxWidth: .infinity)
+                    }
+                }
+                .buttonStyle(.borderedProminent)
+                .controlSize(.large)
+                .disabled(viewModel.isSubmitting || !viewModel.hasDescription)
+                if viewModel.submitFailed {
+                    Text("Submit failed. Please try again.")
+                        .foregroundStyle(.red)
+                        .font(.footnote)
+                }
+            }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 12)
+            .background(.ultraThinMaterial)
         }
     }
 }
@@ -43,19 +75,44 @@ final class BuggerReporterViewModel {
     }
 
     private let bugger: Bugger
+    private let onSubmit: (@MainActor (BugReportPackage) -> Void)?
     private var submitTask: Task<Void, Error>? = nil
     private var state: State = .idle
 
     let composer = BuggerReporterComposerViewModel()
-    let screenshots: BuggerScreenshotCarouselViewModel
+    let screenshots: BuggerScreenshotCarouselViewModel?
 
-    init(bugger: Bugger, screenshotSource: BuggerScreenshotSource = .photoLibrary) {
+    init(
+        bugger: Bugger,
+        screenshotSource: BuggerScreenshotSource = .photoLibrary,
+        includeScreenshots: Bool = true,
+        onSubmit: (@MainActor (BugReportPackage) -> Void)? = nil
+    ) {
         self.bugger = bugger
-        self.screenshots = BuggerScreenshotCarouselViewModel(source: screenshotSource)
+        self.onSubmit = onSubmit
+        self.screenshots = includeScreenshots
+        ? BuggerScreenshotCarouselViewModel(source: screenshotSource)
+        : nil
     }
 
     private var providers: [any BuggerReportProviding] {
-        [composer, screenshots]
+        var providers: [any BuggerReportProviding] = [composer]
+        if let screenshots {
+            providers.append(screenshots)
+        }
+        return providers
+    }
+
+    var isSubmitting: Bool {
+        state == .submitting
+    }
+
+    var submitFailed: Bool {
+        state == .submitDidFail
+    }
+
+    var hasDescription: Bool {
+        !composer.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 
     func submit() {
@@ -71,7 +128,8 @@ final class BuggerReporterViewModel {
                 )
 
                 guard !Task.isCancelled else { return }
-                try await bugger.submit(bugreport)
+                let package = try await bugger.submit(bugreport)
+                onSubmit?(package)
                 state = .idle
             } catch {
                 /// We could not draft a response, the user can try again
