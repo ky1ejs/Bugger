@@ -11,6 +11,8 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
+      - name: install xcbeautify
+        run: brew install xcbeautify
       - name: xcodebuild (Bugger)
         working-directory: BuggerNext
-        run: xcodebuild -scheme Bugger -destination "generic/platform=iOS Simulator"
+        run: xcodebuild -scheme Bugger -destination "generic/platform=iOS Simulator" | xcbeautify
