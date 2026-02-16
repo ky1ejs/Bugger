@@ -4,13 +4,16 @@ public struct BuggerScreen: View {
     private let bugger: Bugger
     private let screenshotSource: BuggerScreenshotSource
     private let includeScreenshots: Bool
+    private let onSubmit: (@MainActor (BugReportPackage) -> Void)?
 
     public init(
         bugger: Bugger = .onDevice,
-        includeScreenshots: Bool = true
+        includeScreenshots: Bool = true,
+        onSubmit: (@MainActor (BugReportPackage) -> Void)? = nil
     ) {
         self.bugger = bugger
         self.includeScreenshots = includeScreenshots
+        self.onSubmit = onSubmit
         self.screenshotSource = .photoLibrary
     }
 
@@ -18,7 +21,8 @@ public struct BuggerScreen: View {
         BuggerReporter(
             bugger: bugger,
             screenshotSource: screenshotSource,
-            includeScreenshots: includeScreenshots
+            includeScreenshots: includeScreenshots,
+            onSubmit: onSubmit
         )
     }
 }

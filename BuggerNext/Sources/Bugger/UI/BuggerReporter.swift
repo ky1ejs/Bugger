@@ -14,12 +14,14 @@ struct BuggerReporter: View {
     public init(
         bugger: Bugger,
         screenshotSource: BuggerScreenshotSource = .photoLibrary,
-        includeScreenshots: Bool = true
+        includeScreenshots: Bool = true,
+        onSubmit: (@MainActor (BugReportPackage) -> Void)? = nil
     ) {
         self.viewModel = BuggerReporterViewModel(
             bugger: bugger,
             screenshotSource: screenshotSource,
-            includeScreenshots: includeScreenshots
+            includeScreenshots: includeScreenshots,
+            onSubmit: onSubmit
         )
     }
 
@@ -73,6 +75,7 @@ final class BuggerReporterViewModel {
     }
 
     private let bugger: Bugger
+    private let onSubmit: (@MainActor (BugReportPackage) -> Void)?
     private var submitTask: Task<Void, Error>? = nil
     private var state: State = .idle
 
@@ -82,9 +85,11 @@ final class BuggerReporterViewModel {
     init(
         bugger: Bugger,
         screenshotSource: BuggerScreenshotSource = .photoLibrary,
-        includeScreenshots: Bool = true
+        includeScreenshots: Bool = true,
+        onSubmit: (@MainActor (BugReportPackage) -> Void)? = nil
     ) {
         self.bugger = bugger
+        self.onSubmit = onSubmit
         self.screenshots = includeScreenshots
         ? BuggerScreenshotCarouselViewModel(source: screenshotSource)
         : nil
@@ -123,7 +128,8 @@ final class BuggerReporterViewModel {
                 )
 
                 guard !Task.isCancelled else { return }
-                try await bugger.submit(bugreport)
+                let package = try await bugger.submit(bugreport)
+                onSubmit?(package)
                 state = .idle
             } catch {
                 /// We could not draft a response, the user can try again
