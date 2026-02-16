@@ -7,32 +7,17 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
-    runs-on: macos-latest
-    strategy:
-      matrix:
-        target:
-          - Bugger
-          - BuggerGitHub
-          - BuggerImgurStore
-          - HelpfulUI
-    steps:
-      - uses: actions/checkout@v3
-      - name: xcodebuild
-        run: xcodebuild -scheme ${{ matrix.target }} -destination "name=iPhone 14 Pro" | xcpretty && exit ${PIPESTATUS[0]}
-  build-bugger-linear:
+  build-bugger-next:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-      - name: resolve swift deps
-        run: swift package resolve
-      - name: generate graphql code
-        run: swift run --package-path .build/checkouts/apollo-ios/ apollo-ios-cli generate -p Sources/BuggerLinear/apollo-codegen-config.json
-      - name: xcodebuild
-        run: xcodebuild -scheme BuggerLinear -destination "name=iPhone 14 Pro" | xcpretty && exit ${PIPESTATUS[0]}
-  check-resolved-packages-match: 
-    runs-on: ubuntu-latest
+      - name: xcodebuild (Bugger)
+        working-directory: BuggerNext
+        run: xcodebuild -scheme Bugger -destination "generic/platform=iOS Simulator" | xcbeautify
+  build-demo-app:
+    runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-      - name: check
-        run: ./scripts/check-resolved-packages-match.sh
+      - name: xcodebuild (Demo app)
+        working-directory: BuggerNext/demo
+        run: xcodebuild -scheme demo -destination "generic/platform=iOS Simulator" | xcbeautify
