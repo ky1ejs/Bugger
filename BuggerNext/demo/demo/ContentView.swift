@@ -32,13 +32,24 @@ struct ContentView: View {
         }
     }
 
+    private let gitHubOAuthConfig = GitHubOAuthAppConfig(
+        clientId: "<TODO_GITHUB_CLIENT_ID>",
+        clientSecret: "<TODO_GITHUB_CLIENT_SECRET>"
+    )
+
     @State private var submitStrategy: SubmitStrategy = .noop
     @State private var providerOption: ProviderOption = .composerAndScreenshots
     @State private var gitHubOwner = ""
     @State private var gitHubRepository = ""
-    @State private var gitHubToken = ""
     @State private var gitHubLabels = ""
+    @State private var gitHubToken: String? = GitHubTokenStore.load()
+    @State private var isLoggingIn = false
+    @State private var loginError: String?
     @State private var activeSetup: DemoSetup?
+
+    init() {
+        GitHubOAuthClient.shared.appConfiguration = gitHubOAuthConfig
+    }
 
     var body: some View {
         NavigationStack {
@@ -58,9 +69,6 @@ struct ContentView: View {
                         TextField("Repository", text: $gitHubRepository)
                             .textInputAutocapitalization(.never)
                             .autocorrectionDisabled()
-                        SecureField("Token", text: $gitHubToken)
-                            .textInputAutocapitalization(.never)
-                            .autocorrectionDisabled()
                         TextField("Labels (comma separated)", text: $gitHubLabels)
                             .textInputAutocapitalization(.never)
                             .autocorrectionDisabled()
@@ -74,8 +82,56 @@ struct ContentView: View {
                         }
                     }
                     .pickerStyle(.segmented)
+                    Text("Composer is always included.")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
                 }
 
+                if submitStrategy == .github {
+                    Section("GitHub access") {
+                        if GitHubOAuthClient.shared.isConfigured == false {
+                            Text("Add your GitHub OAuth Client ID/Secret to enable login.")
+                                .font(.footnote)
+                                .foregroundStyle(.secondary)
+                        }
+
+                        HStack {
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(gitHubToken == nil ? "Not connected" : "Connected")
+                                    .font(.headline)
+                                if gitHubToken != nil {
+                                    Text("Token stored in Keychain.")
+                                        .font(.footnote)
+                                        .foregroundStyle(.secondary)
+                                }
+                            }
+                            Spacer()
+                            if gitHubToken == nil {
+                                Button {
+                                    Task { await loginWithGitHub() }
+                                } label: {
+                                    if isLoggingIn {
+                                        ProgressView()
+                                    } else {
+                                        Text("Sign in")
+                                    }
+                                }
+                                .disabled(isLoggingIn || !GitHubOAuthClient.shared.isConfigured)
+                            } else {
+                                Button("Sign out") {
+                                    GitHubTokenStore.clear()
+                                    gitHubToken = nil
+                                }
+                            }
+                        }
+
+                        if let loginError {
+                            Text(loginError)
+                                .font(.footnote)
+                                .foregroundStyle(.red)
+                        }
+                    }
+                }
             }
             .navigationTitle("Bugger Demo")
             .safeAreaInset(edge: .bottom) {
@@ -106,7 +162,7 @@ struct ContentView: View {
         case .noop:
             return true
         case .github:
-            return !gitHubOwner.isEmpty && !gitHubRepository.isEmpty && !gitHubToken.isEmpty
+            return !gitHubOwner.isEmpty && !gitHubRepository.isEmpty && !(gitHubToken ?? "").isEmpty
         }
     }
 
@@ -115,6 +171,9 @@ struct ContentView: View {
         case .noop:
             return .onDevice
         case .github:
+            guard let token = gitHubToken, !token.isEmpty else {
+                return .onDevice
+            }
             let labels = gitHubLabels
                 .split(separator: ",")
                 .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
@@ -122,7 +181,7 @@ struct ContentView: View {
             let configuration = GitHubIssueConfiguration(
                 owner: gitHubOwner,
                 repository: gitHubRepository,
-                token: gitHubToken,
+                token: token,
                 defaultLabels: labels
             )
             return Bugger(
@@ -131,6 +190,20 @@ struct ContentView: View {
                 packer: JSONReportPacker(),
                 submitter: GitHubIssueSubmitter(configuration: configuration)
             )
+        }
+    }
+
+    @MainActor
+    private func loginWithGitHub() async {
+        loginError = nil
+        isLoggingIn = true
+        defer { isLoggingIn = false }
+        do {
+            let token = try await GitHubOAuthClient.shared.login()
+            try GitHubTokenStore.save(token)
+            gitHubToken = token
+        } catch {
+            loginError = error.localizedDescription
         }
     }
 }
