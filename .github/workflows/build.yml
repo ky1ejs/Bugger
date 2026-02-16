@@ -11,6 +11,6 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
-      - name: xcodebuild (BuggerNext)
+      - name: xcodebuild (Bugger)
         working-directory: BuggerNext
-        run: xcodebuild -scheme BuggerNextDemo -destination "name=iPhone 14 Pro" | xcpretty && exit ${PIPESTATUS[0]}
+        run: xcodebuild -scheme Bugger -destination "name=iPhone 14 Pro" | xcpretty && exit ${PIPESTATUS[0]}
