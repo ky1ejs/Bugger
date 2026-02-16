@@ -12,12 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: xcodebuild (Bugger)
-        working-directory: BuggerNext
         run: xcodebuild -scheme Bugger -destination "generic/platform=iOS Simulator" | xcbeautify
   build-demo-app:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
       - name: xcodebuild (Demo app)
-        working-directory: BuggerNext/demo
+        working-directory: Demo
         run: xcodebuild -scheme demo -destination "generic/platform=iOS Simulator" | xcbeautify

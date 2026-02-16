@@ -18,7 +18,7 @@ struct ContentView: View {
     }
 
     enum ProviderOption: String, CaseIterable, Identifiable {
-        case composerOnly = "Composer"
+        case composerOnly = "Just Composer"
         case composerAndScreenshots = "Screenshots"
 
         var id: String { rawValue }
