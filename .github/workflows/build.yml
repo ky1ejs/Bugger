@@ -30,6 +30,13 @@ jobs:
         run: swift run --package-path .build/checkouts/apollo-ios/ apollo-ios-cli generate -p Sources/BuggerLinear/apollo-codegen-config.json
       - name: xcodebuild
         run: xcodebuild -scheme BuggerLinear -destination "name=iPhone 14 Pro" | xcpretty && exit ${PIPESTATUS[0]}
+  build-bugger-next:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: xcodebuild (BuggerNext)
+        working-directory: BuggerNext
+        run: xcodebuild -scheme BuggerNextDemo -destination "name=iPhone 14 Pro" | xcpretty && exit ${PIPESTATUS[0]}
   check-resolved-packages-match: 
     runs-on: ubuntu-latest
     steps:
