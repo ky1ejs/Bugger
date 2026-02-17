@@ -7,7 +7,7 @@ on:
     branches: [ main ]
 
 jobs:
-  build-bugger-next:
+  build-bugger:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v3
