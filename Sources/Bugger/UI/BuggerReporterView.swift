@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct BuggerReporter: View {
+struct BuggerReporterView: View {
     @Bindable
     var viewModel: BuggerReporterViewModel
 
@@ -115,6 +115,50 @@ final class BuggerReporterViewModel {
         !composer.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
     }
 
+    /// Submit flow after the user taps "Submit":
+    ///
+    /// +-----------------------+
+    /// | User taps Submit      |
+    /// +-----------+-----------+
+    ///             |
+    ///             v
+    /// +-----------------------+
+    /// | state = .submitting   |
+    /// | cancel previous task  |
+    /// +-----------+-----------+
+    ///             |
+    ///             v
+    /// +-----------------------+
+    /// | buildDraft()          |
+    /// | - composer text       |
+    /// | - screenshots data    |
+    /// +-----------+-----------+
+    ///             |
+    ///             v
+    /// +-----------------------+
+    /// | bugger.draftReport()  |
+    /// | - device info         |
+    /// | - merge screenshots   |
+    /// +-----------+-----------+
+    ///             |
+    ///             v
+    /// +-----------------------+
+    /// | bugger.submit()       |
+    /// | - pack BugReport      |
+    /// | - submit package      |
+    /// +-----+-----------+-----+
+    ///       |           |
+    ///       | success   | failure/error
+    ///       v           v
+    /// +-----------+   +------------------+
+    /// | onSubmit? |   | state =          |
+    /// | callback  |   | .submitDidFail   |
+    /// +-----+-----+   +------------------+
+    ///       |
+    ///       v
+    /// +------------------+
+    /// | state = .idle    |
+    /// +------------------+
     func submit() {
         submitTask?.cancel()
 
@@ -163,7 +207,7 @@ protocol BuggerReportProviding {
 }
 
 #Preview {
-    BuggerReporter(
+    BuggerReporterView(
         bugger: .test,
         screenshotSource: .previewMock
     )

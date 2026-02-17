@@ -18,7 +18,7 @@ public struct BuggerScreen: View {
     }
 
     public var body: some View {
-        BuggerReporter(
+        BuggerReporterView(
             bugger: bugger,
             screenshotSource: screenshotSource,
             includeScreenshots: includeScreenshots,
