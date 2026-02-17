@@ -1,5 +1,12 @@
 import Foundation
 
+/// File-backed representation of an attachment during report submission.
+///
+/// Lifecycle:
+/// 1. A `BugReportAttachment` starts as in-memory data on the draft report.
+/// 2. `JSONReportPacker.pack(_:)` writes that data to a temporary file and creates this value.
+/// 3. The value is returned in `BugReportPackage.attachments` for `ReportSubmitting` to read/upload.
+/// 4. The file is temporary; Bugger does not delete it automatically, so the consumer should clean it up.
 public struct BugReportAttachmentFile: Sendable, Identifiable {
     public let id: UUID
     public let filename: String
