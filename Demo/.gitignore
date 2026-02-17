@@ -1,0 +1,12 @@
+# macOS noise
+.DS_Store
+
+# Xcode user-specific data (causes merge churn)
+**/xcuserdata/
+**/*.xcuserstate
+
+# Keep shared project metadata tracked
+!Demo.xcodeproj/project.pbxproj
+!Demo.xcodeproj/project.xcworkspace/contents.xcworkspacedata
+!Demo.xcodeproj/xcshareddata/
+!Demo.xcodeproj/project.xcworkspace/xcshareddata/
