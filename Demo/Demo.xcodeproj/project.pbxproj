@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		840FDFD1D21D4F05A42C1A3A /* Bugger in Frameworks */ = {isa = PBXBuildFile; productRef = 8A404E62FDB54A8BB6E39AD0 /* Bugger */; };
-		C1F71C469CD9426487D9D357 /* BuggerGitHub in Frameworks */ = {isa = PBXBuildFile; productRef = D4365EBFFB7C4095B193B5EA /* BuggerGitHub */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,7 +28,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				840FDFD1D21D4F05A42C1A3A /* Bugger in Frameworks */,
-				C1F71C469CD9426487D9D357 /* BuggerGitHub in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,7 +71,6 @@
 			name = Demo;
 			packageProductDependencies = (
 				8A404E62FDB54A8BB6E39AD0 /* Bugger */,
-				D4365EBFFB7C4095B193B5EA /* BuggerGitHub */,
 			);
 			productName = demo;
 			productReference = 3E3F476A2F43C804007CEC86 /* Demo.app */;
@@ -372,11 +369,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A5F386606F934439AAEF7766 /* XCLocalSwiftPackageReference ".." */;
 			productName = Bugger;
-		};
-		D4365EBFFB7C4095B193B5EA /* BuggerGitHub */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = A5F386606F934439AAEF7766 /* XCLocalSwiftPackageReference ".." */;
-			productName = BuggerGitHub;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

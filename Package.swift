@@ -10,21 +10,12 @@ let package = Package(
         .library(
             name: "Bugger",
             targets: ["Bugger"]
-        ),
-        .library(
-            name: "BuggerGitHub",
-            targets: ["BuggerGitHub"]
         )
     ],
     targets: [
         .target(
             name: "Bugger",
             path: "Sources/Bugger",
-        ),
-        .target(
-            name: "BuggerGitHub",
-            dependencies: ["Bugger"],
-            path: "Sources/BuggerGitHub"
         )
     ]
 )

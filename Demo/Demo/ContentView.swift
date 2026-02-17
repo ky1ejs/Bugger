@@ -7,16 +7,8 @@
 
 import SwiftUI
 import Bugger
-import BuggerGitHub
 
 struct ContentView: View {
-    enum SubmitDestination: String, CaseIterable, Identifiable {
-        case noop = "On device (No-op)"
-        case github = "GitHub Issue"
-
-        var id: String { rawValue }
-    }
-
     enum ProviderOption: String, CaseIterable, Identifiable {
         case composerOnly = "Just Composer"
         case composerAndScreenshots = "Screenshots"
@@ -32,47 +24,15 @@ struct ContentView: View {
         }
     }
 
-    private let gitHubOAuthConfig = GitHubOAuthAppConfig(
-        clientId: "<TODO_GITHUB_CLIENT_ID>",
-        clientSecret: "<TODO_GITHUB_CLIENT_SECRET>"
-    )
-
-    @State private var submitDestination: SubmitDestination = .noop
     @State private var providerOption: ProviderOption = .composerAndScreenshots
-    @State private var gitHubOwner = ""
-    @State private var gitHubRepository = ""
-    @State private var gitHubLabels = ""
-    @State private var gitHubToken: String? = GitHubTokenStore.load()
-    @State private var isLoggingIn = false
-    @State private var loginError: String?
     @State private var activeSetup: DemoSetup?
-
-    init() {
-        GitHubOAuthClient.shared.appConfiguration = gitHubOAuthConfig
-    }
 
     var body: some View {
         NavigationStack {
             Form {
                 Section("Submit strategy") {
-                    Picker("Submit strategy", selection: $submitDestination) {
-                        ForEach(SubmitDestination.allCases) { option in
-                            Text(option.rawValue).tag(option)
-                        }
-                    }
-                    .pickerStyle(.segmented)
-
-                    if submitDestination == .github {
-                        TextField("Owner", text: $gitHubOwner)
-                            .textInputAutocapitalization(.never)
-                            .autocorrectionDisabled()
-                        TextField("Repository", text: $gitHubRepository)
-                            .textInputAutocapitalization(.never)
-                            .autocorrectionDisabled()
-                        TextField("Labels (comma separated)", text: $gitHubLabels)
-                            .textInputAutocapitalization(.never)
-                            .autocorrectionDisabled()
-                    }
+                    Text("On device (No-op)")
+                        .foregroundStyle(.secondary)
                 }
 
                 Section("Providers") {
@@ -86,60 +46,14 @@ struct ContentView: View {
                         .font(.footnote)
                         .foregroundStyle(.secondary)
                 }
-
-                if submitDestination == .github {
-                    Section("GitHub access") {
-                        if GitHubOAuthClient.shared.isConfigured == false {
-                            Text("Add your GitHub OAuth Client ID/Secret to enable login.")
-                                .font(.footnote)
-                                .foregroundStyle(.secondary)
-                        }
-
-                        HStack {
-                            VStack(alignment: .leading, spacing: 4) {
-                                Text(gitHubToken == nil ? "Not connected" : "Connected")
-                                    .font(.headline)
-                                if gitHubToken != nil {
-                                    Text("Token stored in Keychain.")
-                                        .font(.footnote)
-                                        .foregroundStyle(.secondary)
-                                }
-                            }
-                            Spacer()
-                            if gitHubToken == nil {
-                                Button {
-                                    Task { await loginWithGitHub() }
-                                } label: {
-                                    if isLoggingIn {
-                                        ProgressView()
-                                    } else {
-                                        Text("Sign in")
-                                    }
-                                }
-                                .disabled(isLoggingIn || !GitHubOAuthClient.shared.isConfigured)
-                            } else {
-                                Button("Sign out") {
-                                    GitHubTokenStore.clear()
-                                    gitHubToken = nil
-                                }
-                            }
-                        }
-
-                        if let loginError {
-                            Text(loginError)
-                                .font(.footnote)
-                                .foregroundStyle(.red)
-                        }
-                    }
-                }
             }
             .navigationTitle("Bugger Demo")
             .safeAreaInset(edge: .bottom) {
                 Button {
                     activeSetup = DemoSetup(
-                        bugger: makeBugger(),
+                        bugger: .onDevice,
                         includeScreenshots: providerOption.includeScreenshots,
-                        showsOnDevicePackagePreview: submitDestination == .noop
+                        showsOnDevicePackagePreview: true
                     )
                 } label: {
                     Text("Build it!")
@@ -150,61 +64,10 @@ struct ContentView: View {
                 .padding(.horizontal, 16)
                 .padding(.vertical, 12)
                 .background(.ultraThinMaterial)
-                .disabled(!canBuild)
             }
         }
         .sheet(item: $activeSetup) { setup in
             BuggerSheet(setup: setup)
-        }
-    }
-
-    private var canBuild: Bool {
-        switch submitDestination {
-        case .noop:
-            return true
-        case .github:
-            return !gitHubOwner.isEmpty && !gitHubRepository.isEmpty && !(gitHubToken ?? "").isEmpty
-        }
-    }
-
-    private func makeBugger() -> Bugger {
-        switch submitDestination {
-        case .noop:
-            return .onDevice
-        case .github:
-            guard let token = gitHubToken, !token.isEmpty else {
-                return .onDevice
-            }
-            let labels = gitHubLabels
-                .split(separator: ",")
-                .map { $0.trimmingCharacters(in: .whitespacesAndNewlines) }
-                .filter { !$0.isEmpty }
-            let configuration = GitHubIssueConfiguration(
-                owner: gitHubOwner,
-                repository: gitHubRepository,
-                token: token,
-                defaultLabels: labels
-            )
-            return Bugger(
-                deviceInfoProvider: DefaultDeviceInfoProvider(),
-                screenshotProvider: nil,
-                packer: JSONReportPacker(),
-                submitter: GitHubIssueSubmitter(configuration: configuration)
-            )
-        }
-    }
-
-    @MainActor
-    private func loginWithGitHub() async {
-        loginError = nil
-        isLoggingIn = true
-        defer { isLoggingIn = false }
-        do {
-            let token = try await GitHubOAuthClient.shared.login()
-            try GitHubTokenStore.save(token)
-            gitHubToken = token
-        } catch {
-            loginError = error.localizedDescription
         }
     }
 }
