@@ -41,6 +41,8 @@ struct BuggerScreenshotCarousel: View {
                     annotationTarget = nil
                 }
             )
+            .presentationDetents([.large])
+            .presentationDragIndicator(.hidden)
         }
     }
 
