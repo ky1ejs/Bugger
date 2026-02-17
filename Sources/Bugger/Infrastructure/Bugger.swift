@@ -7,15 +7,6 @@ public final class Bugger: Sendable {
     private let screenshotProvider: ScreenshotProviding?
     private let packer: BugReportPacking
     private let submitter: ReportSubmitting
-
-    public static var test: Self {
-        return Self(
-            deviceInfoProvider: DefaultDeviceInfoProvider(),
-            screenshotProvider: nil,
-            packer: JSONReportPacker(),
-            submitter: NoopReportSubmitter()
-        )
-    }
     
     public static var onDevice: Self {
         return Self(
@@ -61,5 +52,16 @@ public final class Bugger: Sendable {
         let package = try await packer.pack(report)
         try await submitter.submit(package)
         return package
+    }
+}
+
+extension Bugger {
+    public static var preview: Self {
+        return Self(
+            deviceInfoProvider: DefaultDeviceInfoProvider(),
+            screenshotProvider: nil,
+            packer: JSONReportPacker(),
+            submitter: NoopReportSubmitter()
+        )
     }
 }
