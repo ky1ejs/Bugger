@@ -11,7 +11,7 @@ public protocol DeviceInfoProviding: Sendable {
 }
 
 public protocol ScreenshotProviding: Sendable {
-    func capture() async throws -> [Data]
+    func capture() async throws -> [BugReportAttachment]
 }
 
 public protocol ReportSubmitting: Sendable {
@@ -48,7 +48,7 @@ public enum BuggerError: Error {
 public struct NoScreenshotProvider: ScreenshotProviding {
     public init() {}
 
-    public func capture() async throws -> [Data] {
+    public func capture() async throws -> [BugReportAttachment] {
         throw BuggerError.screenshotUnavailable
     }
 }

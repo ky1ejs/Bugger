@@ -124,7 +124,7 @@ final class BuggerReporterViewModel {
                 let draft = try await buildDraft()
                 let bugreport = try await bugger.draftReport(
                     description: draft.description,
-                    screenshots: draft.screenshots
+                    attachments: draft.attachments
                 )
 
                 guard !Task.isCancelled else { return }
@@ -150,7 +150,7 @@ final class BuggerReporterViewModel {
 
 struct BuggerReportDraft {
     var description: String = ""
-    var screenshots: [Data] = []
+    var attachments: [BugReportAttachment] = []
 }
 
 protocol SectionTitleProviding {
@@ -164,7 +164,7 @@ protocol BuggerReportProviding {
 
 #Preview {
     BuggerReporterView(
-        bugger: .test,
+        bugger: .preview,
         screenshotSource: .previewMock
     )
 }

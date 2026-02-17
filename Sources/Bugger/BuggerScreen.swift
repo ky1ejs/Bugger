@@ -28,5 +28,5 @@ public struct BuggerScreen: View {
 }
 
 #Preview {
-    BuggerScreen(bugger: .test)
+    BuggerScreen(bugger: .preview)
 }

@@ -29,21 +29,24 @@ public final class Bugger: Sendable {
         self.submitter = submitter
     }
 
-    public func draftReport(description: String, screenshots: [Data] = []) async throws -> BugReport {
+    public func draftReport(
+        description: String,
+        attachments: [BugReportAttachment] = []
+    ) async throws -> BugReport {
         let deviceInfo = await deviceInfoProvider.collect()
-        let capturedScreenshots: [Data]
+        let capturedAttachments: [BugReportAttachment]
 
         if let screenshotProvider {
-            capturedScreenshots = try await screenshotProvider.capture()
+            capturedAttachments = try await screenshotProvider.capture()
         } else {
-            capturedScreenshots = []
+            capturedAttachments = []
         }
 
-        let allScreenshots = screenshots + capturedScreenshots
+        let allAttachments = attachments + capturedAttachments
         return BugReport(
             description: description,
             deviceInfo: deviceInfo,
-            screenshotData: allScreenshots
+            attachments: allAttachments
         )
     }
 

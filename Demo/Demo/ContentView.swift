@@ -37,7 +37,7 @@ struct ContentView: View {
         clientSecret: "<TODO_GITHUB_CLIENT_SECRET>"
     )
 
-    @State private var SubmitDestination: SubmitDestination = .noop
+    @State private var submitDestination: SubmitDestination = .noop
     @State private var providerOption: ProviderOption = .composerAndScreenshots
     @State private var gitHubOwner = ""
     @State private var gitHubRepository = ""
@@ -55,14 +55,14 @@ struct ContentView: View {
         NavigationStack {
             Form {
                 Section("Submit strategy") {
-                    Picker("Submit strategy", selection: $SubmitDestination) {
+                    Picker("Submit strategy", selection: $submitDestination) {
                         ForEach(SubmitDestination.allCases) { option in
                             Text(option.rawValue).tag(option)
                         }
                     }
                     .pickerStyle(.segmented)
 
-                    if SubmitDestination == .github {
+                    if submitDestination == .github {
                         TextField("Owner", text: $gitHubOwner)
                             .textInputAutocapitalization(.never)
                             .autocorrectionDisabled()
@@ -87,7 +87,7 @@ struct ContentView: View {
                         .foregroundStyle(.secondary)
                 }
 
-                if SubmitDestination == .github {
+                if submitDestination == .github {
                     Section("GitHub access") {
                         if GitHubOAuthClient.shared.isConfigured == false {
                             Text("Add your GitHub OAuth Client ID/Secret to enable login.")
@@ -139,7 +139,7 @@ struct ContentView: View {
                     activeSetup = DemoSetup(
                         bugger: makeBugger(),
                         includeScreenshots: providerOption.includeScreenshots,
-                        showsOnDevicePackagePreview: SubmitDestination == .noop
+                        showsOnDevicePackagePreview: submitDestination == .noop
                     )
                 } label: {
                     Text("Build it!")
@@ -159,7 +159,7 @@ struct ContentView: View {
     }
 
     private var canBuild: Bool {
-        switch SubmitDestination {
+        switch submitDestination {
         case .noop:
             return true
         case .github:
@@ -168,7 +168,7 @@ struct ContentView: View {
     }
 
     private func makeBugger() -> Bugger {
-        switch SubmitDestination {
+        switch submitDestination {
         case .noop:
             return .onDevice
         case .github:

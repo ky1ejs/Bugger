@@ -67,30 +67,31 @@ public protocol BugReportPacking: Sendable {
 }
 
 public struct JSONReportPacker: BugReportPacking {
-    private let baseDirectory: URL
+    private let destinationDirectory: URL
 
-    public init(baseDirectory: URL = FileManager.default.temporaryDirectory) {
-        self.baseDirectory = baseDirectory
+    public init(destinationDirectory: URL = FileManager.default.temporaryDirectory) {
+        self.destinationDirectory = destinationDirectory
     }
 
     public func pack(_ report: BugReport) async throws -> BugReportPackage {
         let fileManager = FileManager.default
-        let rootFolder = baseDirectory.appendingPathComponent("BuggerAttachments", isDirectory: true)
+        let rootFolder = destinationDirectory.appendingPathComponent("BuggerAttachments", isDirectory: true)
         let reportFolder = rootFolder.appendingPathComponent(report.id.uuidString, isDirectory: true)
         try fileManager.createDirectory(at: reportFolder, withIntermediateDirectories: true, attributes: nil)
 
         var attachmentFiles: [BugReportAttachmentFile] = []
         var attachmentReferences: [BugReportAttachmentReference] = []
 
-        for (index, data) in report.screenshotData.enumerated() {
-            let filename = "screenshot-\(index + 1).png"
+        for (index, payloadAttachment) in report.attachments.enumerated() {
+            let filename = Self.resolveFilename(for: payloadAttachment, index: index)
             let fileURL = reportFolder.appendingPathComponent(filename)
-            try data.write(to: fileURL, options: [.atomic])
+            try payloadAttachment.data.write(to: fileURL, options: [.atomic])
 
             let attachment = BugReportAttachmentFile(
+                id: payloadAttachment.id,
                 filename: filename,
                 fileURL: fileURL,
-                mimeType: "image/png"
+                mimeType: payloadAttachment.mimeType
             )
             attachmentFiles.append(attachment)
             attachmentReferences.append(
@@ -121,5 +122,43 @@ public struct JSONReportPacker: BugReportPacking {
             payload: payload,
             attachments: attachmentFiles
         )
+    }
+
+    private static func resolveFilename(for attachment: BugReportAttachment, index: Int) -> String {
+        if let provided = sanitizeFilename(attachment.filename), !provided.isEmpty {
+            return provided
+        }
+
+        let fileExtension = defaultFileExtension(for: attachment.mimeType)
+        return "attachment-\(index + 1).\(fileExtension)"
+    }
+
+    private static func sanitizeFilename(_ filename: String?) -> String? {
+        guard let filename else { return nil }
+        let trimmed = filename.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !trimmed.isEmpty else { return nil }
+        return trimmed
+            .replacingOccurrences(of: "/", with: "-")
+            .replacingOccurrences(of: "\\", with: "-")
+            .replacingOccurrences(of: ":", with: "-")
+    }
+
+    private static func defaultFileExtension(for mimeType: String) -> String {
+        switch mimeType.lowercased() {
+        case "image/png":
+            return "png"
+        case "image/jpeg":
+            return "jpg"
+        case "image/heic":
+            return "heic"
+        case "image/gif":
+            return "gif"
+        case "application/pdf":
+            return "pdf"
+        case "text/plain":
+            return "txt"
+        default:
+            return "bin"
+        }
     }
 }

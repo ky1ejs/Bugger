@@ -2,6 +2,7 @@ import ImageIO
 import Photos
 import PhotosUI
 import SwiftUI
+import UniformTypeIdentifiers
 import UIKit
 
 @MainActor
@@ -65,9 +66,9 @@ struct BuggerScreenshotCarousel: View {
 
     private func loadFromPicker(_ items: [PhotosPickerItem]) async {
         await MainActor.run { isLoading = true }
-        let data = await viewModel.loadFromPicker(items)
+        let attachments = await viewModel.loadFromPicker(items)
         await MainActor.run {
-            viewModel.add(data)
+            viewModel.add(attachments)
             selection = []
             isLoading = false
         }
@@ -75,9 +76,9 @@ struct BuggerScreenshotCarousel: View {
 
     private func loadFromManual() async {
         await MainActor.run { isLoading = true }
-        let data = await viewModel.loadFromManual()
+        let attachments = await viewModel.loadFromManual()
         await MainActor.run {
-            viewModel.add(data)
+            viewModel.add(attachments)
             isLoading = false
         }
     }
@@ -97,11 +98,11 @@ final class BuggerScreenshotCarouselViewModel: BuggerReportProviding, Screenshot
     }
 
     @MainActor
-    func add(_ data: [Data]) {
-        let newItems = data.map { data in
+    func add(_ attachments: [BugReportAttachment]) {
+        let newItems = attachments.map { attachment in
             BuggerScreenshotItem(
-                data: data,
-                thumbnail: Self.makeThumbnail(from: data)
+                attachment: attachment,
+                thumbnail: Self.makeThumbnail(from: attachment.data)
             )
         }
         withAnimation(.snappy) {
@@ -118,19 +119,19 @@ final class BuggerScreenshotCarouselViewModel: BuggerReportProviding, Screenshot
 
     func apply(to draft: BuggerReportDraft) async throws -> BuggerReportDraft {
         var draft = draft
-        draft.screenshots = items.map(\.data)
+        draft.attachments = items.map(\.attachment)
         return draft
     }
 
-    func capture() async throws -> [Data] {
-        items.map(\.data)
+    func capture() async throws -> [BugReportAttachment] {
+        items.map(\.attachment)
     }
 
-    func loadFromPicker(_ items: [PhotosPickerItem]) async -> [Data] {
+    func loadFromPicker(_ items: [PhotosPickerItem]) async -> [BugReportAttachment] {
         await source.loadFromPicker(items)
     }
 
-    func loadFromManual() async -> [Data] {
+    func loadFromManual() async -> [BugReportAttachment] {
         await source.loadFromManual()
     }
 
@@ -154,12 +155,16 @@ final class BuggerScreenshotCarouselViewModel: BuggerReportProviding, Screenshot
 
 struct BuggerScreenshotItem: Identifiable {
     let id: UUID
-    let data: Data
+    let attachment: BugReportAttachment
     let thumbnail: UIImage?
 
-    init(id: UUID = UUID(), data: Data, thumbnail: UIImage?) {
+    var data: Data {
+        attachment.data
+    }
+
+    init(id: UUID = UUID(), attachment: BugReportAttachment, thumbnail: UIImage?) {
         self.id = id
-        self.data = data
+        self.attachment = attachment
         self.thumbnail = thumbnail
     }
 }
@@ -172,8 +177,8 @@ struct BuggerScreenshotSource {
 
     let mode: Mode
     let addTitle: String
-    let loadFromPicker: ([PhotosPickerItem]) async -> [Data]
-    let loadFromManual: () async -> [Data]
+    let loadFromPicker: ([PhotosPickerItem]) async -> [BugReportAttachment]
+    let loadFromManual: () async -> [BugReportAttachment]
 }
 
 extension BuggerScreenshotSource {
@@ -182,13 +187,23 @@ extension BuggerScreenshotSource {
             mode: .photoLibrary(matching: .screenshots, library: .shared()),
             addTitle: "Add",
             loadFromPicker: { items in
-                var data: [Data] = []
+                var attachments: [BugReportAttachment] = []
                 for item in items {
                     if let itemData = try? await item.loadTransferable(type: Data.self) {
-                        data.append(itemData)
+                        let contentType = item.supportedContentTypes.first
+                        let mimeType = contentType?.preferredMIMEType ?? "application/octet-stream"
+                        let fileExtension = contentType?.preferredFilenameExtension
+                        let filename = fileExtension.map { "attachment.\($0)" }
+                        attachments.append(
+                            BugReportAttachment(
+                                data: itemData,
+                                mimeType: mimeType,
+                                filename: filename
+                            )
+                        )
                     }
                 }
-                return data
+                return attachments
             },
             loadFromManual: { [] }
         )
@@ -205,7 +220,10 @@ extension BuggerScreenshotSource {
                         makeSample(color: .systemBlue),
                         makeSample(color: .systemGreen),
                         makeSample(color: .systemOrange)
-                    ].compactMap { $0 }
+                    ].compactMap { data in
+                        guard let data else { return nil }
+                        return BugReportAttachment(data: data, mimeType: "image/png")
+                    }
                 }
             }
         )
