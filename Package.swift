@@ -16,6 +16,11 @@ let package = Package(
         .target(
             name: "Bugger",
             path: "Sources/Bugger",
+        ),
+        .testTarget(
+            name: "BuggerTests",
+            dependencies: ["Bugger"],
+            path: "Tests/BuggerTests",
         )
     ]
 )
