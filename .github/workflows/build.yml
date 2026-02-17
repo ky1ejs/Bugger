@@ -10,13 +10,13 @@ jobs:
   build-bugger:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: xcodebuild (Bugger)
         run: xcodebuild -scheme Bugger -destination "generic/platform=iOS Simulator" | xcbeautify
   build-demo-app:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: xcodebuild (Demo app)
         working-directory: Demo
         run: xcodebuild -scheme demo -destination "generic/platform=iOS Simulator" | xcbeautify
