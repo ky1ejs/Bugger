@@ -1,5 +1,4 @@
 import XCTest
-import UIKit
 @testable import Bugger
 
 @MainActor
