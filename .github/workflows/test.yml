@@ -1,0 +1,37 @@
+name: Test
+
+on:
+  pull_request:
+    branches: [ main ]
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  test-demo:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Resolve available iPhone simulator
+        id: simulator
+        shell: bash
+        run: |
+          set -euo pipefail
+          SIMULATOR_ID="$(xcrun simctl list devices available | awk -F '[()]' '/iPhone/ && $2 ~ /^[0-9A-F-]{36}$/ { print $2; exit }')"
+
+          if [[ -z "${SIMULATOR_ID}" ]]; then
+            echo "No available iPhone simulator was found."
+            xcrun simctl list devices available
+            exit 1
+          fi
+
+          echo "id=${SIMULATOR_ID}" >> "$GITHUB_OUTPUT"
+          echo "Using simulator id: ${SIMULATOR_ID}"
+
+      - name: Run tests
+        shell: bash
+        run: |
+          xcodebuild \
+            -scheme Bugger \
+            -destination "id=${{ steps.simulator.outputs.id }}" \
+            test | xcbeautify
