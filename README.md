@@ -4,7 +4,7 @@
 
 ## Main Models
 
-- `BugReport`: in-memory report draft with `description`, `reporter`, `deviceInfo`, and screenshot attachments.
+- `BugReport`: in-memory report draft with `description`, `reporter`, `deviceInfo`, `categories` (`BugReportCategory`), and attachments.
 - `BugReporter`: reporter identity (`id`, `displayName`, optional `reachoutIdentifier`).
 - `DeviceInfo`: normalized device metadata captured at submit time.
 - `BugReportPackage`: packaged output ready for delivery (`payload` JSON + `attachments` persisted on disk).
@@ -14,7 +14,8 @@ Supporting extension points:
 
 - `BugReportPacking` (default: `JSONReportPacker`)
 - `ReportSubmitting` (default: `NoopReportSubmitter`)
-- `BugReporterProviding` / `DeviceInfoProviding` / `ScreenshotProviding`
+- `BugReporterProviding` / `DeviceInfoProviding` / `ScreenshotProviding` / `CategoriesProviding`
+- `BugReportCategory`: category type with `identifier` and `displayName`.
 
 ## Demo App
 

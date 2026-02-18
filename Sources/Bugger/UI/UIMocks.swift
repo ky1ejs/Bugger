@@ -7,32 +7,6 @@
 
 #if DEBUG && canImport(SwiftUI)
 
-extension Bugger {
-    public static var preview: Self {
-        return Self(
-            bugReporterProvider: DefaultBugReporterProvider(),
-            deviceInfoProvider: DefaultDeviceInfoProvider(),
-            screenshotProvider: nil,
-            packer: JSONReportPacker(),
-            submitter: NoopReportSubmitter()
-        )
-    }
-}
-
-extension BugReporter {
-    public static func preview(
-        id: String = "preview-reporter",
-        displayName: String = "Preview Reporter",
-        reachoutIdentifier: String? = "preview@bugger.local"
-    ) -> Self {
-        Self(
-            id: id,
-            displayName: displayName,
-            reachoutIdentifier: reachoutIdentifier
-        )
-    }
-}
-
 import UIKit
 extension BuggerScreenshotSource {
     static var previewMock: BuggerScreenshotSource {
@@ -63,6 +37,19 @@ extension BuggerScreenshotSource {
             context.fill(CGRect(origin: .zero, size: size))
         }
         return image.pngData()
+    }
+}
+
+extension BuggerCategorySelectionViewModel {
+    static var previewMock: BuggerCategorySelectionViewModel {
+        BuggerCategorySelectionViewModel(
+            previewCategories: [
+                BugReportCategory(identifier: "ui", displayName: "UI"),
+                BugReportCategory(identifier: "performance", displayName: "Performance"),
+                BugReportCategory(identifier: "network", displayName: "Network")
+            ],
+            selectedCategoryIdentifier: nil
+        )
     }
 }
 

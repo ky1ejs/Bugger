@@ -28,6 +28,11 @@ public protocol ScreenshotProviding: Sendable {
     func capture() async throws -> [BugReportAttachment]
 }
 
+// Defines the responsibilities to provide report categories.
+public protocol CategoriesProviding: Sendable {
+    func fetchCategories() async throws -> [BugReportCategory]
+}
+
 // Defines the responsibilities to submit a bug report.
 public protocol ReportSubmitting: Sendable {
     func submit(_ package: BugReportPackage) async throws
