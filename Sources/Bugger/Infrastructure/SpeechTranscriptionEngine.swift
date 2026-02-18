@@ -133,7 +133,7 @@ public actor OnDeviceSpeechTranscriptionEngine: BuggerSpeechTranscriptionEngine 
 
     private static func hasMicrophonePermission() async -> Bool {
         await withCheckedContinuation { continuation in
-            AVAudioSession.sharedInstance().requestRecordPermission { granted in
+            AVAudioApplication.requestRecordPermission { granted in
                 continuation.resume(returning: granted)
             }
         }
