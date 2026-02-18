@@ -10,6 +10,11 @@ public protocol DeviceInfoProviding: Sendable {
     func collect() -> DeviceInfo
 }
 
+public protocol BugReporterProviding: Sendable {
+    @MainActor
+    func collect() -> BugReporter
+}
+
 public protocol ScreenshotProviding: Sendable {
     func capture() async throws -> [BugReportAttachment]
 }
@@ -29,6 +34,19 @@ public struct DefaultDeviceInfoProvider: DeviceInfoProviding {
             model: device.model,
             localizedModel: device.localizedModel,
             identifierForVendor: device.identifierForVendor?.uuidString
+        )
+    }
+}
+
+public struct DefaultBugReporterProvider: BugReporterProviding {
+    public init() {}
+
+    @MainActor public func collect() -> BugReporter {
+        let device = UIDevice.current
+        return BugReporter(
+            id: device.identifierForVendor?.uuidString ?? "unknown-reporter",
+            displayName: device.name,
+            reachoutIdentifier: nil
         )
     }
 }
