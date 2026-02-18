@@ -22,16 +22,4 @@ public struct BugReporter: Codable, Sendable {
             reachoutIdentifier: nil
         )
     }
-
-    public static func preview(
-        id: String = "preview-reporter",
-        displayName: String = "Preview Reporter",
-        reachoutIdentifier: String? = "preview@bugger.local"
-    ) -> Self {
-        Self(
-            id: id,
-            displayName: displayName,
-            reachoutIdentifier: reachoutIdentifier
-        )
-    }
 }
