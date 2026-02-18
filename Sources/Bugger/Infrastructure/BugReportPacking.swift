@@ -60,6 +60,8 @@ public struct BugReportJSONPayload: Codable, Sendable, Identifiable {
     }
 }
 
+// The in-memory representation of a bug report
+// to be sent off to the bug report service.
 public struct BugReportPackage: Sendable {
     public let reportID: UUID
     public let payload: Data
@@ -72,6 +74,9 @@ public struct BugReportPackage: Sendable {
     }
 }
 
+// Defines the responsibilities for packaging a BugReport
+// information to a `BugReportPackage`, the representation
+// of a bug report, ready to be sent out to a server.
 public protocol BugReportPacking: Sendable {
     func pack(_ report: BugReport) async throws -> BugReportPackage
 }
