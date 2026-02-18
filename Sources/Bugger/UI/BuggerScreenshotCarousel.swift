@@ -12,6 +12,7 @@ struct BuggerScreenshotCarousel: View {
 
     @State private var selection: [PhotosPickerItem] = []
     @State private var isLoading = false
+    @State private var annotationTarget: BuggerScreenshotAnnotationTarget?
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -21,13 +22,28 @@ struct BuggerScreenshotCarousel: View {
                     BuggerScreenshotThumbnail(
                         data: item.data,
                         thumbnail: item.thumbnail,
-                        onDelete: { viewModel.remove(item.id) }
+                        onDelete: { viewModel.remove(item.id) },
+                        onTap: item.isAnnotatable ? { openAnnotation(for: item) } : nil
                     )
                 }
             }
             .padding(.vertical, 4)
         }
         .frame(height: 200)
+        .sheet(item: $annotationTarget) { target in
+            BuggerScreenshotAnnotationSheet(
+                image: target.image,
+                onCancel: {
+                    annotationTarget = nil
+                },
+                onApply: { image in
+                    _ = viewModel.replaceAnnotatedImage(for: target.id, with: image)
+                    annotationTarget = nil
+                }
+            )
+            .presentationDetents([.large])
+            .presentationDragIndicator(.hidden)
+        }
     }
 
     @MainActor
@@ -82,6 +98,13 @@ struct BuggerScreenshotCarousel: View {
             isLoading = false
         }
     }
+
+    private func openAnnotation(for item: BuggerScreenshotItem) {
+        guard item.isAnnotatable, let image = item.decodedImage else {
+            return
+        }
+        annotationTarget = BuggerScreenshotAnnotationTarget(id: item.id, image: image)
+    }
 }
 
 @Observable
@@ -115,6 +138,31 @@ final class BuggerScreenshotCarouselViewModel: BuggerReportProviding, Screenshot
         withAnimation(.snappy) {
             items.removeAll { $0.id == id }
         }
+    }
+
+    @MainActor
+    @discardableResult
+    func replaceAnnotatedImage(for id: UUID, with image: UIImage) -> Bool {
+        guard
+            let index = items.firstIndex(where: { $0.id == id }),
+            let pngData = image.pngData()
+        else {
+            return false
+        }
+
+        let current = items[index]
+        let updatedAttachment = BugReportAttachment(
+            id: current.attachment.id,
+            data: pngData,
+            mimeType: "image/png",
+            filename: Self.annotatedFilename(from: current.attachment.filename)
+        )
+        items[index] = BuggerScreenshotItem(
+            id: current.id,
+            attachment: updatedAttachment,
+            thumbnail: Self.makeThumbnail(from: pngData)
+        )
+        return true
     }
 
     func apply(to draft: BuggerReportDraft) async throws -> BuggerReportDraft {
@@ -151,6 +199,24 @@ final class BuggerScreenshotCarouselViewModel: BuggerReportProviding, Screenshot
 
         return UIImage(cgImage: cgImage)
     }
+
+    private static func annotatedFilename(from originalFilename: String?) -> String {
+        guard
+            let originalFilename,
+            !originalFilename.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+        else {
+            return "attachment-annotated.png"
+        }
+
+        let trimmed = originalFilename.trimmingCharacters(in: .whitespacesAndNewlines)
+        let stem: String
+        if let dotIndex = trimmed.lastIndex(of: "."), dotIndex != trimmed.startIndex {
+            stem = String(trimmed[..<dotIndex])
+        } else {
+            stem = trimmed
+        }
+        return "\(stem)-annotated.png"
+    }
 }
 
 struct BuggerScreenshotItem: Identifiable {
@@ -166,6 +232,18 @@ struct BuggerScreenshotItem: Identifiable {
         self.id = id
         self.attachment = attachment
         self.thumbnail = thumbnail
+    }
+
+    var isImageMimeType: Bool {
+        attachment.mimeType.lowercased().hasPrefix("image/")
+    }
+
+    var decodedImage: UIImage? {
+        UIImage(data: attachment.data)
+    }
+
+    var isAnnotatable: Bool {
+        isImageMimeType && decodedImage != nil
     }
 }
 
@@ -244,6 +322,7 @@ struct BuggerScreenshotThumbnail: View {
     let data: Data
     let thumbnail: UIImage?
     let onDelete: () -> Void
+    let onTap: (() -> Void)?
 
     var body: some View {
         ZStack(alignment: .topTrailing) {
@@ -252,6 +331,10 @@ struct BuggerScreenshotThumbnail: View {
                 .background(Color.black.opacity(0.05))
                 .cornerRadius(12)
                 .clipped()
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    onTap?()
+                }
 
             Button(action: onDelete) {
                 Image(systemName: "xmark.circle.fill")
