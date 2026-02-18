@@ -39,6 +39,7 @@ public struct BugReportJSONPayload: Codable, Sendable, Identifiable {
     public let id: UUID
     public let createdAt: Date
     public let description: String
+    public let reporter: BugReporter
     public let deviceInfo: DeviceInfo
     public let attachments: [BugReportAttachmentReference]
 
@@ -46,12 +47,14 @@ public struct BugReportJSONPayload: Codable, Sendable, Identifiable {
         id: UUID,
         createdAt: Date,
         description: String,
+        reporter: BugReporter,
         deviceInfo: DeviceInfo,
         attachments: [BugReportAttachmentReference]
     ) {
         self.id = id
         self.createdAt = createdAt
         self.description = description
+        self.reporter = reporter
         self.deviceInfo = deviceInfo
         self.attachments = attachments
     }
@@ -115,6 +118,7 @@ public struct JSONReportPacker: BugReportPacking {
             id: report.id,
             createdAt: report.createdAt,
             description: report.description,
+            reporter: report.reporter,
             deviceInfo: report.deviceInfo,
             attachments: attachmentReferences
         )
