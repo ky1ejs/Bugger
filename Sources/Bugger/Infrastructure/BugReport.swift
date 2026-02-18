@@ -35,6 +35,7 @@ public struct BugReport: Codable, Sendable, Identifiable {
     public let id: UUID
     public let createdAt: Date
     public var description: String
+    public var reporter: BugReporter
     public var deviceInfo: DeviceInfo
     public var attachments: [BugReportAttachment]
 
@@ -42,12 +43,14 @@ public struct BugReport: Codable, Sendable, Identifiable {
         id: UUID = UUID(),
         createdAt: Date = Date(),
         description: String,
+        reporter: BugReporter = .unknown,
         deviceInfo: DeviceInfo,
         attachments: [BugReportAttachment] = []
     ) {
         self.id = id
         self.createdAt = createdAt
         self.description = description
+        self.reporter = reporter
         self.deviceInfo = deviceInfo
         self.attachments = attachments
     }
@@ -62,6 +65,7 @@ public struct BugReport: Codable, Sendable, Identifiable {
         id: UUID = UUID(),
         createdAt: Date = Date(),
         description: String,
+        reporter: BugReporter = .unknown,
         deviceInfo: DeviceInfo,
         screenshotData: [Data],
         screenshotMimeType: String
@@ -70,6 +74,7 @@ public struct BugReport: Codable, Sendable, Identifiable {
             id: id,
             createdAt: createdAt,
             description: description,
+            reporter: reporter,
             deviceInfo: deviceInfo,
             attachments: screenshotData.map {
                 BugReportAttachment.fromRawData($0, mimeType: screenshotMimeType)

@@ -39,6 +39,7 @@ public struct BugReportJSONPayload: Codable, Sendable, Identifiable {
     public let id: UUID
     public let createdAt: Date
     public let description: String
+    public let reporter: BugReporter
     public let deviceInfo: DeviceInfo
     public let attachments: [BugReportAttachmentReference]
 
@@ -46,17 +47,21 @@ public struct BugReportJSONPayload: Codable, Sendable, Identifiable {
         id: UUID,
         createdAt: Date,
         description: String,
+        reporter: BugReporter,
         deviceInfo: DeviceInfo,
         attachments: [BugReportAttachmentReference]
     ) {
         self.id = id
         self.createdAt = createdAt
         self.description = description
+        self.reporter = reporter
         self.deviceInfo = deviceInfo
         self.attachments = attachments
     }
 }
 
+// The in-memory representation of a bug report
+// to be sent off to the bug report service.
 public struct BugReportPackage: Sendable {
     public let reportID: UUID
     public let payload: Data
@@ -69,6 +74,9 @@ public struct BugReportPackage: Sendable {
     }
 }
 
+// Defines the responsibilities for packaging a BugReport
+// information to a `BugReportPackage`, the representation
+// of a bug report, ready to be sent out to a server.
 public protocol BugReportPacking: Sendable {
     func pack(_ report: BugReport) async throws -> BugReportPackage
 }
@@ -115,6 +123,7 @@ public struct JSONReportPacker: BugReportPacking {
             id: report.id,
             createdAt: report.createdAt,
             description: report.description,
+            reporter: report.reporter,
             deviceInfo: report.deviceInfo,
             attachments: attachmentReferences
         )
