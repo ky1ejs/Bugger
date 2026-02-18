@@ -41,6 +41,7 @@ public struct BugReportJSONPayload: Codable, Sendable, Identifiable {
     public let description: String
     public let reporter: BugReporter
     public let deviceInfo: DeviceInfo
+    public let categories: [BugReportCategory]
     public let attachments: [BugReportAttachmentReference]
 
     public init(
@@ -49,6 +50,7 @@ public struct BugReportJSONPayload: Codable, Sendable, Identifiable {
         description: String,
         reporter: BugReporter,
         deviceInfo: DeviceInfo,
+        categories: [BugReportCategory],
         attachments: [BugReportAttachmentReference]
     ) {
         self.id = id
@@ -56,6 +58,7 @@ public struct BugReportJSONPayload: Codable, Sendable, Identifiable {
         self.description = description
         self.reporter = reporter
         self.deviceInfo = deviceInfo
+        self.categories = categories
         self.attachments = attachments
     }
 }
@@ -125,6 +128,7 @@ public struct JSONReportPacker: BugReportPacking {
             description: report.description,
             reporter: report.reporter,
             deviceInfo: report.deviceInfo,
+            categories: report.categories,
             attachments: attachmentReferences
         )
 

@@ -51,7 +51,7 @@ struct ContentView: View {
             .safeAreaInset(edge: .bottom) {
                 Button {
                     activeSetup = DemoSetup(
-                        bugger: .onDevice,
+                        bugger: makeDemoBugger(),
                         includeScreenshots: providerOption.includeScreenshots,
                         showsOnDevicePackagePreview: true
                     )
@@ -106,6 +106,26 @@ private struct BuggerSheet: View {
         .sheet(item: $presentedPackage) { item in
             BugReportPackageSheet(package: item.package)
         }
+    }
+}
+
+private func makeDemoBugger() -> Bugger {
+    Bugger(
+        deviceInfoProvider: DefaultDeviceInfoProvider(),
+        screenshotProvider: nil,
+        categoriesProvider: DemoCategoriesProvider(),
+        packer: JSONReportPacker(),
+        submitter: NoopReportSubmitter()
+    )
+}
+
+private struct DemoCategoriesProvider: CategoriesProviding {
+    func fetchCategories() async throws -> [BugReportCategory] {
+        [
+            BugReportCategory(identifier: "ui", displayName: "UI"),
+            BugReportCategory(identifier: "performance", displayName: "Performance"),
+            BugReportCategory(identifier: "network", displayName: "Network")
+        ]
     }
 }
 

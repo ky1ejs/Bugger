@@ -28,13 +28,19 @@ struct BuggerReporterView: View {
     public var body: some View {
         Form {
             Section(viewModel.composer.sectionTitle) {
-                BuggerReporterComposer(viewModel: viewModel.composer)
+                BuggerReporterComposer(
+                    viewModel: viewModel.composer,
+                    categoriesViewModel: viewModel.categories
+                )
             }
             if let screenshots = viewModel.screenshots {
                 Section(screenshots.sectionTitle) {
                     BuggerScreenshotCarousel(viewModel: screenshots)
                 }
             }
+        }
+        .task {
+            await viewModel.loadCategoriesIfNeeded()
         }
         .safeAreaInset(edge: .bottom) {
             VStack(spacing: 8) {
@@ -80,6 +86,7 @@ final class BuggerReporterViewModel {
     private var state: State = .idle
 
     let composer = BuggerReporterComposerViewModel()
+    let categories: BuggerCategorySelectionViewModel?
     let screenshots: BuggerScreenshotCarouselViewModel?
 
     init(
@@ -90,6 +97,7 @@ final class BuggerReporterViewModel {
     ) {
         self.bugger = bugger
         self.onSubmit = onSubmit
+        self.categories = BuggerCategorySelectionViewModel(bugger: bugger)
         self.screenshots = includeScreenshots
         ? BuggerScreenshotCarouselViewModel(source: screenshotSource)
         : nil
@@ -97,6 +105,9 @@ final class BuggerReporterViewModel {
 
     private var providers: [any BuggerReportProviding] {
         var providers: [any BuggerReportProviding] = [composer]
+        if let categories {
+            providers.append(categories)
+        }
         if let screenshots {
             providers.append(screenshots)
         }
@@ -124,7 +135,8 @@ final class BuggerReporterViewModel {
                 let draft = try await buildDraft()
                 let bugreport = try await bugger.draftReport(
                     description: draft.description,
-                    attachments: draft.attachments
+                    attachments: draft.attachments,
+                    categories: draft.categories
                 )
 
                 guard !Task.isCancelled else { return }
@@ -145,12 +157,16 @@ final class BuggerReporterViewModel {
         }
         return draft
     }
-}
 
+    func loadCategoriesIfNeeded() async {
+        await categories?.loadIfNeeded()
+    }
+}
 
 struct BuggerReportDraft {
     var description: String = ""
     var attachments: [BugReportAttachment] = []
+    var categories: [BugReportCategory] = []
 }
 
 protocol SectionTitleProviding {
