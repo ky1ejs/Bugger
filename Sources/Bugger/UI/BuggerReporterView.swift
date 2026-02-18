@@ -15,12 +15,14 @@ struct BuggerReporterView: View {
         bugger: Bugger,
         screenshotSource: BuggerScreenshotSource = .photoLibrary,
         includeScreenshots: Bool = true,
+        speechTranscriptionEngine: (any BuggerSpeechTranscriptionEngine)? = nil,
         onSubmit: (@MainActor (BugReportPackage) -> Void)? = nil
     ) {
         self.viewModel = BuggerReporterViewModel(
             bugger: bugger,
             screenshotSource: screenshotSource,
             includeScreenshots: includeScreenshots,
+            speechTranscriptionEngine: speechTranscriptionEngine,
             onSubmit: onSubmit
         )
     }
@@ -30,7 +32,8 @@ struct BuggerReporterView: View {
             Section(viewModel.composer.sectionTitle) {
                 BuggerReporterComposer(
                     viewModel: viewModel.composer,
-                    categoriesViewModel: viewModel.categories
+                    categoriesViewModel: viewModel.categories,
+                    speechViewModel: viewModel.speech
                 )
             }
             if let screenshots = viewModel.screenshots {
@@ -88,11 +91,13 @@ final class BuggerReporterViewModel {
     let composer = BuggerReporterComposerViewModel()
     let categories: BuggerCategorySelectionViewModel?
     let screenshots: BuggerScreenshotCarouselViewModel?
+    let speech: BuggerComposerSpeechInputViewModel?
 
     init(
         bugger: Bugger,
         screenshotSource: BuggerScreenshotSource = .photoLibrary,
         includeScreenshots: Bool = true,
+        speechTranscriptionEngine: (any BuggerSpeechTranscriptionEngine)? = nil,
         onSubmit: (@MainActor (BugReportPackage) -> Void)? = nil
     ) {
         self.bugger = bugger
@@ -101,6 +106,16 @@ final class BuggerReporterViewModel {
         self.screenshots = includeScreenshots
         ? BuggerScreenshotCarouselViewModel(source: screenshotSource)
         : nil
+        if let speechTranscriptionEngine {
+            self.speech = BuggerComposerSpeechInputViewModel(
+                engine: speechTranscriptionEngine,
+                onTranscription: { [composer] transcription in
+                    composer.appendTranscription(transcription)
+                }
+            )
+        } else {
+            self.speech = nil
+        }
     }
 
     private var providers: [any BuggerReportProviding] {

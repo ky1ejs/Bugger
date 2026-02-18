@@ -34,4 +34,27 @@ extension BugReporter {
     }
 }
 
+public actor DemoSpeechTranscriptionEngine: BuggerSpeechTranscriptionEngine {
+    private let transcription: String
+    private let processingDelayNanoseconds: UInt64
+
+    public init(
+        transcription: String = """
+        I can reliably reproduce this issue by opening Settings and tapping Save.
+        The screen freezes for around five seconds and then the app becomes unresponsive.
+        """,
+        processingDelayNanoseconds: UInt64 = 1_400_000_000
+    ) {
+        self.transcription = transcription
+        self.processingDelayNanoseconds = processingDelayNanoseconds
+    }
+
+    public func startRecording() async throws {}
+
+    public func stopRecordingAndTranscribe() async throws -> String {
+        try await Task.sleep(nanoseconds: processingDelayNanoseconds)
+        return transcription
+    }
+}
+
 #endif

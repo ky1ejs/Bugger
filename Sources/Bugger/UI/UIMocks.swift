@@ -53,4 +53,17 @@ extension BuggerCategorySelectionViewModel {
     }
 }
 
+extension BuggerComposerSpeechInputViewModel {
+    static func previewMock(
+        composer: BuggerReporterComposerViewModel
+    ) -> BuggerComposerSpeechInputViewModel {
+        BuggerComposerSpeechInputViewModel(
+            engine: DemoSpeechTranscriptionEngine(),
+            onTranscription: { transcription in
+                composer.appendTranscription(transcription)
+            }
+        )
+    }
+}
+
 #endif
