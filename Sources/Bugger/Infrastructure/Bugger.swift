@@ -63,15 +63,3 @@ public final class Bugger: Sendable {
         return package
     }
 }
-
-extension Bugger {
-    public static var preview: Self {
-        return Self(
-            bugReporterProvider: DefaultBugReporterProvider(),
-            deviceInfoProvider: DefaultDeviceInfoProvider(),
-            screenshotProvider: nil,
-            packer: JSONReportPacker(),
-            submitter: NoopReportSubmitter()
-        )
-    }
-}
