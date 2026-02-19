@@ -1,10 +1,3 @@
-//
-//  Mocks.swift
-//  Bugger
-//
-//  Created by Fabio Milano on 2/18/26.
-//
-
 #if DEBUG && canImport(SwiftUI)
 
 import UIKit

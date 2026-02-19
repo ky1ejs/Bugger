@@ -1,10 +1,3 @@
-//
-//  BuggerReporter.swift
-//  Bugger
-//
-//  Created by Fabio Milano on 2/8/26.
-//
-
 import SwiftUI
 
 struct BuggerReporterView: View {

@@ -1,10 +1,3 @@
-//
-//  Mocks.swift
-//  Bugger
-//
-//  Created by Fabio Milano on 2/18/26.
-//
-
 #if DEBUG && canImport(SwiftUI)
 
 extension Bugger {
@@ -55,6 +48,8 @@ public actor DemoSpeechTranscriptionEngine: BuggerSpeechTranscriptionEngine {
         try await Task.sleep(nanoseconds: processingDelayNanoseconds)
         return transcription
     }
+
+    public func cancelRecording() async {}
 }
 
 #endif

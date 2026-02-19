@@ -93,6 +93,7 @@ final class BuggerReporterComposerViewModel: BuggerReportProviding, SectionTitle
 final class BuggerComposerSpeechInputViewModel {
     enum State {
         case idle
+        case startingRecording
         case recording
         case transcribing
     }
@@ -111,18 +112,33 @@ final class BuggerComposerSpeechInputViewModel {
         self.onTranscription = onTranscription
     }
 
+    @MainActor
+    deinit {
+        transcriptionTask?.cancel()
+        let engine = engine
+        Task {
+            await engine.cancelRecording()
+        }
+    }
+
     var isRecording: Bool {
-        state == .recording
+        state == .startingRecording || state == .recording
     }
 
     var isTranscribing: Bool {
         state == .transcribing
     }
 
+    var isBusy: Bool {
+        state == .startingRecording || state == .transcribing
+    }
+
     func toggleRecording() {
         switch state {
         case .idle:
             startRecording()
+        case .startingRecording:
+            break
         case .recording:
             startTranscription()
         case .transcribing:
@@ -131,31 +147,54 @@ final class BuggerComposerSpeechInputViewModel {
     }
 
     private func startRecording() {
-        state = .recording
         transcriptionTask?.cancel()
+        state = .startingRecording
         transcriptionTask = Task { [weak self] in
-            guard let self, !Task.isCancelled else { return }
+            guard let self else { return }
             do {
                 try await self.engine.startRecording()
+                guard !Task.isCancelled else {
+                    await self.cancelAndResetToIdle()
+                    return
+                }
+                await self.finishStartRecording()
+            } catch is CancellationError {
+                await self.cancelAndResetToIdle()
             } catch {
-                await self.resetToIdle()
+                await self.cancelAndResetToIdle()
             }
         }
     }
 
     private func startTranscription() {
-        state = .transcribing
+        guard state == .recording else { return }
         transcriptionTask?.cancel()
+        state = .transcribing
         transcriptionTask = Task { [weak self] in
-            guard let self, !Task.isCancelled else { return }
+            guard let self else { return }
             do {
                 let transcription = try await self.engine.stopRecordingAndTranscribe()
-                guard !Task.isCancelled else { return }
+                guard !Task.isCancelled else {
+                    await self.cancelAndResetToIdle()
+                    return
+                }
                 await self.finishTranscription(transcription)
+            } catch is CancellationError {
+                await self.cancelAndResetToIdle()
             } catch {
-                await self.resetToIdle()
+                await self.cancelAndResetToIdle()
             }
         }
+    }
+
+    private func finishStartRecording() {
+        guard state == .startingRecording else { return }
+        state = .recording
+    }
+
+    private func cancelAndResetToIdle() async {
+        await engine.cancelRecording()
+        resetToIdle()
     }
 
     private func finishTranscription(_ transcription: String) {
@@ -265,7 +304,7 @@ private struct BuggerComposerSpeechButton: View {
 
     private var iconName: String {
         switch viewModel.state {
-        case .idle, .transcribing:
+        case .idle, .startingRecording, .transcribing:
             return "mic.fill"
         case .recording:
             return "stop.fill"
@@ -286,7 +325,7 @@ private struct BuggerComposerSpeechButton: View {
                 )
         }
         .buttonStyle(.plain)
-        .disabled(viewModel.isTranscribing)
+        .disabled(viewModel.isBusy)
         .accessibilityLabel(
             viewModel.isRecording ? "Stop speech recording" : "Start speech recording"
         )
@@ -299,6 +338,12 @@ private struct BuggerComposerSpeechStatusOverlay: View {
     var body: some View {
         Group {
             switch viewModel.state {
+            case .startingRecording:
+                VStack(spacing: 8) {
+                    ProgressView()
+                    Text("Preparing microphone...")
+                        .font(.footnote)
+                }
             case .recording:
                 VStack(spacing: 8) {
                     Image(systemName: "waveform.and.mic")

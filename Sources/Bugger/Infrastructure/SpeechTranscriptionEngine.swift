@@ -8,6 +8,7 @@ import FoundationModels
 public protocol BuggerSpeechTranscriptionEngine: Sendable {
     func startRecording() async throws
     func stopRecordingAndTranscribe() async throws -> String
+    func cancelRecording() async
 }
 
 public enum SpeechTranscriptionError: Error {
@@ -35,66 +36,84 @@ public actor OnDeviceSpeechTranscriptionEngine: BuggerSpeechTranscriptionEngine 
         guard await Self.hasSpeechPermission() else {
             throw SpeechTranscriptionError.speechAuthorizationDenied
         }
+        try Task.checkCancellation()
+
         guard await Self.hasMicrophonePermission() else {
             throw SpeechTranscriptionError.microphoneAuthorizationDenied
         }
+        try Task.checkCancellation()
 
         guard let recognizer = SFSpeechRecognizer(locale: locale), recognizer.isAvailable else {
             throw SpeechTranscriptionError.recognizerUnavailable
         }
+        try Task.checkCancellation()
 
-        try configureAudioSession()
-        latestTranscription = ""
+        do {
+            try configureAudioSession()
+            latestTranscription = ""
 
-        let request = SFSpeechAudioBufferRecognitionRequest()
-        request.shouldReportPartialResults = true
-        recognitionRequest = request
+            let request = SFSpeechAudioBufferRecognitionRequest()
+            request.shouldReportPartialResults = true
+            recognitionRequest = request
 
-        let inputNode = audioEngine.inputNode
-        inputNode.removeTap(onBus: 0)
-        let format = inputNode.outputFormat(forBus: 0)
-        inputNode.installTap(onBus: 0, bufferSize: 1_024, format: format) { [weak request] buffer, _ in
-            request?.append(buffer)
-        }
-
-        recognitionTask = recognizer.recognitionTask(with: request) { [weak self] result, error in
-            guard let self else { return }
-            let transcription = result?.bestTranscription.formattedString
-            let hasError = error != nil
-            Task {
-                await self.handleRecognitionCallback(
-                    transcription: transcription,
-                    hasError: hasError
-                )
+            let inputNode = audioEngine.inputNode
+            inputNode.removeTap(onBus: 0)
+            let format = inputNode.outputFormat(forBus: 0)
+            inputNode.installTap(onBus: 0, bufferSize: 1_024, format: format) { [weak request] buffer, _ in
+                request?.append(buffer)
             }
-        }
 
-        audioEngine.prepare()
-        try audioEngine.start()
-        isRecording = true
+            recognitionTask = recognizer.recognitionTask(with: request) { [weak self] result, error in
+                guard let self else { return }
+                let transcription = result?.bestTranscription.formattedString
+                let hasError = error != nil
+                Task {
+                    await self.handleRecognitionCallback(
+                        transcription: transcription,
+                        hasError: hasError
+                    )
+                }
+            }
+
+            try Task.checkCancellation()
+            audioEngine.prepare()
+            try audioEngine.start()
+            try Task.checkCancellation()
+            isRecording = true
+        } catch {
+            cleanupRecordingResources()
+            throw error
+        }
     }
 
     public func stopRecordingAndTranscribe() async throws -> String {
         guard isRecording else {
             throw SpeechTranscriptionError.recordingNotStarted
         }
+        do {
+            recognitionRequest?.endAudio()
+            audioEngine.stop()
+            audioEngine.inputNode.removeTap(onBus: 0)
 
-        recognitionRequest?.endAudio()
-        audioEngine.stop()
-        audioEngine.inputNode.removeTap(onBus: 0)
+            // Give recognizer a short window to flush the final phrase.
+            try await Task.sleep(nanoseconds: 650_000_000)
+            recognitionTask?.cancel()
 
-        // Give recognizer a short window to flush the final phrase.
-        try? await Task.sleep(nanoseconds: 650_000_000)
+            let transcription = latestTranscription.trimmingCharacters(in: .whitespacesAndNewlines)
+            cleanupRecordingResources()
 
-        recognitionTask?.cancel()
-
-        let transcription = latestTranscription.trimmingCharacters(in: .whitespacesAndNewlines)
-        cleanupRecordingResources()
-
-        guard !transcription.isEmpty else {
-            throw SpeechTranscriptionError.emptyTranscription
+            guard !transcription.isEmpty else {
+                throw SpeechTranscriptionError.emptyTranscription
+            }
+            return await rewriteForDeveloperReportIfPossible(transcription)
+        } catch {
+            cleanupRecordingResources()
+            throw error
         }
-        return await rewriteForDeveloperReportIfPossible(transcription)
+    }
+
+    public func cancelRecording() async {
+        cleanupRecordingResources()
     }
 
     private func handleRecognitionCallback(
@@ -117,8 +136,13 @@ public actor OnDeviceSpeechTranscriptionEngine: BuggerSpeechTranscriptionEngine 
     }
 
     private func cleanupRecordingResources() {
+        recognitionRequest?.endAudio()
+        recognitionTask?.cancel()
+        audioEngine.stop()
+        audioEngine.inputNode.removeTap(onBus: 0)
         recognitionRequest = nil
         recognitionTask = nil
+        latestTranscription = ""
         isRecording = false
         try? AVAudioSession.sharedInstance().setActive(false, options: .notifyOthersOnDeactivation)
     }
