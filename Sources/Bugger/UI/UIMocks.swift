@@ -1,10 +1,3 @@
-//
-//  Mocks.swift
-//  Bugger
-//
-//  Created by Fabio Milano on 2/18/26.
-//
-
 #if DEBUG && canImport(SwiftUI)
 
 import UIKit
@@ -49,6 +42,19 @@ extension BuggerCategorySelectionViewModel {
                 BugReportCategory(identifier: "network", displayName: "Network")
             ],
             selectedCategoryIdentifier: nil
+        )
+    }
+}
+
+extension BuggerComposerSpeechInputViewModel {
+    static func previewMock(
+        composer: BuggerReporterComposerViewModel
+    ) -> BuggerComposerSpeechInputViewModel {
+        BuggerComposerSpeechInputViewModel(
+            engine: DemoSpeechTranscriptionEngine(),
+            onTranscription: { transcription in
+                composer.appendTranscription(transcription)
+            }
         )
     }
 }
