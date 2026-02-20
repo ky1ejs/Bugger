@@ -112,9 +112,7 @@ final class BuggerComposerSpeechInputViewModel {
         self.onTranscription = onTranscription
     }
 
-    @MainActor
     deinit {
-        transcriptionTask?.cancel()
         let engine = engine
         Task {
             await engine.cancelRecording()
