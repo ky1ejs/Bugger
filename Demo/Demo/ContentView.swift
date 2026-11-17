@@ -53,6 +53,7 @@ struct ContentView: View {
                     activeSetup = DemoSetup(
                         bugger: makeDemoBugger(),
                         includeScreenshots: providerOption.includeScreenshots,
+                        speechTranscriptionEngine: OnDeviceSpeechTranscriptionEngine(),
                         showsOnDevicePackagePreview: true
                     )
                 } label: {
@@ -76,6 +77,7 @@ private struct DemoSetup: Identifiable {
     let id = UUID()
     let bugger: Bugger
     let includeScreenshots: Bool
+    let speechTranscriptionEngine: (any BuggerSpeechTranscriptionEngine)?
     let showsOnDevicePackagePreview: Bool
 }
 
@@ -89,6 +91,7 @@ private struct BuggerSheet: View {
             BuggerScreen(
                 bugger: setup.bugger,
                 includeScreenshots: setup.includeScreenshots,
+                speechTranscriptionEngine: setup.speechTranscriptionEngine,
                 onSubmit: { package in
                     guard setup.showsOnDevicePackagePreview else { return }
                     presentedPackage = PresentedBugReportPackage(package: package)
