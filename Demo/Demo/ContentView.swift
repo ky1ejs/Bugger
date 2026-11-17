@@ -50,9 +50,14 @@ struct ContentView: View {
             .navigationTitle("Bugger Demo")
             .safeAreaInset(edge: .bottom) {
                 Button {
+                    // Capture before presenting, so the screenshot shows the demo and not Bugger.
+                    let screenshot = providerOption.includeScreenshots
+                        ? BuggerScreenCapture.captureForegroundScene()
+                        : nil
                     activeSetup = DemoSetup(
                         bugger: makeDemoBugger(),
                         includeScreenshots: providerOption.includeScreenshots,
+                        screenshots: screenshot.map { [$0] } ?? [],
                         speechTranscriptionEngine: OnDeviceSpeechTranscriptionEngine(),
                         showsOnDevicePackagePreview: true
                     )
@@ -77,6 +82,7 @@ private struct DemoSetup: Identifiable {
     let id = UUID()
     let bugger: Bugger
     let includeScreenshots: Bool
+    let screenshots: [BugReportAttachment]
     let speechTranscriptionEngine: (any BuggerSpeechTranscriptionEngine)?
     let showsOnDevicePackagePreview: Bool
 }
@@ -91,6 +97,7 @@ private struct BuggerSheet: View {
             BuggerScreen(
                 bugger: setup.bugger,
                 includeScreenshots: setup.includeScreenshots,
+                screenshots: setup.screenshots,
                 speechTranscriptionEngine: setup.speechTranscriptionEngine,
                 onSubmit: { package in
                     guard setup.showsOnDevicePackagePreview else { return }

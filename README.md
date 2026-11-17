@@ -17,6 +17,20 @@ Supporting extension points:
 - `BugReporterProviding` / `DeviceInfoProviding` / `ScreenshotProviding` / `CategoriesProviding`
 - `BugReportCategory`: category type with `identifier` and `displayName`.
 
+## Screenshots
+
+`BuggerScreenCapture` captures the app's screen as a PNG attachment. Capture before presenting `BuggerScreen`, so the image shows the app and not Bugger, then pass it in:
+
+```swift
+let screenshot = BuggerScreenCapture.captureForegroundScene()
+// later, when presenting:
+BuggerScreen(bugger: bugger, screenshots: screenshot.map { [$0] } ?? [])
+```
+
+The reporter sees the screenshot in the report and can annotate or remove it. The "Add" tile still lets them attach screenshots from the photo library.
+
+The capture includes every visible window of the foreground scene, in window-level order. The keyboard, system alerts and the status bar belong to other processes, so they aren't in the image.
+
 ## Speech Input
 
 Reporters can dictate the description instead of typing it. Pass an engine to turn it on:

@@ -8,6 +8,7 @@ struct BuggerReporterView: View {
         bugger: Bugger,
         screenshotSource: BuggerScreenshotSource = .photoLibrary,
         includeScreenshots: Bool = true,
+        screenshots: [BugReportAttachment] = [],
         speechTranscriptionEngine: (any BuggerSpeechTranscriptionEngine)? = nil,
         onSubmit: (@MainActor (BugReportPackage) -> Void)? = nil
     ) {
@@ -15,6 +16,7 @@ struct BuggerReporterView: View {
             bugger: bugger,
             screenshotSource: screenshotSource,
             includeScreenshots: includeScreenshots,
+            screenshots: screenshots,
             speechTranscriptionEngine: speechTranscriptionEngine,
             onSubmit: onSubmit
         )
@@ -90,14 +92,15 @@ final class BuggerReporterViewModel {
         bugger: Bugger,
         screenshotSource: BuggerScreenshotSource = .photoLibrary,
         includeScreenshots: Bool = true,
+        screenshots: [BugReportAttachment] = [],
         speechTranscriptionEngine: (any BuggerSpeechTranscriptionEngine)? = nil,
         onSubmit: (@MainActor (BugReportPackage) -> Void)? = nil
     ) {
         self.bugger = bugger
         self.onSubmit = onSubmit
         self.categories = BuggerCategorySelectionViewModel(bugger: bugger)
-        self.screenshots = includeScreenshots
-        ? BuggerScreenshotCarouselViewModel(source: screenshotSource)
+        self.screenshots = includeScreenshots || !screenshots.isEmpty
+        ? BuggerScreenshotCarouselViewModel(source: screenshotSource, initialAttachments: screenshots)
         : nil
         if let speechTranscriptionEngine {
             self.speech = BuggerComposerSpeechInputViewModel(

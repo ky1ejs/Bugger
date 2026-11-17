@@ -116,18 +116,14 @@ final class BuggerScreenshotCarouselViewModel: BuggerReportProviding, Screenshot
 
     var items: [BuggerScreenshotItem] = []
 
-    init(source: BuggerScreenshotSource = .photoLibrary) {
+    init(source: BuggerScreenshotSource = .photoLibrary, initialAttachments: [BugReportAttachment] = []) {
         self.source = source
+        self.items = initialAttachments.map(Self.makeItem)
     }
 
     @MainActor
     func add(_ attachments: [BugReportAttachment]) {
-        let newItems = attachments.map { attachment in
-            BuggerScreenshotItem(
-                attachment: attachment,
-                thumbnail: Self.makeThumbnail(from: attachment.data)
-            )
-        }
+        let newItems = attachments.map(Self.makeItem)
         withAnimation(.snappy) {
             items.append(contentsOf: newItems)
         }
@@ -181,6 +177,13 @@ final class BuggerScreenshotCarouselViewModel: BuggerReportProviding, Screenshot
 
     func loadFromManual() async -> [BugReportAttachment] {
         await source.loadFromManual()
+    }
+
+    private static func makeItem(_ attachment: BugReportAttachment) -> BuggerScreenshotItem {
+        BuggerScreenshotItem(
+            attachment: attachment,
+            thumbnail: makeThumbnail(from: attachment.data)
+        )
     }
 
     private static func makeThumbnail(from data: Data, maxPixelSize: CGFloat = 320) -> UIImage? {
