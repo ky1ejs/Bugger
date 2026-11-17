@@ -54,6 +54,11 @@ struct BuggerReporterComposer: View {
                 }
             }
             .animation(.easeInOut(duration: 0.2), value: speechViewModel?.isRecording ?? false)
+            if let speechViewModel, let failure = speechViewModel.failure {
+                BuggerComposerSpeechFailureView(failure: failure) {
+                    speechViewModel.dismissFailure()
+                }
+            }
         }
     }
 }
@@ -98,11 +103,47 @@ final class BuggerComposerSpeechInputViewModel {
         case transcribing
     }
 
+    /// Why the last recording didn't produce text, worded for the reporter.
+    struct Failure: Equatable {
+        let message: String
+        /// True when the user can fix the failure by changing a permission in Settings.
+        let offersSettings: Bool
+
+        init(message: String, offersSettings: Bool = false) {
+            self.message = message
+            self.offersSettings = offersSettings
+        }
+
+        init(_ error: any Error) {
+            switch error as? BuggerSpeechTranscriptionError {
+            case .speechAuthorizationDenied:
+                self.init(
+                    message: "Speech recognition is turned off for this app. You can turn it on in Settings.",
+                    offersSettings: true
+                )
+            case .microphoneAuthorizationDenied:
+                self.init(
+                    message: "Microphone access is turned off for this app. You can turn it on in Settings.",
+                    offersSettings: true
+                )
+            case .audioInputUnavailable:
+                self.init(message: "The microphone isn't available right now.")
+            case .recognizerUnavailable, .onDeviceRecognitionUnsupported:
+                self.init(message: "Speech recognition isn't available on this device right now.")
+            case .emptyTranscription:
+                self.init(message: "No speech was detected. Try again.")
+            case .recordingNotStarted, .recognitionFailed, nil:
+                self.init(message: "The recording couldn't be transcribed. Try again.")
+            }
+        }
+    }
+
     private let engine: any BuggerSpeechTranscriptionEngine
     private let onTranscription: @MainActor (String) -> Void
     private var transcriptionTask: Task<Void, Never>?
 
     private(set) var state: State = .idle
+    private(set) var failure: Failure?
 
     init(
         engine: any BuggerSpeechTranscriptionEngine,
@@ -144,22 +185,27 @@ final class BuggerComposerSpeechInputViewModel {
         }
     }
 
+    func dismissFailure() {
+        failure = nil
+    }
+
+    /// Waits for the current start or transcription to finish. Used by tests.
+    func waitForPendingWork() async {
+        await transcriptionTask?.value
+    }
+
     private func startRecording() {
         transcriptionTask?.cancel()
+        failure = nil
         state = .startingRecording
         transcriptionTask = Task { [weak self] in
             guard let self else { return }
             do {
                 try await self.engine.startRecording()
-                guard !Task.isCancelled else {
-                    await self.cancelAndResetToIdle()
-                    return
-                }
-                await self.finishStartRecording()
-            } catch is CancellationError {
-                await self.cancelAndResetToIdle()
+                try Task.checkCancellation()
+                self.finishStartRecording()
             } catch {
-                await self.cancelAndResetToIdle()
+                await self.fail(with: error)
             }
         }
     }
@@ -172,15 +218,10 @@ final class BuggerComposerSpeechInputViewModel {
             guard let self else { return }
             do {
                 let transcription = try await self.engine.stopRecordingAndTranscribe()
-                guard !Task.isCancelled else {
-                    await self.cancelAndResetToIdle()
-                    return
-                }
-                await self.finishTranscription(transcription)
-            } catch is CancellationError {
-                await self.cancelAndResetToIdle()
+                try Task.checkCancellation()
+                self.finishTranscription(transcription)
             } catch {
-                await self.cancelAndResetToIdle()
+                await self.fail(with: error)
             }
         }
     }
@@ -190,17 +231,17 @@ final class BuggerComposerSpeechInputViewModel {
         state = .recording
     }
 
-    private func cancelAndResetToIdle() async {
+    /// Stops the engine and returns to idle. A cancellation isn't shown to the user; any other error is.
+    private func fail(with error: any Error) async {
         await engine.cancelRecording()
-        resetToIdle()
+        state = .idle
+        if !(error is CancellationError) {
+            failure = Failure(error)
+        }
     }
 
     private func finishTranscription(_ transcription: String) {
         onTranscription(transcription)
-        state = .idle
-    }
-
-    private func resetToIdle() {
         state = .idle
     }
 }
@@ -241,7 +282,7 @@ private struct BuggerComposerTextView: UIViewRepresentable {
         let endRange = textView.textRange(from: endPosition, to: endPosition)
         textView.becomeFirstResponder()
         textView.selectedTextRange = endRange
-        textView.scrollRangeToVisible(NSRange(location: textView.text.count, length: 0))
+        textView.scrollRangeToVisible(NSRange(location: textView.text.utf16.count, length: 0))
     }
 
     final class Coordinator: NSObject, UITextViewDelegate {
@@ -327,6 +368,41 @@ private struct BuggerComposerSpeechButton: View {
         .accessibilityLabel(
             viewModel.isRecording ? "Stop speech recording" : "Start speech recording"
         )
+    }
+}
+
+private struct BuggerComposerSpeechFailureView: View {
+    let failure: BuggerComposerSpeechInputViewModel.Failure
+    let onDismiss: () -> Void
+
+    @Environment(\.openURL) private var openURL
+
+    var body: some View {
+        HStack(alignment: .firstTextBaseline, spacing: 8) {
+            Image(systemName: "exclamationmark.triangle.fill")
+                .foregroundStyle(.orange)
+            VStack(alignment: .leading, spacing: 4) {
+                Text(failure.message)
+                if failure.offersSettings,
+                   let settingsURL = URL(string: UIApplication.openSettingsURLString) {
+                    Button("Open Settings") {
+                        openURL(settingsURL)
+                    }
+                    .buttonStyle(.borderless)
+                }
+            }
+            Spacer(minLength: 0)
+            Button {
+                onDismiss()
+            } label: {
+                Image(systemName: "xmark")
+                    .foregroundStyle(.secondary)
+            }
+            .buttonStyle(.borderless)
+            .accessibilityLabel("Dismiss")
+        }
+        .font(.footnote)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
 
