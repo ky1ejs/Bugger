@@ -17,6 +17,47 @@ Supporting extension points:
 - `BugReporterProviding` / `DeviceInfoProviding` / `ScreenshotProviding` / `CategoriesProviding`
 - `BugReportCategory`: category type with `identifier` and `displayName`.
 
+## Opening Bugger
+
+Apply `.buggerReporting(...)` once, near the root of each scene:
+
+```swift
+WindowGroup {
+    ContentView()
+        .buggerReporting(
+            bugger,
+            isEnabled: reportingEnabled,      // e.g. from remote config or a user setting
+            triggers: [.shake, .screenshot]   // the default; [] opens it only from code
+        )
+}
+```
+
+Bugger then opens when the user shakes the device or takes a screenshot. It captures the screen first and attaches it, then presents itself over whatever the app is showing, sheets included. Only one report is on screen at a time.
+
+To open it from your own UI, read the action from the environment. It is `nil` while reporting is disabled, so the button can hide itself:
+
+```swift
+@Environment(\.buggerReport) private var buggerReport
+
+var body: some View {
+    if let buggerReport {
+        Button("Report a bug") { buggerReport() }
+    }
+}
+```
+
+All three controls can change at any time:
+
+- `isEnabled: false` turns everything off: shakes and screenshots do nothing, and `buggerReport` is `nil`.
+- `triggers:` picks the automatic triggers. `[]` leaves only your own button.
+- `attachesScreenshot: false` opens Bugger without capturing the screen.
+
+Notes:
+
+- SwiftUI has no shake event, so Bugger hooks `UIWindow.motionEnded(_:with:)` the first time a shake trigger is turned on. It posts its own notification and then calls the original, so the app's shake handling still runs. A view controller that handles the shake without calling `super` stops it before Bugger sees it.
+- iOS also offers "Undo Typing" when the user shakes while editing text. Set `UIApplication.shared.applicationSupportsShakeToEdit = false` if both appearing is a problem.
+- The screenshot trigger uses Bugger's own capture, not the user's screenshot, so it needs no photo library access.
+
 ## Screenshots
 
 `BuggerScreenCapture` captures the app's screen as a PNG attachment. Capture before presenting `BuggerScreen`, so the image shows the app and not Bugger, then pass it in:

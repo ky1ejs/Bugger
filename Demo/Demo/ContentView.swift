@@ -26,6 +26,17 @@ struct ContentView: View {
 
     @State private var providerOption: ProviderOption = .composerAndScreenshots
     @State private var activeSetup: DemoSetup?
+    @State private var reportingEnabled = true
+    @State private var shakeTrigger = true
+    @State private var screenshotTrigger = true
+    @State private var lastSubmittedReport: String?
+
+    private var triggers: BuggerTrigger {
+        var triggers: BuggerTrigger = []
+        if shakeTrigger { triggers.insert(.shake) }
+        if screenshotTrigger { triggers.insert(.screenshot) }
+        return triggers
+    }
 
     var body: some View {
         NavigationStack {
@@ -35,6 +46,24 @@ struct ContentView: View {
                         .foregroundStyle(.secondary)
                         // Shows redaction: this row is blacked out in captured screenshots.
                         .buggerRedacted()
+                }
+
+                Section {
+                    Toggle("Reporting enabled", isOn: $reportingEnabled)
+                    Toggle("Shake to report", isOn: $shakeTrigger)
+                        .disabled(!reportingEnabled)
+                    Toggle("Screenshot to report", isOn: $screenshotTrigger)
+                        .disabled(!reportingEnabled)
+                    ReportBugButton()
+                    if let lastSubmittedReport {
+                        Text("Last report: \(lastSubmittedReport)")
+                            .font(.footnote)
+                            .foregroundStyle(.secondary)
+                    }
+                } header: {
+                    Text("Triggers")
+                } footer: {
+                    Text("With reporting disabled, shakes and screenshots do nothing and the button is hidden.")
                 }
 
                 Section("Providers") {
@@ -76,6 +105,28 @@ struct ContentView: View {
         }
         .sheet(item: $activeSetup) { setup in
             BuggerSheet(setup: setup)
+        }
+        .buggerReporting(
+            makeDemoBugger(),
+            isEnabled: reportingEnabled,
+            triggers: triggers,
+            speechTranscriptionEngine: OnDeviceSpeechTranscriptionEngine(),
+            onSubmit: { package in
+                lastSubmittedReport = package.reportID.uuidString
+            }
+        )
+    }
+}
+
+/// Opens Bugger from app code. Hidden while reporting is disabled.
+private struct ReportBugButton: View {
+    @Environment(\.buggerReport) private var buggerReport
+
+    var body: some View {
+        if let buggerReport {
+            Button("Report a bug") {
+                buggerReport()
+            }
         }
     }
 }
