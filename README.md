@@ -22,14 +22,28 @@ Supporting extension points:
 `BuggerScreenCapture` captures the app's screen as a PNG attachment. Capture before presenting `BuggerScreen`, so the image shows the app and not Bugger, then pass it in:
 
 ```swift
-let screenshot = BuggerScreenCapture.captureForegroundScene()
+let screenshot = BuggerScreenCapture.capture()
 // later, when presenting:
-BuggerScreen(bugger: bugger, screenshots: screenshot.map { [$0] } ?? [])
+BuggerScreen(bugger: bugger, screenshots: [screenshot].compactMap { $0 })
 ```
 
-The reporter sees the screenshot in the report and can annotate or remove it. The "Add" tile still lets them attach screenshots from the photo library.
+The reporter sees the screenshot in the report and can annotate or remove it. With `allowsPhotoLibrary: true` (the default), an "Add" tile also lets them attach screenshots from the photo library. With `false`, only the screenshots you pass in are shown.
 
-The capture includes every visible window of the foreground scene, in window-level order. The keyboard, system alerts and the status bar belong to other processes, so they aren't in the image.
+`BuggerScreen` reads its arguments once, when it first appears. A parent view re-rendering doesn't reset what the reporter typed, attached or removed.
+
+### What the capture includes
+
+The screenshot is uploaded with the report, so check what it can contain:
+
+- Every visible window of the scene, including alerts, sheets and overlays that the app or its SDKs present in-process. Pass `includingWindow:` to leave windows out.
+- Not the keyboard, its suggestions or input accessory views: their UIKit windows are left out by default (`BuggerScreenCapture.isAppWindow`).
+- Not system permission prompts or the status bar, which other processes draw.
+
+Black out sensitive views, such as account numbers or messages, with `.buggerRedacted()` in SwiftUI or `BuggerScreenCapture.redact(view)` in UIKit.
+
+In an app with more than one scene, pass the scene to capture, for example `BuggerScreenCapture.capture(scene: view.window?.windowScene)`. Otherwise Bugger picks the foreground scene that holds the key window.
+
+The image is a lossless PNG at the screen's full resolution, so text stays legible. A full-screen capture can be a few megabytes.
 
 ## Speech Input
 

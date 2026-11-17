@@ -66,6 +66,8 @@ struct BuggerScreenshotCarousel: View {
                     await loadFromPicker(newItems)
                 }
             })
+        case .attachedOnly:
+            EmptyView()
         case .manual:
             let addTitle = viewModel.source.addTitle
             let loading = isLoading
@@ -226,6 +228,8 @@ struct BuggerScreenshotItem: Identifiable {
     let id: UUID
     let attachment: BugReportAttachment
     let thumbnail: UIImage?
+    /// Decoded once here, not on every render: a full-screen PNG takes noticeable time to decode.
+    let decodedImage: UIImage?
 
     var data: Data {
         attachment.data
@@ -235,14 +239,13 @@ struct BuggerScreenshotItem: Identifiable {
         self.id = id
         self.attachment = attachment
         self.thumbnail = thumbnail
+        self.decodedImage = attachment.mimeType.lowercased().hasPrefix("image/")
+            ? UIImage(data: attachment.data)
+            : nil
     }
 
     var isImageMimeType: Bool {
         attachment.mimeType.lowercased().hasPrefix("image/")
-    }
-
-    var decodedImage: UIImage? {
-        UIImage(data: attachment.data)
     }
 
     var isAnnotatable: Bool {
@@ -254,6 +257,8 @@ struct BuggerScreenshotSource {
     enum Mode {
         case photoLibrary(matching: PHPickerFilter, library: PHPhotoLibrary)
         case manual
+        /// No "Add" tile: only the screenshots passed in.
+        case attachedOnly
     }
 
     let mode: Mode
@@ -263,6 +268,15 @@ struct BuggerScreenshotSource {
 }
 
 extension BuggerScreenshotSource {
+    static var attachedOnly: BuggerScreenshotSource {
+        BuggerScreenshotSource(
+            mode: .attachedOnly,
+            addTitle: "",
+            loadFromPicker: { _ in [] },
+            loadFromManual: { [] }
+        )
+    }
+
     static var photoLibrary: BuggerScreenshotSource {
         BuggerScreenshotSource(
             mode: .photoLibrary(matching: .screenshots, library: .shared()),

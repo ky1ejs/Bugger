@@ -88,21 +88,97 @@ final class BuggerScreenCaptureTests: XCTestCase {
         XCTAssertEqual(draft.attachments.map(\.id), [screenshot.id])
     }
 
-    func testInitialScreenshotsShowSectionWhenScreenshotsAreOff() {
+    func testPhotoLibraryOffWithScreenshotsShowsOnlyThoseScreenshots() throws {
         let screenshot = BugReportAttachment(data: Data([0]), mimeType: "image/png")
 
         let withScreenshot = BuggerReporterViewModel(
             bugger: .preview,
-            includeScreenshots: false,
+            screenshotSource: nil,
             screenshots: [screenshot]
         )
-        let withoutScreenshot = BuggerReporterViewModel(
-            bugger: .preview,
-            includeScreenshots: false
+        let withoutScreenshot = BuggerReporterViewModel(bugger: .preview, screenshotSource: nil)
+
+        let carousel = try XCTUnwrap(withScreenshot.screenshots)
+        XCTAssertEqual(carousel.items.count, 1)
+        guard case .attachedOnly = carousel.source.mode else {
+            return XCTFail("Expected no Add tile when the photo library is off")
+        }
+        XCTAssertNil(withoutScreenshot.screenshots)
+    }
+
+    func testEachWindowIsDrawnOnceInLevelOrder() throws {
+        let alert = makeWindow(frame: bounds, color: .blue)
+        alert.windowLevel = .alert
+        let normal = makeWindow(frame: bounds, color: .red)
+        let hidden = makeWindow(frame: bounds, color: .green)
+        hidden.isHidden = true
+        var drawn: [UIWindow] = []
+
+        _ = BuggerScreenCapture.capture(
+            windows: [alert, hidden, normal],
+            bounds: bounds,
+            scale: 1,
+            draw: { window, _ in drawn.append(window) }
         )
 
-        XCTAssertEqual(withScreenshot.screenshots?.items.count, 1)
-        XCTAssertNil(withoutScreenshot.screenshots)
+        XCTAssertEqual(drawn.map(ObjectIdentifier.init), [normal, alert].map(ObjectIdentifier.init))
+    }
+
+    func testRedactedViewIsBlackedOut() throws {
+        let window = makeWindow(frame: bounds, color: .red)
+        let secret = UIView(frame: CGRect(x: 10, y: 20, width: 30, height: 40))
+        secret.backgroundColor = .red
+        window.addSubview(secret)
+        BuggerScreenCapture.redact(secret)
+        defer { BuggerScreenCapture.unredact(secret) }
+
+        let attachment = try XCTUnwrap(
+            BuggerScreenCapture.capture(windows: [window], bounds: bounds, scale: 1)
+        )
+
+        XCTAssertEqual(BuggerScreenCapture.redactedRects(in: [window]), [secret.frame])
+        let inside = try pixel(in: attachment, x: 25, y: 40)
+        XCTAssertLessThan(Int(inside.red) + Int(inside.green) + Int(inside.blue), 30)
+        let outside = try pixel(in: attachment, x: 80, y: 150)
+        XCTAssertGreaterThan(outside.red, 200)
+    }
+
+    func testRedactedRectAccountsForWindowOffsetAndSkipsHiddenViews() {
+        let window = makeWindow(frame: CGRect(x: 0, y: 50, width: 100, height: 150), color: .red)
+        let secret = UIView(frame: CGRect(x: 10, y: 10, width: 20, height: 20))
+        let hiddenSecret = UIView(frame: CGRect(x: 40, y: 40, width: 20, height: 20))
+        hiddenSecret.isHidden = true
+        window.addSubview(secret)
+        window.addSubview(hiddenSecret)
+        BuggerScreenCapture.redact(secret)
+        BuggerScreenCapture.redact(hiddenSecret)
+        defer {
+            BuggerScreenCapture.unredact(secret)
+            BuggerScreenCapture.unredact(hiddenSecret)
+        }
+
+        XCTAssertEqual(
+            BuggerScreenCapture.redactedRects(in: [window]),
+            [CGRect(x: 10, y: 60, width: 20, height: 20)]
+        )
+        XCTAssertEqual(BuggerScreenCapture.redactedRects(in: []), [])
+    }
+
+    func testUnredactStopsRedacting() {
+        let window = makeWindow(frame: bounds, color: .red)
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 10))
+        window.addSubview(view)
+        BuggerScreenCapture.redact(view)
+
+        BuggerScreenCapture.unredact(view)
+
+        XCTAssertEqual(BuggerScreenCapture.redactedRects(in: [window]), [])
+    }
+
+    func testKeyboardWindowsAreNotAppWindows() throws {
+        XCTAssertTrue(BuggerScreenCapture.isAppWindow(UIWindow(frame: bounds)))
+        let textEffectsClass = try XCTUnwrap(NSClassFromString("UITextEffectsWindow") as? UIWindow.Type)
+        XCTAssertFalse(BuggerScreenCapture.isAppWindow(textEffectsClass.init(frame: bounds)))
     }
 
     // MARK: - Helpers

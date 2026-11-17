@@ -1,28 +1,44 @@
 import SwiftUI
 
 struct BuggerReporterView: View {
-    @Bindable
-    var viewModel: BuggerReporterViewModel
+    private let makeViewModel: @MainActor () -> BuggerReporterViewModel
+    /// Created once, on first appearance, so a parent re-render doesn't reset the report.
+    @State private var viewModel: BuggerReporterViewModel?
 
-    public init(
+    init(
         bugger: Bugger,
-        screenshotSource: BuggerScreenshotSource = .photoLibrary,
-        includeScreenshots: Bool = true,
+        screenshotSource: BuggerScreenshotSource? = .photoLibrary,
         screenshots: [BugReportAttachment] = [],
         speechTranscriptionEngine: (any BuggerSpeechTranscriptionEngine)? = nil,
         onSubmit: (@MainActor (BugReportPackage) -> Void)? = nil
     ) {
-        self.viewModel = BuggerReporterViewModel(
-            bugger: bugger,
-            screenshotSource: screenshotSource,
-            includeScreenshots: includeScreenshots,
-            screenshots: screenshots,
-            speechTranscriptionEngine: speechTranscriptionEngine,
-            onSubmit: onSubmit
-        )
+        self.makeViewModel = {
+            BuggerReporterViewModel(
+                bugger: bugger,
+                screenshotSource: screenshotSource,
+                screenshots: screenshots,
+                speechTranscriptionEngine: speechTranscriptionEngine,
+                onSubmit: onSubmit
+            )
+        }
     }
 
-    public var body: some View {
+    var body: some View {
+        if let viewModel {
+            BuggerReporterForm(viewModel: viewModel)
+        } else {
+            Color.clear.onAppear {
+                viewModel = makeViewModel()
+            }
+        }
+    }
+}
+
+private struct BuggerReporterForm: View {
+    @Bindable
+    var viewModel: BuggerReporterViewModel
+
+    var body: some View {
         Form {
             Section(viewModel.composer.sectionTitle) {
                 BuggerReporterComposer(
@@ -90,8 +106,7 @@ final class BuggerReporterViewModel {
 
     init(
         bugger: Bugger,
-        screenshotSource: BuggerScreenshotSource = .photoLibrary,
-        includeScreenshots: Bool = true,
+        screenshotSource: BuggerScreenshotSource? = .photoLibrary,
         screenshots: [BugReportAttachment] = [],
         speechTranscriptionEngine: (any BuggerSpeechTranscriptionEngine)? = nil,
         onSubmit: (@MainActor (BugReportPackage) -> Void)? = nil
@@ -99,9 +114,14 @@ final class BuggerReporterViewModel {
         self.bugger = bugger
         self.onSubmit = onSubmit
         self.categories = BuggerCategorySelectionViewModel(bugger: bugger)
-        self.screenshots = includeScreenshots || !screenshots.isEmpty
-        ? BuggerScreenshotCarouselViewModel(source: screenshotSource, initialAttachments: screenshots)
-        : nil
+        if screenshotSource != nil || !screenshots.isEmpty {
+            self.screenshots = BuggerScreenshotCarouselViewModel(
+                source: screenshotSource ?? .attachedOnly,
+                initialAttachments: screenshots
+            )
+        } else {
+            self.screenshots = nil
+        }
         if let speechTranscriptionEngine {
             self.speech = BuggerComposerSpeechInputViewModel(
                 engine: speechTranscriptionEngine,
