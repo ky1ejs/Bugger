@@ -36,8 +36,9 @@ public struct BuggerReportAction {
         self.action = action
     }
 
-    /// Captures the screen, if the configuration attaches screenshots, then presents Bugger.
-    /// Does nothing while Bugger is already on screen.
+    /// Captures the screen, if the configuration attaches screenshots, then opens Bugger
+    /// straight away. Replaces the "Report a Bug" bar if it is showing. Does nothing while a
+    /// report is already open in this scene.
     @MainActor
     public func callAsFunction() {
         action()
@@ -53,15 +54,19 @@ extension View {
     /// Lets the user report a bug from anywhere below this view, by the given triggers or
     /// through `@Environment(\.buggerReport)`.
     ///
-    /// Apply it once, near the root of each scene. Bugger is presented over whatever the
-    /// app is showing, including sheets.
+    /// Apply it once, near the root of each scene. Bugger appears in its own window above the
+    /// app, including over sheets, so the app can keep presenting its own UI.
     ///
     /// - Parameters:
     ///   - bugger: Builds, packs and submits reports.
     ///   - isEnabled: Turns reporting off entirely: no triggers, and `buggerReport` is `nil`.
+    ///     Turning it off also closes a prompt or report that is open, without sending it.
     ///     Can change at any time, for example from remote config or a user setting.
     ///   - triggers: Which events open Bugger by themselves. Pass `[]` to open it only from code.
-    ///   - attachesScreenshot: Captures the screen before Bugger opens and attaches it to the report.
+    ///   - asksBeforeOpening: After a shake or screenshot, shows a "Report a Bug" bar at the bottom
+    ///     of the screen for a few seconds instead of opening the report straight away.
+    ///     Opening from code never asks.
+    ///   - attachesScreenshot: Captures the screen when the trigger fires and attaches it to the report.
     ///   - allowsPhotoLibrary: Lets the reporter add screenshots from the photo library.
     ///   - speechTranscriptionEngine: Turns on dictation in the composer.
     ///   - onSubmit: Called with the package after a report was submitted, before Bugger closes.
@@ -69,6 +74,7 @@ extension View {
         _ bugger: Bugger,
         isEnabled: Bool = true,
         triggers: BuggerTrigger = .all,
+        asksBeforeOpening: Bool = true,
         attachesScreenshot: Bool = true,
         allowsPhotoLibrary: Bool = true,
         speechTranscriptionEngine: (any BuggerSpeechTranscriptionEngine)? = nil,
@@ -84,7 +90,8 @@ extension View {
                     onSubmit: onSubmit
                 ),
                 isEnabled: isEnabled,
-                triggers: triggers
+                triggers: triggers,
+                asksBeforeOpening: asksBeforeOpening
             )
         )
     }
@@ -102,147 +109,76 @@ struct BuggerReportingModifier: ViewModifier {
     let configuration: BuggerReportingConfiguration
     let isEnabled: Bool
     let triggers: BuggerTrigger
+    let asksBeforeOpening: Bool
 
-    @State private var presenter = BuggerReportPresenter()
+    @State private var sceneReader = BuggerSceneReader()
 
-    private var activeTriggers: BuggerTrigger {
-        isEnabled ? triggers : []
+    /// Whether `trigger` should open Bugger, given the developer's settings.
+    static func responds(to trigger: BuggerTrigger, isEnabled: Bool, triggers: BuggerTrigger) -> Bool {
+        isEnabled && triggers.contains(trigger)
     }
 
     func body(content: Content) -> some View {
         content
             .background(BuggerWindowReader { window in
-                presenter.window = window
+                sceneReader.window = window
             })
             .environment(
                 \.buggerReport,
-                isEnabled ? BuggerReportAction { presenter.present(configuration) } : nil
+                isEnabled ? BuggerReportAction { sceneReader.coordinator?.open(configuration) } : nil
             )
-            .onChange(of: activeTriggers.contains(.shake), initial: true) { _, shakeIsOn in
+            .onChange(of: Self.responds(to: .shake, isEnabled: isEnabled, triggers: triggers), initial: true) { _, shakeIsOn in
                 if shakeIsOn {
                     BuggerShakeDetector.install()
                 }
             }
+            .onChange(of: isEnabled) { _, isEnabled in
+                if !isEnabled {
+                    sceneReader.coordinator?.disable()
+                }
+            }
             .onReceive(NotificationCenter.default.publisher(for: .buggerWindowDidShake)) { notification in
                 guard
-                    activeTriggers.contains(.shake),
-                    presenter.owns(shakenWindow: notification.object as? UIWindow)
+                    Self.responds(to: .shake, isEnabled: isEnabled, triggers: triggers),
+                    sceneReader.owns(notification.object as? UIWindow)
                 else { return }
-                presenter.present(configuration)
+                sceneReader.coordinator?.handleTrigger(configuration, asksFirst: asksBeforeOpening)
             }
             .onReceive(NotificationCenter.default.publisher(for: UIApplication.userDidTakeScreenshotNotification)) { _ in
                 // The notification is app-wide; only the scene the user is looking at responds.
-                guard activeTriggers.contains(.screenshot), presenter.isInFrontmostScene else { return }
-                presenter.present(configuration)
+                guard
+                    Self.responds(to: .screenshot, isEnabled: isEnabled, triggers: triggers),
+                    sceneReader.isFrontmost
+                else { return }
+                sceneReader.coordinator?.handleTrigger(configuration, asksFirst: asksBeforeOpening)
             }
     }
 }
 
-/// Presents Bugger over the topmost view controller of the modifier's scene.
+/// Finds the modifier's scene, and with it the scene's coordinator.
 @MainActor
-final class BuggerReportPresenter {
+final class BuggerSceneReader {
     /// The window the modifier is in. Set by `BuggerWindowReader`.
     weak var window: UIWindow?
-
-    /// Bugger's controller while it is on screen, across all presenters, so two triggers
-    /// (or two modifiers) never stack two reports.
-    private static weak var presentedController: UIViewController?
-
-    static var isPresenting: Bool {
-        guard let presentedController else { return false }
-        return presentedController.presentingViewController != nil && !presentedController.isBeingDismissed
-    }
 
     var scene: UIWindowScene? {
         window?.windowScene
     }
 
-    /// True when `shakenWindow` belongs to this presenter's scene.
-    func owns(shakenWindow: UIWindow?) -> Bool {
-        guard let scene, let shakenWindow else { return false }
-        return shakenWindow.windowScene === scene
+    var coordinator: BuggerReportCoordinator? {
+        scene.map(BuggerSceneOverlay.coordinator(for:))
     }
 
-    /// True when this presenter's scene is active and holds the key window.
-    var isInFrontmostScene: Bool {
+    /// True when `window` belongs to this modifier's scene.
+    func owns(_ window: UIWindow?) -> Bool {
+        guard let scene, let window else { return false }
+        return window.windowScene === scene
+    }
+
+    /// True when the scene is active and holds the key window.
+    var isFrontmost: Bool {
         guard let scene, scene.activationState == .foregroundActive else { return false }
         return scene.windows.contains(where: \.isKeyWindow)
-    }
-
-    func present(_ configuration: BuggerReportingConfiguration) {
-        guard
-            !Self.isPresenting,
-            let scene,
-            let presenting = Self.topViewController(in: scene)
-        else { return }
-
-        // Capture before presenting, so the screenshot shows the app and not Bugger.
-        let screenshot = configuration.attachesScreenshot ? BuggerScreenCapture.capture(scene: scene) : nil
-
-        let dismissal = BuggerDismissal()
-        let controller = UIHostingController(
-            rootView: BuggerReportSheet(
-                configuration: configuration,
-                screenshots: [screenshot].compactMap { $0 },
-                dismiss: { dismissal.dismiss() }
-            )
-        )
-        dismissal.controller = controller
-        Self.presentedController = controller
-        presenting.present(controller, animated: true)
-    }
-
-    /// The controller to present from: the key window's root, then down through whatever it presents.
-    static func topViewController(in scene: UIWindowScene) -> UIViewController? {
-        let window = scene.windows.first(where: \.isKeyWindow) ?? scene.windows.first
-        return topViewController(from: window?.rootViewController)
-    }
-
-    static func topViewController(from root: UIViewController?) -> UIViewController? {
-        var current = root
-        while let presented = current?.presentedViewController, !presented.isBeingDismissed {
-            current = presented
-        }
-        return current
-    }
-}
-
-@MainActor
-private final class BuggerDismissal {
-    weak var controller: UIViewController?
-
-    func dismiss() {
-        controller?.dismiss(animated: true)
-    }
-}
-
-private struct BuggerReportSheet: View {
-    let configuration: BuggerReportingConfiguration
-    let screenshots: [BugReportAttachment]
-    let dismiss: @MainActor () -> Void
-
-    var body: some View {
-        NavigationStack {
-            BuggerScreen(
-                bugger: configuration.bugger,
-                allowsPhotoLibrary: configuration.allowsPhotoLibrary,
-                screenshots: screenshots,
-                speechTranscriptionEngine: configuration.speechTranscriptionEngine,
-                onSubmit: { package in
-                    configuration.onSubmit?(package)
-                    dismiss()
-                }
-            )
-            .navigationTitle("Report a Bug")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") {
-                        dismiss()
-                    }
-                }
-            }
-        }
     }
 }
 

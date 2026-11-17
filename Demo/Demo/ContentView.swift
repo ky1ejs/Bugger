@@ -30,6 +30,10 @@ struct ContentView: View {
     @State private var shakeTrigger = true
     @State private var screenshotTrigger = true
     @State private var lastSubmittedReport: String?
+    @State private var asksBeforeOpening = true
+    // Created once: rebuilding them on every redraw would hand Bugger new instances each time.
+    @State private var bugger = makeDemoBugger()
+    @State private var speechEngine = OnDeviceSpeechTranscriptionEngine()
 
     private var triggers: BuggerTrigger {
         var triggers: BuggerTrigger = []
@@ -54,6 +58,8 @@ struct ContentView: View {
                         .disabled(!reportingEnabled)
                     Toggle("Screenshot to report", isOn: $screenshotTrigger)
                         .disabled(!reportingEnabled)
+                    Toggle("Ask before opening", isOn: $asksBeforeOpening)
+                        .disabled(!reportingEnabled)
                     ReportBugButton()
                     if let lastSubmittedReport {
                         Text("Last report: \(lastSubmittedReport)")
@@ -64,6 +70,23 @@ struct ContentView: View {
                     Text("Triggers")
                 } footer: {
                     Text("With reporting disabled, shakes and screenshots do nothing and the button is hidden.")
+                }
+
+                Section {
+                    Button("Simulate shake") { simulateShake() }
+                    Button("Simulate shake in 3 seconds") {
+                        Task {
+                            try? await Task.sleep(for: .seconds(3))
+                            simulateShake()
+                        }
+                    }
+                    Button("Simulate screenshot") {
+                        NotificationCenter.default.post(name: UIApplication.userDidTakeScreenshotNotification, object: nil)
+                    }
+                } header: {
+                    Text("Simulator")
+                } footer: {
+                    Text("The simulator can't always shake or take a hardware screenshot. These send the same events through the app's key window.")
                 }
 
                 Section("Providers") {
@@ -86,10 +109,10 @@ struct ContentView: View {
                         ? BuggerScreenCapture.capture()
                         : nil
                     activeSetup = DemoSetup(
-                        bugger: makeDemoBugger(),
+                        bugger: bugger,
                         allowsPhotoLibrary: providerOption.allowsScreenshots,
                         screenshots: [screenshot].compactMap { $0 },
-                        speechTranscriptionEngine: OnDeviceSpeechTranscriptionEngine(),
+                        speechTranscriptionEngine: speechEngine,
                         showsOnDevicePackagePreview: true
                     )
                 } label: {
@@ -107,15 +130,26 @@ struct ContentView: View {
             BuggerSheet(setup: setup)
         }
         .buggerReporting(
-            makeDemoBugger(),
+            bugger,
             isEnabled: reportingEnabled,
             triggers: triggers,
-            speechTranscriptionEngine: OnDeviceSpeechTranscriptionEngine(),
+            asksBeforeOpening: asksBeforeOpening,
+            speechTranscriptionEngine: speechEngine,
             onSubmit: { package in
                 lastSubmittedReport = package.reportID.uuidString
             }
         )
     }
+}
+
+/// Sends a shake through the key window, the way UIKit delivers a real one.
+@MainActor
+private func simulateShake() {
+    let window = UIApplication.shared.connectedScenes
+        .compactMap { $0 as? UIWindowScene }
+        .flatMap(\.windows)
+        .first(where: \.isKeyWindow)
+    window?.motionEnded(.motionShake, with: nil)
 }
 
 /// Opens Bugger from app code. Hidden while reporting is disabled.

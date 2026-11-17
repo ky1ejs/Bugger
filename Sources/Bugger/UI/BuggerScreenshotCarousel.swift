@@ -117,6 +117,8 @@ final class BuggerScreenshotCarouselViewModel: BuggerReportProviding, Screenshot
     let source: BuggerScreenshotSource
 
     var items: [BuggerScreenshotItem] = []
+    /// True once the reporter added, removed or annotated a screenshot.
+    private(set) var hasChanges = false
 
     init(source: BuggerScreenshotSource = .photoLibrary, initialAttachments: [BugReportAttachment] = []) {
         self.source = source
@@ -126,6 +128,9 @@ final class BuggerScreenshotCarouselViewModel: BuggerReportProviding, Screenshot
     @MainActor
     func add(_ attachments: [BugReportAttachment]) {
         let newItems = attachments.map(Self.makeItem)
+        if !newItems.isEmpty {
+            hasChanges = true
+        }
         withAnimation(.snappy) {
             items.append(contentsOf: newItems)
         }
@@ -133,6 +138,7 @@ final class BuggerScreenshotCarouselViewModel: BuggerReportProviding, Screenshot
 
     @MainActor
     func remove(_ id: UUID) {
+        hasChanges = true
         withAnimation(.snappy) {
             items.removeAll { $0.id == id }
         }
@@ -155,6 +161,7 @@ final class BuggerScreenshotCarouselViewModel: BuggerReportProviding, Screenshot
             mimeType: "image/png",
             filename: Self.annotatedFilename(from: current.attachment.filename)
         )
+        hasChanges = true
         items[index] = BuggerScreenshotItem(
             id: current.id,
             attachment: updatedAttachment,

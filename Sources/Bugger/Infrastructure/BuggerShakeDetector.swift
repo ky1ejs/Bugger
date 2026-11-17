@@ -25,24 +25,36 @@ enum BuggerShakeDetector {
 
         let windowClass: AnyClass = UIWindow.self
         let selector = #selector(UIResponder.motionEnded(_:with:))
-        guard let method = class_getInstanceMethod(windowClass, selector) else { return }
+        guard
+            let method = class_getInstanceMethod(windowClass, selector),
+            let superclass = class_getSuperclass(windowClass)
+        else { return }
         isInstalled = true
 
-        // The original is called with the original selector. UIResponder's implementation passes
-        // the event on to the next responder using that selector, so it must stay unchanged:
-        // swapping selectors would forward a selector the next responder doesn't have.
-        let original = unsafeBitCast(method_getImplementation(method), to: MotionEnded.self)
+        // If UIWindow has its own implementation, the hook replaces it and calls it directly.
+        // If UIWindow only inherits one, the hook is added to UIWindow alone, so other responders
+        // are unaffected, and it looks up the inherited implementation each time it runs, so a
+        // library that hooks UIResponder later still gets called.
+        let ownImplementation: IMP? = class_getInstanceMethod(superclass, selector).map { inherited in
+            method_getImplementation(inherited) == method_getImplementation(method) ? nil : method_getImplementation(method)
+        } ?? method_getImplementation(method)
+
+        // The original is always called with the original selector. UIResponder's implementation
+        // passes the event on to the next responder using that selector, so swapping selectors
+        // would forward one the next responder doesn't have.
         let hook: @convention(block) (UIWindow, UIEvent.EventSubtype, UIEvent?) -> Void = { window, motion, event in
             if motion == .motionShake {
                 NotificationCenter.default.post(name: .buggerWindowDidShake, object: window)
             }
-            original(window, selector, motion, event)
+            let implementation = ownImplementation ?? class_getMethodImplementation(superclass, selector)
+            guard let implementation else { return }
+            unsafeBitCast(implementation, to: MotionEnded.self)(window, selector, motion, event)
         }
         let hookImplementation = imp_implementationWithBlock(hook)
 
-        // If UIWindow only inherits motionEnded from UIResponder, add the hook to UIWindow alone,
-        // so other responders keep UIResponder's implementation.
-        if !class_addMethod(windowClass, selector, hookImplementation, method_getTypeEncoding(method)) {
+        if ownImplementation == nil {
+            class_addMethod(windowClass, selector, hookImplementation, method_getTypeEncoding(method))
+        } else {
             method_setImplementation(method, hookImplementation)
         }
     }

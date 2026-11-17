@@ -34,9 +34,25 @@ struct BuggerReporterView: View {
     }
 }
 
+/// State a presenting container needs from the form: whether closing it would lose work.
+@Observable
+@MainActor
+final class BuggerReportSession {
+    var isSubmitting = false
+    /// The reporter typed a description or changed the screenshots.
+    var hasChanges = false
+    /// Shows the "Discard this report?" confirmation.
+    var confirmsDiscard = false
+}
+
+extension EnvironmentValues {
+    @Entry var buggerReportSession: BuggerReportSession? = nil
+}
+
 private struct BuggerReporterForm: View {
     @Bindable
     var viewModel: BuggerReporterViewModel
+    @Environment(\.buggerReportSession) private var session
 
     var body: some View {
         Form {
@@ -55,6 +71,16 @@ private struct BuggerReporterForm: View {
         }
         .task {
             await viewModel.loadCategoriesIfNeeded()
+        }
+        .onChange(of: viewModel.isSubmitting, initial: true) { _, isSubmitting in
+            session?.isSubmitting = isSubmitting
+        }
+        .onChange(of: viewModel.hasChanges, initial: true) { _, hasChanges in
+            session?.hasChanges = hasChanges
+        }
+        .onDisappear {
+            // Closing the form while submitting stops the submit before it sends.
+            viewModel.cancelSubmit()
         }
         .safeAreaInset(edge: .bottom) {
             VStack(spacing: 8) {
@@ -155,6 +181,19 @@ final class BuggerReporterViewModel {
 
     var hasDescription: Bool {
         !composer.text.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+    }
+
+    /// True once the reporter typed a description or changed the screenshots.
+    var hasChanges: Bool {
+        hasDescription || (screenshots?.hasChanges ?? false)
+    }
+
+    func cancelSubmit() {
+        submitTask?.cancel()
+        submitTask = nil
+        if state == .submitting {
+            state = .idle
+        }
     }
 
     func submit() {
