@@ -66,6 +66,8 @@ struct BuggerScreenshotCarousel: View {
                     await loadFromPicker(newItems)
                 }
             })
+        case .attachedOnly:
+            EmptyView()
         case .manual:
             let addTitle = viewModel.source.addTitle
             let loading = isLoading
@@ -116,18 +118,14 @@ final class BuggerScreenshotCarouselViewModel: BuggerReportProviding, Screenshot
 
     var items: [BuggerScreenshotItem] = []
 
-    init(source: BuggerScreenshotSource = .photoLibrary) {
+    init(source: BuggerScreenshotSource = .photoLibrary, initialAttachments: [BugReportAttachment] = []) {
         self.source = source
+        self.items = initialAttachments.map(Self.makeItem)
     }
 
     @MainActor
     func add(_ attachments: [BugReportAttachment]) {
-        let newItems = attachments.map { attachment in
-            BuggerScreenshotItem(
-                attachment: attachment,
-                thumbnail: Self.makeThumbnail(from: attachment.data)
-            )
-        }
+        let newItems = attachments.map(Self.makeItem)
         withAnimation(.snappy) {
             items.append(contentsOf: newItems)
         }
@@ -183,6 +181,13 @@ final class BuggerScreenshotCarouselViewModel: BuggerReportProviding, Screenshot
         await source.loadFromManual()
     }
 
+    private static func makeItem(_ attachment: BugReportAttachment) -> BuggerScreenshotItem {
+        BuggerScreenshotItem(
+            attachment: attachment,
+            thumbnail: makeThumbnail(from: attachment.data)
+        )
+    }
+
     private static func makeThumbnail(from data: Data, maxPixelSize: CGFloat = 320) -> UIImage? {
         let options: [CFString: Any] = [
             kCGImageSourceCreateThumbnailFromImageAlways: true,
@@ -223,6 +228,8 @@ struct BuggerScreenshotItem: Identifiable {
     let id: UUID
     let attachment: BugReportAttachment
     let thumbnail: UIImage?
+    /// Decoded once here, not on every render: a full-screen PNG takes noticeable time to decode.
+    let decodedImage: UIImage?
 
     var data: Data {
         attachment.data
@@ -232,14 +239,13 @@ struct BuggerScreenshotItem: Identifiable {
         self.id = id
         self.attachment = attachment
         self.thumbnail = thumbnail
+        self.decodedImage = attachment.mimeType.lowercased().hasPrefix("image/")
+            ? UIImage(data: attachment.data)
+            : nil
     }
 
     var isImageMimeType: Bool {
         attachment.mimeType.lowercased().hasPrefix("image/")
-    }
-
-    var decodedImage: UIImage? {
-        UIImage(data: attachment.data)
     }
 
     var isAnnotatable: Bool {
@@ -251,6 +257,8 @@ struct BuggerScreenshotSource {
     enum Mode {
         case photoLibrary(matching: PHPickerFilter, library: PHPhotoLibrary)
         case manual
+        /// No "Add" tile: only the screenshots passed in.
+        case attachedOnly
     }
 
     let mode: Mode
@@ -260,6 +268,15 @@ struct BuggerScreenshotSource {
 }
 
 extension BuggerScreenshotSource {
+    static var attachedOnly: BuggerScreenshotSource {
+        BuggerScreenshotSource(
+            mode: .attachedOnly,
+            addTitle: "",
+            loadFromPicker: { _ in [] },
+            loadFromManual: { [] }
+        )
+    }
+
     static var photoLibrary: BuggerScreenshotSource {
         BuggerScreenshotSource(
             mode: .photoLibrary(matching: .screenshots, library: .shared()),

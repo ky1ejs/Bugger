@@ -22,8 +22,12 @@ public protocol BugReporterProviding: Sendable {
     func collect() -> BugReporter
 }
 
-// Defines the responsibilities to provide information about
-// screenshots attached to a bug report.
+/// Adds attachments to every report when it is submitted, after the reporter has seen the form.
+///
+/// `Bugger.draftReport` calls it at submit time, while Bugger is on screen, so it isn't the place
+/// to capture the app's screen: the reporter couldn't see, annotate or remove the result.
+/// To attach a screenshot of the app, capture it with `BuggerScreenCapture.capture()` before
+/// presenting `BuggerScreen` and pass it as `screenshots:`.
 public protocol ScreenshotProviding: Sendable {
     func capture() async throws -> [BugReportAttachment]
 }

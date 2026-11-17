@@ -14,7 +14,7 @@ struct ContentView: View {
         case composerAndScreenshots = "Screenshots"
 
         var id: String { rawValue }
-        var includeScreenshots: Bool {
+        var allowsScreenshots: Bool {
             switch self {
             case .composerOnly:
                 return false
@@ -33,6 +33,8 @@ struct ContentView: View {
                 Section("Submit strategy") {
                     Text("On device (No-op)")
                         .foregroundStyle(.secondary)
+                        // Shows redaction: this row is blacked out in captured screenshots.
+                        .buggerRedacted()
                 }
 
                 Section("Providers") {
@@ -50,9 +52,14 @@ struct ContentView: View {
             .navigationTitle("Bugger Demo")
             .safeAreaInset(edge: .bottom) {
                 Button {
+                    // Capture before presenting, so the screenshot shows the demo and not Bugger.
+                    let screenshot = providerOption.allowsScreenshots
+                        ? BuggerScreenCapture.capture()
+                        : nil
                     activeSetup = DemoSetup(
                         bugger: makeDemoBugger(),
-                        includeScreenshots: providerOption.includeScreenshots,
+                        allowsPhotoLibrary: providerOption.allowsScreenshots,
+                        screenshots: [screenshot].compactMap { $0 },
                         speechTranscriptionEngine: OnDeviceSpeechTranscriptionEngine(),
                         showsOnDevicePackagePreview: true
                     )
@@ -76,7 +83,8 @@ struct ContentView: View {
 private struct DemoSetup: Identifiable {
     let id = UUID()
     let bugger: Bugger
-    let includeScreenshots: Bool
+    let allowsPhotoLibrary: Bool
+    let screenshots: [BugReportAttachment]
     let speechTranscriptionEngine: (any BuggerSpeechTranscriptionEngine)?
     let showsOnDevicePackagePreview: Bool
 }
@@ -90,7 +98,8 @@ private struct BuggerSheet: View {
         NavigationStack {
             BuggerScreen(
                 bugger: setup.bugger,
-                includeScreenshots: setup.includeScreenshots,
+                allowsPhotoLibrary: setup.allowsPhotoLibrary,
+                screenshots: setup.screenshots,
                 speechTranscriptionEngine: setup.speechTranscriptionEngine,
                 onSubmit: { package in
                     guard setup.showsOnDevicePackagePreview else { return }

@@ -99,9 +99,13 @@ public struct JSONReportPacker: BugReportPacking {
 
         var attachmentFiles: [BugReportAttachmentFile] = []
         var attachmentReferences: [BugReportAttachmentReference] = []
+        var usedFilenames: Set<String> = []
 
         for (index, payloadAttachment) in report.attachments.enumerated() {
-            let filename = Self.resolveFilename(for: payloadAttachment, index: index)
+            let filename = Self.uniqueFilename(
+                Self.resolveFilename(for: payloadAttachment, index: index),
+                usedFilenames: &usedFilenames
+            )
             let fileURL = reportFolder.appendingPathComponent(filename)
             try payloadAttachment.data.write(to: fileURL, options: [.atomic])
 
@@ -153,10 +157,26 @@ public struct JSONReportPacker: BugReportPacking {
         return "attachment-\(index + 1).\(fileExtension)"
     }
 
+    /// Makes `filename` unique within the report folder by adding "-2", "-3", ... before the extension.
+    /// Compared case-insensitively, because the default iOS file system is case-insensitive.
+    static func uniqueFilename(_ filename: String, usedFilenames: inout Set<String>) -> String {
+        let name = filename as NSString
+        let stem = name.deletingPathExtension
+        let fileExtension = name.pathExtension
+        var candidate = filename
+        var suffix = 2
+        while usedFilenames.contains(candidate.lowercased()) {
+            candidate = fileExtension.isEmpty ? "\(stem)-\(suffix)" : "\(stem)-\(suffix).\(fileExtension)"
+            suffix += 1
+        }
+        usedFilenames.insert(candidate.lowercased())
+        return candidate
+    }
+
     private static func sanitizeFilename(_ filename: String?) -> String? {
         guard let filename else { return nil }
         let trimmed = filename.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmed.isEmpty else { return nil }
+        guard !trimmed.isEmpty, trimmed != ".", trimmed != ".." else { return nil }
         return trimmed
             .replacingOccurrences(of: "/", with: "-")
             .replacingOccurrences(of: "\\", with: "-")
