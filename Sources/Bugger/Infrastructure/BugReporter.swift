@@ -15,6 +15,11 @@ public struct BugReporter: Codable, Sendable {
         self.reachoutIdentifier = reachoutIdentifier
     }
 
+    /// The reporter `DefaultBugReporterProvider` uses when no identifying details are turned on.
+    public static var anonymous: Self {
+        Self(id: "anonymous", displayName: "Anonymous", reachoutIdentifier: nil)
+    }
+
     public static var unknown: Self {
         Self(
             id: "unknown-reporter",
