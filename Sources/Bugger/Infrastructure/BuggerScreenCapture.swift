@@ -44,8 +44,10 @@ public enum BuggerScreenCapture {
         )
     }
 
-    /// False for UIKit's keyboard and text-effects windows, which can show what the user is typing.
+    /// False for UIKit's keyboard and text-effects windows, which can show what the user is typing,
+    /// and for Bugger's own overlay window.
     public static func isAppWindow(_ window: UIWindow) -> Bool {
+        if window is BuggerOverlayWindow { return false }
         let className = NSStringFromClass(type(of: window))
         return !systemWindowClassNames.contains(className)
     }
