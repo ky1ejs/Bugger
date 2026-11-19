@@ -6,7 +6,8 @@ import Foundation
 /// 1. A `BugReportAttachment` starts as in-memory data on the draft report.
 /// 2. `JSONReportPacker.pack(_:)` writes that data to a temporary file and creates this value.
 /// 3. The value is returned in `BugReportPackage.attachments` for `ReportSubmitting` to read/upload.
-/// 4. The file is temporary; Bugger does not delete it automatically, so the consumer should clean it up.
+/// 4. The file is temporary. `HTTPReportSubmitter` deletes it after uploading; a custom
+///    `ReportSubmitting` should delete it once it no longer needs it.
 public struct BugReportAttachmentFile: Sendable, Identifiable {
     public let id: UUID
     public let filename: String
@@ -21,16 +22,16 @@ public struct BugReportAttachmentFile: Sendable, Identifiable {
     }
 }
 
+/// An attachment as listed in the JSON payload. `filename` matches the uploaded file,
+/// and is unique within a report. The device's local path is deliberately left out.
 public struct BugReportAttachmentReference: Codable, Sendable, Identifiable {
     public let id: UUID
     public let filename: String
-    public let temporaryPath: String
     public let mimeType: String
 
-    public init(id: UUID, filename: String, temporaryPath: String, mimeType: String) {
+    public init(id: UUID, filename: String, mimeType: String) {
         self.id = id
         self.filename = filename
-        self.temporaryPath = temporaryPath
         self.mimeType = mimeType
     }
 }
@@ -120,7 +121,6 @@ public struct JSONReportPacker: BugReportPacking {
                 BugReportAttachmentReference(
                     id: attachment.id,
                     filename: filename,
-                    temporaryPath: fileURL.path,
                     mimeType: attachment.mimeType
                 )
             )
