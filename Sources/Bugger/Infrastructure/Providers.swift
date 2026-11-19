@@ -42,16 +42,21 @@ public protocol ReportSubmitting: Sendable {
     func submit(_ package: BugReportPackage) async throws
 }
 
-/// Describes the device: OS name and version, and the model ("iPhone", "iPad").
+/// Describes the device: OS name and version, the model ("iPhone", "iPad"), and the app's
+/// version and build number from its Info.plist.
 ///
 /// The identifier-for-vendor, a stable ID for this device across your apps, is left out unless
 /// you turn it on: with it, every report from a device can be linked together.
 public struct DefaultDeviceInfoProvider: DeviceInfoProviding {
     private let includesIdentifierForVendor: Bool
+    private let bundle: Bundle
 
-    /// - Parameter includesIdentifierForVendor: Adds `UIDevice.identifierForVendor` to each report.
-    public init(includesIdentifierForVendor: Bool = false) {
+    /// - Parameters:
+    ///   - includesIdentifierForVendor: Adds `UIDevice.identifierForVendor` to each report.
+    ///   - bundle: Where to read the app version and build from. The main app bundle by default.
+    public init(includesIdentifierForVendor: Bool = false, bundle: Bundle = .main) {
         self.includesIdentifierForVendor = includesIdentifierForVendor
+        self.bundle = bundle
     }
 
     @MainActor public func collect() -> DeviceInfo {
@@ -61,7 +66,9 @@ public struct DefaultDeviceInfoProvider: DeviceInfoProviding {
             systemVersion: device.systemVersion,
             model: device.model,
             localizedModel: device.localizedModel,
-            identifierForVendor: includesIdentifierForVendor ? device.identifierForVendor?.uuidString : nil
+            identifierForVendor: includesIdentifierForVendor ? device.identifierForVendor?.uuidString : nil,
+            appVersion: bundle.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String,
+            appBuild: bundle.object(forInfoDictionaryKey: "CFBundleVersion") as? String
         )
     }
 }
