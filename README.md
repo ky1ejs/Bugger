@@ -1,130 +1,54 @@
 # Bugger
 
-`Bugger` is a small bug-reporting core for iOS apps.
+Bugger lets people report bugs and send feedback from inside your iOS app. They shake the device, take a screenshot, or tap your own button. Then they describe the problem by typing or dictating, and annotate the screenshot. Bugger sends the report to your server.
 
-## Main Models
+- Opens by shake, screenshot or your own code, after a "Found a bug?" bar that the user can ignore.
+- Captures the screen, with views you mark blacked out. The reporter can annotate or remove each screenshot before sending.
+- Dictation with on-device speech recognition.
+- Sends reports to your server as a documented multipart request, or to any `ReportSubmitting` you write.
+- Anonymous by default: reports identify the reporter or device only if you opt in.
+- Every part can be turned off by the developer, including at runtime.
 
-- `BugReport`: in-memory report draft with `description`, `reporter`, `deviceInfo`, `categories` (`BugReportCategory`), and attachments.
-- `BugReporter`: reporter identity (`id`, `displayName`, optional `reachoutIdentifier`).
-- `DeviceInfo`: normalized device metadata captured at submit time.
-- `BugReportPackage`: packaged output ready for delivery (`payload` JSON + `attachments` persisted on disk).
-- `Bugger`: orchestrator that builds a `BugReport` (`draftReport`) and then packs/submits it (`submit`).
+## Requirements
 
-Supporting extension points:
+- iOS 17 or later
+- Swift 6 (Xcode 16 or later)
 
-- `BugReportPacking` (default: `JSONReportPacker`)
-- `ReportSubmitting` (default: `NoopReportSubmitter`; `HTTPReportSubmitter` uploads to your server)
-- `BugReporterProviding` / `DeviceInfoProviding` / `ScreenshotProviding` / `CategoriesProviding`
-- `BugReportCategory`: category type with `identifier` and `displayName`.
+## Installation
 
-## What a Report Contains
-
-A report holds only what is listed here, and the reporter sees all of it before submitting except the reporter and device details.
-
-| Field | Source | Default |
-|---|---|---|
-| Description | Typed or dictated by the reporter. Dictation runs on the device. | Always |
-| Category | Picked by the reporter, from your `CategoriesProviding`. | If you provide categories |
-| Screenshots | Captured by Bugger (see "What the capture includes") or picked from the photo library. The reporter can annotate or remove each one. | If you capture or allow the library |
-| Reporter | `BugReporterProviding` | Anonymous: `id` "anonymous", `displayName` "Anonymous" |
-| Device | `DeviceInfoProviding`: OS name and version, model ("iPhone") | No device identifier |
-
-The defaults identify nobody. To identify the reporter, choose one:
-
-- For signed-in users, supply them yourself:
-
-  ```swift
-  Bugger(
-      bugReporterProvider: BugReporterProvider {
-          BugReporter(id: session.userID, displayName: session.name, reachoutIdentifier: session.email)
-      },
-      deviceInfoProvider: DefaultDeviceInfoProvider(),
-      ...
-  )
-  ```
-
-- To link reports from the same device without accounts, opt in to the identifier-for-vendor, a stable ID for the device across your apps: `DefaultBugReporterProvider(including: .identifierForVendor)` as the reporter ID, or `DefaultDeviceInfoProvider(includesIdentifierForVendor: true)` in the device details. `.deviceName` adds `UIDevice.name`, which is a generic name such as "iPhone" since iOS 16, unless the app has Apple's user-assigned device name entitlement.
-
-If you identify reporters, say so in your privacy policy and App Store privacy details.
-
-## Sending Reports to Your Server
-
-`HTTPReportSubmitter` uploads each report as one `multipart/form-data` POST:
+Add Bugger with Swift Package Manager. In Xcode, choose File > Add Package Dependencies and enter `https://github.com/ky1ejs/Bugger`. Or add it in `Package.swift`:
 
 ```swift
-let bugger = Bugger(
-    deviceInfoProvider: DefaultDeviceInfoProvider(),
-    screenshotProvider: nil,
-    packer: JSONReportPacker(),
-    submitter: HTTPReportSubmitter(
-        url: URL(string: "https://api.example.com/bug-reports")!,
-        headers: { ["Authorization": "Bearer \(try await session.accessToken())"] }
+.package(url: "https://github.com/ky1ejs/Bugger", exact: "2.0.0-beta.1")
+```
+
+Versions 0.x and 1.0.0 are an older, unrelated API.
+
+## Quick Start
+
+```swift
+import Bugger
+import SwiftUI
+
+@main
+struct MyApp: App {
+    let bugger = Bugger(
+        deviceInfoProvider: DefaultDeviceInfoProvider(),
+        screenshotProvider: nil,
+        packer: JSONReportPacker(),
+        submitter: HTTPReportSubmitter(url: URL(string: "https://api.example.com/bug-reports")!)
     )
-)
-```
 
-`headers` runs before every upload, so a token can be refreshed in between. If it throws, nothing is sent and the reporter sees "Submit failed".
-
-### The request
-
-```
-POST /bug-reports
-Content-Type: multipart/form-data; boundary=Bugger-<uuid>
-<your headers>
-
---Bugger-<uuid>
-Content-Disposition: form-data; name="report"; filename="report.json"
-Content-Type: application/json
-
-<report JSON, below>
---Bugger-<uuid>
-Content-Disposition: form-data; name="attachment"; filename="screenshot.png"
-Content-Type: image/png
-
-<file bytes>
---Bugger-<uuid>--
-```
-
-There is one `attachment` part per file, possibly none. The report JSON:
-
-```json
-{
-  "id": "19DE9A9B-DB9A-4B3A-A716-AA58EB9649B9",
-  "createdAt": "2026-11-19T10:11:41Z",
-  "description": "Tapping Save froze the app",
-  "categories": [{ "identifier": "ui", "displayName": "UI" }],
-  "reporter": { "id": "...", "displayName": "...", "reachoutIdentifier": "..." },
-  "deviceInfo": {
-    "systemName": "iOS",
-    "systemVersion": "26.1",
-    "model": "iPhone",
-    "localizedModel": "iPhone",
-    "identifierForVendor": "..."
-  },
-  "attachments": [
-    { "id": "AE6CAF7A-640B-47E7-894B-060D23DC4FFC", "filename": "screenshot.png", "mimeType": "image/png" }
-  ]
+    var body: some Scene {
+        WindowGroup {
+            ContentView()
+                .buggerReporting(bugger)
+        }
+    }
 }
 ```
 
-- `attachments[].filename` matches the `filename` of an `attachment` part. Filenames are unique within a report: a repeated name gets "-2", "-3" before the extension.
-- `id` is a new UUID for every submit attempt, so a retry after a failed upload arrives with a new `id`. Deduplicate on content if that matters to you.
-- `reachoutIdentifier` and `identifierForVendor` are left out when there is no value. By default there is none, and the reporter is `{"id": "anonymous", "displayName": "Anonymous"}`. See "What a Report Contains".
-- Dates are ISO 8601, in UTC.
-
-### Responses
-
-Any 2xx response counts as success, and Bugger closes. Anything else throws `HTTPReportSubmitter.Error.unexpectedStatus(code, body:)`. The reporter sees "Submit failed" and can try again, with their report intact.
-
-After each attempt, the submitter deletes the temporary attachment files, because a retry packs the report again.
-
-To check that a server accepts the format, run the opt-in live test against it, for example a local one:
-
-```sh
-TEST_RUNNER_BUGGER_LIVE_SUBMIT_URL=http://127.0.0.1:8080/bug-reports \
-  xcodebuild test -scheme Bugger -destination "platform=iOS Simulator,name=iPhone 17" \
-  -only-testing:BuggerTests/HTTPReportSubmitterTests/testLiveServerIfConfigured
-```
+Shaking the device or taking a screenshot now shows the "Found a bug?" bar. The sections below cover each part.
 
 ## Opening Bugger
 
@@ -222,12 +146,144 @@ If the reporter denies either permission, the composer explains why and links to
 
 To use another speech service, implement `BuggerSpeechTranscriptionEngine`.
 
+## What a Report Contains
+
+A report holds only what is listed here, and the reporter sees all of it before submitting except the reporter and device details.
+
+| Field | Source | Default |
+|---|---|---|
+| Description | Typed or dictated by the reporter. Dictation runs on the device. | Always |
+| Category | Picked by the reporter, from your `CategoriesProviding`. | If you provide categories |
+| Screenshots | Captured by Bugger (see "What the capture includes") or picked from the photo library. The reporter can annotate or remove each one. | If you capture or allow the library |
+| Reporter | `BugReporterProviding` | Anonymous: `id` "anonymous", `displayName` "Anonymous" |
+| Device | `DeviceInfoProviding`: OS name and version, model ("iPhone"), your app's version and build | No device identifier |
+
+The defaults identify nobody. To identify the reporter, choose one:
+
+- For signed-in users, supply them yourself:
+
+  ```swift
+  Bugger(
+      bugReporterProvider: BugReporterProvider {
+          BugReporter(id: session.userID, displayName: session.name, reachoutIdentifier: session.email)
+      },
+      deviceInfoProvider: DefaultDeviceInfoProvider(),
+      ...
+  )
+  ```
+
+- To link reports from the same device without accounts, opt in to the identifier-for-vendor, a stable ID for the device across your apps: `DefaultBugReporterProvider(including: .identifierForVendor)` as the reporter ID, or `DefaultDeviceInfoProvider(includesIdentifierForVendor: true)` in the device details. `.deviceName` adds `UIDevice.name`, which is a generic name such as "iPhone" since iOS 16, unless the app has Apple's user-assigned device name entitlement.
+
+If you identify reporters, say so in your privacy policy and App Store privacy details.
+
+## Sending Reports to Your Server
+
+`HTTPReportSubmitter` uploads each report as one `multipart/form-data` POST:
+
+```swift
+let bugger = Bugger(
+    deviceInfoProvider: DefaultDeviceInfoProvider(),
+    screenshotProvider: nil,
+    packer: JSONReportPacker(),
+    submitter: HTTPReportSubmitter(
+        url: URL(string: "https://api.example.com/bug-reports")!,
+        headers: { ["Authorization": "Bearer \(try await session.accessToken())"] }
+    )
+)
+```
+
+`headers` runs before every upload, so a token can be refreshed in between. If it throws, nothing is sent and the reporter sees "Submit failed".
+
+### The request
+
+```
+POST /bug-reports
+Content-Type: multipart/form-data; boundary=Bugger-<uuid>
+<your headers>
+
+--Bugger-<uuid>
+Content-Disposition: form-data; name="report"; filename="report.json"
+Content-Type: application/json
+
+<report JSON, below>
+--Bugger-<uuid>
+Content-Disposition: form-data; name="attachment"; filename="screenshot.png"
+Content-Type: image/png
+
+<file bytes>
+--Bugger-<uuid>--
+```
+
+There is one `attachment` part per file, possibly none. The report JSON:
+
+```json
+{
+  "id": "19DE9A9B-DB9A-4B3A-A716-AA58EB9649B9",
+  "createdAt": "2026-11-19T10:11:41Z",
+  "description": "Tapping Save froze the app",
+  "categories": [{ "identifier": "ui", "displayName": "UI" }],
+  "reporter": { "id": "...", "displayName": "...", "reachoutIdentifier": "..." },
+  "deviceInfo": {
+    "systemName": "iOS",
+    "systemVersion": "26.1",
+    "model": "iPhone",
+    "localizedModel": "iPhone",
+    "identifierForVendor": "...",
+    "appVersion": "3.2",
+    "appBuild": "412"
+  },
+  "attachments": [
+    { "id": "AE6CAF7A-640B-47E7-894B-060D23DC4FFC", "filename": "screenshot.png", "mimeType": "image/png" }
+  ]
+}
+```
+
+- `attachments[].filename` matches the `filename` of an `attachment` part. Filenames are unique within a report: a repeated name gets "-2", "-3" before the extension.
+- `id` is a new UUID for every submit attempt, so a retry after a failed upload arrives with a new `id`. Deduplicate on content if that matters to you.
+- `reachoutIdentifier`, `identifierForVendor`, `appVersion` and `appBuild` are left out when there is no value. By default there is none, and the reporter is `{"id": "anonymous", "displayName": "Anonymous"}`. See "What a Report Contains".
+- Dates are ISO 8601, in UTC.
+
+### Responses
+
+Any 2xx response counts as success, and Bugger closes. Anything else throws `HTTPReportSubmitter.Error.unexpectedStatus(code, body:)`. The reporter sees "Submit failed" and can try again, with their report intact.
+
+After each attempt, the submitter deletes the temporary attachment files, because a retry packs the report again.
+
+To check that a server accepts the format, run the opt-in live test against it, for example a local one:
+
+```sh
+TEST_RUNNER_BUGGER_LIVE_SUBMIT_URL=http://127.0.0.1:8080/bug-reports \
+  xcodebuild test -scheme Bugger -destination "platform=iOS Simulator,name=iPhone 17" \
+  -only-testing:BuggerTests/HTTPReportSubmitterTests/testLiveServerIfConfigured
+```
+
+## Building Blocks
+
+- `BugReport`: in-memory report draft with `description`, `reporter`, `deviceInfo`, `categories` (`BugReportCategory`), and attachments.
+- `BugReporter`: reporter identity (`id`, `displayName`, optional `reachoutIdentifier`).
+- `DeviceInfo`: normalized device metadata captured at submit time.
+- `BugReportPackage`: packaged output ready for delivery (`payload` JSON + `attachments` persisted on disk).
+- `Bugger`: orchestrator that builds a `BugReport` (`draftReport`) and then packs/submits it (`submit`).
+
+To build your own UI, call `draftReport` and `submit` directly.
+
+Supporting extension points:
+
+- `BugReportPacking` (default: `JSONReportPacker`)
+- `ReportSubmitting` (default: `NoopReportSubmitter`, which sends nothing; `HTTPReportSubmitter` uploads to your server)
+- `BugReporterProviding` (`DefaultBugReporterProvider`, `BugReporterProvider`) / `DeviceInfoProviding` (`DefaultDeviceInfoProvider`) / `ScreenshotProviding` / `CategoriesProviding`
+- `BugReportCategory`: category type with `identifier` and `displayName`.
+
 ## Demo App
 
-The repository includes a demo Xcode app in `Demo/`.
+The repository includes a demo app in `Demo/`.
 
 1. Open `Demo/Demo.xcodeproj` in Xcode.
 2. Select the `demo` scheme.
-3. Run on an iOS Simulator.
+3. Run it on an iOS Simulator or a device.
 
-The demo lets you configure submit strategy and providers, then launch `BuggerScreen`.
+The demo has switches for reporting and each trigger, a "Report a bug" button, and buttons that simulate a shake and a screenshot. The simulator can't always send those events.
+
+## License
+
+Bugger is available under the MIT license. See [LICENSE](LICENSE).
