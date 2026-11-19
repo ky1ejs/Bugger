@@ -41,6 +41,17 @@ final class JSONReportPackerTests: XCTestCase {
         XCTAssertEqual(package.attachments.map(\.filename), ["attachment-1.png", "attachment-2.jpg"])
     }
 
+    func testPayloadDoesNotContainLocalPaths() async throws {
+        let attachments = [BugReportAttachment(data: Data([1]), mimeType: "image/png", filename: "a.png")]
+
+        let package = try await JSONReportPacker(destinationDirectory: directory).pack(makeReport(attachments))
+
+        let json = String(decoding: package.payload, as: UTF8.self)
+        XCTAssertFalse(json.contains(directory.lastPathComponent), json)
+        XCTAssertFalse(json.contains("temporaryPath"), json)
+        XCTAssertTrue(json.contains("\"filename\" : \"a.png\""), json)
+    }
+
     func testUniqueFilenameWithoutExtension() {
         var used: Set<String> = []
 

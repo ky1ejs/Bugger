@@ -13,9 +13,88 @@
 Supporting extension points:
 
 - `BugReportPacking` (default: `JSONReportPacker`)
-- `ReportSubmitting` (default: `NoopReportSubmitter`)
+- `ReportSubmitting` (default: `NoopReportSubmitter`; `HTTPReportSubmitter` uploads to your server)
 - `BugReporterProviding` / `DeviceInfoProviding` / `ScreenshotProviding` / `CategoriesProviding`
 - `BugReportCategory`: category type with `identifier` and `displayName`.
+
+## Sending Reports to Your Server
+
+`HTTPReportSubmitter` uploads each report as one `multipart/form-data` POST:
+
+```swift
+let bugger = Bugger(
+    deviceInfoProvider: DefaultDeviceInfoProvider(),
+    screenshotProvider: nil,
+    packer: JSONReportPacker(),
+    submitter: HTTPReportSubmitter(
+        url: URL(string: "https://api.example.com/bug-reports")!,
+        headers: { ["Authorization": "Bearer \(try await session.accessToken())"] }
+    )
+)
+```
+
+`headers` runs before every upload, so a token can be refreshed in between. If it throws, nothing is sent and the reporter sees "Submit failed".
+
+### The request
+
+```
+POST /bug-reports
+Content-Type: multipart/form-data; boundary=Bugger-<uuid>
+<your headers>
+
+--Bugger-<uuid>
+Content-Disposition: form-data; name="report"; filename="report.json"
+Content-Type: application/json
+
+<report JSON, below>
+--Bugger-<uuid>
+Content-Disposition: form-data; name="attachment"; filename="screenshot.png"
+Content-Type: image/png
+
+<file bytes>
+--Bugger-<uuid>--
+```
+
+There is one `attachment` part per file, possibly none. The report JSON:
+
+```json
+{
+  "id": "19DE9A9B-DB9A-4B3A-A716-AA58EB9649B9",
+  "createdAt": "2026-11-19T10:11:41Z",
+  "description": "Tapping Save froze the app",
+  "categories": [{ "identifier": "ui", "displayName": "UI" }],
+  "reporter": { "id": "...", "displayName": "...", "reachoutIdentifier": "..." },
+  "deviceInfo": {
+    "systemName": "iOS",
+    "systemVersion": "26.1",
+    "model": "iPhone",
+    "localizedModel": "iPhone",
+    "identifierForVendor": "..."
+  },
+  "attachments": [
+    { "id": "AE6CAF7A-640B-47E7-894B-060D23DC4FFC", "filename": "screenshot.png", "mimeType": "image/png" }
+  ]
+}
+```
+
+- `attachments[].filename` matches the `filename` of an `attachment` part. Filenames are unique within a report: a repeated name gets "-2", "-3" before the extension.
+- `id` is a new UUID for every submit attempt, so a retry after a failed upload arrives with a new `id`. Deduplicate on content if that matters to you.
+- `reachoutIdentifier` and `identifierForVendor` are left out when there is no value.
+- Dates are ISO 8601, in UTC.
+
+### Responses
+
+Any 2xx response counts as success, and Bugger closes. Anything else throws `HTTPReportSubmitter.Error.unexpectedStatus(code, body:)`. The reporter sees "Submit failed" and can try again, with their report intact.
+
+After each attempt, the submitter deletes the temporary attachment files, because a retry packs the report again.
+
+To check that a server accepts the format, run the opt-in live test against it, for example a local one:
+
+```sh
+TEST_RUNNER_BUGGER_LIVE_SUBMIT_URL=http://127.0.0.1:8080/bug-reports \
+  xcodebuild test -scheme Bugger -destination "platform=iOS Simulator,name=iPhone 17" \
+  -only-testing:BuggerTests/HTTPReportSubmitterTests/testLiveServerIfConfigured
+```
 
 ## Opening Bugger
 
