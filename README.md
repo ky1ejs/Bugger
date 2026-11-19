@@ -17,6 +17,36 @@ Supporting extension points:
 - `BugReporterProviding` / `DeviceInfoProviding` / `ScreenshotProviding` / `CategoriesProviding`
 - `BugReportCategory`: category type with `identifier` and `displayName`.
 
+## What a Report Contains
+
+A report holds only what is listed here, and the reporter sees all of it before submitting except the reporter and device details.
+
+| Field | Source | Default |
+|---|---|---|
+| Description | Typed or dictated by the reporter. Dictation runs on the device. | Always |
+| Category | Picked by the reporter, from your `CategoriesProviding`. | If you provide categories |
+| Screenshots | Captured by Bugger (see "What the capture includes") or picked from the photo library. The reporter can annotate or remove each one. | If you capture or allow the library |
+| Reporter | `BugReporterProviding` | Anonymous: `id` "anonymous", `displayName` "Anonymous" |
+| Device | `DeviceInfoProviding`: OS name and version, model ("iPhone") | No device identifier |
+
+The defaults identify nobody. To identify the reporter, choose one:
+
+- For signed-in users, supply them yourself:
+
+  ```swift
+  Bugger(
+      bugReporterProvider: BugReporterProvider {
+          BugReporter(id: session.userID, displayName: session.name, reachoutIdentifier: session.email)
+      },
+      deviceInfoProvider: DefaultDeviceInfoProvider(),
+      ...
+  )
+  ```
+
+- To link reports from the same device without accounts, opt in to the identifier-for-vendor, a stable ID for the device across your apps: `DefaultBugReporterProvider(including: .identifierForVendor)` as the reporter ID, or `DefaultDeviceInfoProvider(includesIdentifierForVendor: true)` in the device details. `.deviceName` adds `UIDevice.name`, which is a generic name such as "iPhone" since iOS 16, unless the app has Apple's user-assigned device name entitlement.
+
+If you identify reporters, say so in your privacy policy and App Store privacy details.
+
 ## Sending Reports to Your Server
 
 `HTTPReportSubmitter` uploads each report as one `multipart/form-data` POST:
@@ -79,7 +109,7 @@ There is one `attachment` part per file, possibly none. The report JSON:
 
 - `attachments[].filename` matches the `filename` of an `attachment` part. Filenames are unique within a report: a repeated name gets "-2", "-3" before the extension.
 - `id` is a new UUID for every submit attempt, so a retry after a failed upload arrives with a new `id`. Deduplicate on content if that matters to you.
-- `reachoutIdentifier` and `identifierForVendor` are left out when there is no value.
+- `reachoutIdentifier` and `identifierForVendor` are left out when there is no value. By default there is none, and the reporter is `{"id": "anonymous", "displayName": "Anonymous"}`. See "What a Report Contains".
 - Dates are ISO 8601, in UTC.
 
 ### Responses
